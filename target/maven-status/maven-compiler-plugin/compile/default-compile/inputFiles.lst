@@ -1,0 +1,13 @@
+/home/cwhite56/Development/Java/amtrec/src/main/java/com/cwhite56/amtrec/AmtrecApplication.java
+/home/cwhite56/Development/Java/amtrec/src/main/java/com/cwhite56/amtrec/controllers/UserController.java
+/home/cwhite56/Development/Java/amtrec/src/main/java/com/cwhite56/amtrec/domain/SpellList.java
+/home/cwhite56/Development/Java/amtrec/src/main/java/com/cwhite56/amtrec/domain/SpellListDto.java
+/home/cwhite56/Development/Java/amtrec/src/main/java/com/cwhite56/amtrec/domain/Spellbook.java
+/home/cwhite56/Development/Java/amtrec/src/main/java/com/cwhite56/amtrec/domain/SpellbookDto.java
+/home/cwhite56/Development/Java/amtrec/src/main/java/com/cwhite56/amtrec/domain/User.java
+/home/cwhite56/Development/Java/amtrec/src/main/java/com/cwhite56/amtrec/domain/UserDto.java
+/home/cwhite56/Development/Java/amtrec/src/main/java/com/cwhite56/amtrec/repositories/SpellListRepository.java
+/home/cwhite56/Development/Java/amtrec/src/main/java/com/cwhite56/amtrec/repositories/SpellbookRepository.java
+/home/cwhite56/Development/Java/amtrec/src/main/java/com/cwhite56/amtrec/repositories/UserRepository.java
+/home/cwhite56/Development/Java/amtrec/src/main/java/com/cwhite56/amtrec/services/UserService.java
+/home/cwhite56/Development/Java/amtrec/src/main/java/com/cwhite56/amtrec/services/UserServiceImpl.java
