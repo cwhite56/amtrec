@@ -2,9 +2,12 @@ package com.cwhite56.amtrec.services;
 
 import java.util.Optional;
 
+import org.springframework.stereotype.Service;
+
 import com.cwhite56.amtrec.domain.User;
 import com.cwhite56.amtrec.repositories.UserRepository;
 
+@Service
 public class UserServiceImpl implements UserService{
 
     private UserRepository userRepository;
@@ -25,14 +28,12 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public User updateUser(User user) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updateUser'");
+        return userRepository.save(user);
     }
 
     @Override
-    public User deleteUser(User user) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteUser'");
+    public void deleteUser(User user) {
+        userRepository.deleteById(user.getUsername());
     }
     
 }
