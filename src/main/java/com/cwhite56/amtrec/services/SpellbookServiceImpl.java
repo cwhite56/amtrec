@@ -30,9 +30,4 @@ public class SpellbookServiceImpl implements SpellbookService{
     public Spellbook updateSpellbook(Spellbook spellbook) {
         return spellbookRepository.save(spellbook);
     }
-
-    @Override
-    public void deleteSpellbook(Spellbook spellbook) {
-        spellbookRepository.deleteById(spellbook.getUser().getUsername());
-    }
 }

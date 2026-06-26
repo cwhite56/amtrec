@@ -4,6 +4,7 @@ package com.cwhite56.amtrec.domain;
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -32,8 +33,8 @@ private String id;
 @JoinColumn(name = "user_id")
 private User user;
 
-@OneToMany(mappedBy = "spellbook")
-private List<SpellList> spellListCollection = new ArrayList<>();
+@OneToMany(mappedBy = "spellbook", cascade = CascadeType.ALL)
+private List<SpellList> spellListCollection;
 
 
 

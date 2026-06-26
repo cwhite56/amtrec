@@ -13,7 +13,4 @@ public interface SpellbookService {
 
     //PUT
     public Spellbook updateSpellbook(Spellbook spellbook);
-
-    //DELETE
-    public void deleteSpellbook(Spellbook spellbook);
 }

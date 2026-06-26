@@ -7,7 +7,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import com.cwhite56.amtrec.domain.Spellbook;
 import com.cwhite56.amtrec.domain.User;
 import com.cwhite56.amtrec.repositories.UserRepository;
 
@@ -30,15 +29,10 @@ public class UserRepositoryTest {
             .username("Cameron")
             .password("password")
             .build();
-
-        Spellbook spellbook1 = Spellbook.builder()
-            .id(user1.getUsername())
-            .user(user1)
-            .build();
         
         underTest.save(user1);
         
-        assertThat(underTest.findById(user1.getUsername())).isNotNull();
+        assertThat(underTest.findById(user1.getUsername())).isPresent();
         
     }
     @Test
@@ -47,17 +41,12 @@ public class UserRepositoryTest {
             .username("Cameron")
             .password("password")
             .build();
-
-        Spellbook spellbook1 = Spellbook.builder()
-            .id(user1.getUsername())
-            .user(user1)
-            .build();
         
         underTest.save(user1);
         user1.setUsername("Updated");
         underTest.save(user1);
 
-        assertThat(underTest.findById(user1.getUsername())).isNotNull();
+        assertThat(underTest.findById(user1.getUsername())).isPresent();
     }
 
     @Test
@@ -66,11 +55,6 @@ public class UserRepositoryTest {
         User user1 = User.builder()
             .username("Cameron")
             .password("password")
-            .build();
-
-        Spellbook spellbook1 = Spellbook.builder()
-            .id(user1.getUsername())
-            .user(user1)
             .build();
         
         underTest.save(user1);
