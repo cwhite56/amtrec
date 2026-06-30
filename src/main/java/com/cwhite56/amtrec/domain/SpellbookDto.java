@@ -13,9 +13,11 @@ import lombok.NoArgsConstructor;
 @Builder
 public class SpellbookDto {
 
-private User user;
+private String id;
 
-private List<SpellList> spellListCollection;
+private String user;
+
+private List<SpellListDto> spellListCollection;
 
 
 

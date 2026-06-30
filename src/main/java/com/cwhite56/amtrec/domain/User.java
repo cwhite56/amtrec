@@ -1,5 +1,6 @@
 package com.cwhite56.amtrec.domain;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
@@ -23,7 +24,7 @@ private String username;
 
 private String password;
 
-@OneToOne(mappedBy = "user")
+@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
 private Spellbook spellbook;
 
 

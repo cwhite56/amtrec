@@ -1,9 +1,11 @@
 package com.cwhite56.amtrec.services;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.cwhite56.amtrec.domain.Spellbook;
 import com.cwhite56.amtrec.domain.User;
 import com.cwhite56.amtrec.repositories.UserRepository;
 
@@ -12,12 +14,20 @@ public class UserServiceImpl implements UserService{
 
     private UserRepository userRepository;
 
-    public UserServiceImpl(UserRepository userRepository) {
+    public UserServiceImpl(UserRepository userRepository, SpellbookService spellbookService) {
         this.userRepository = userRepository;
     }
 
     @Override
     public User createUser(User user) {
+        Spellbook spellbook = Spellbook.builder()
+            .id(user.getUsername())
+            .user(user)
+            .spellListCollection(new ArrayList<>())
+            .build();
+        
+        user.setSpellbook(spellbook);
+
         return userRepository.save(user);
     }
 
@@ -27,7 +37,11 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public User updateUser(User user) {
+    public User updateUser(User user, String update, char flag) {
+        if (flag == 'u') user.setUsername(update);
+        else if (flag == 'p') user.setPassword(update);
+
+        else System.out.println("Invalid update flag"); 
         return userRepository.save(user);
     }
 

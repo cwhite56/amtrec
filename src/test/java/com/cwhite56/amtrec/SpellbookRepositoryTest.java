@@ -32,7 +32,7 @@ public class SpellbookRepositoryTest {
     UserRepository userRepository;
 
     @Test
-    public void testThatSpellbookCanBeCreatedAndRecalled() {
+    void testThatSpellbookCanBeCreatedAndRecalled() {
         User user1 = User.builder()
             .username("Cameron")
             .password("password")
@@ -52,7 +52,7 @@ public class SpellbookRepositoryTest {
 
     @Test
     @Transactional
-    public void testThatSpellbookCanBeUpdated() {
+    void testThatSpellbookCanBeUpdated() {
         User user1 = User.builder()
             .username("Cameron")
             .password("password")
@@ -73,8 +73,6 @@ public class SpellbookRepositoryTest {
             .spellbook(spellbook1)
             .spentPoints(new ArrayList<>())
             .build();
-
-        spellList.getSpentPoints().add(1);
         
         spellbook1.getSpellListCollection().add(spellList);
         underTest.save(spellbook1);

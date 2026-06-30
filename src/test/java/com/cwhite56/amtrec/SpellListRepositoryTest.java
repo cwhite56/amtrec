@@ -37,7 +37,7 @@ public class SpellListRepositoryTest {
 
     @Test
     @Transactional
-    public void testThatSpellListCanBeCreatedAndRecalled() {
+    void testThatSpellListCanBeCreatedAndRecalled() {
         User user1 = User.builder()
             .username("Cameron")
             .password("password")
@@ -76,7 +76,7 @@ public class SpellListRepositoryTest {
 
     @Test
     @Transactional
-    public void testThatSpellListCanBeUpdatedAndUpdatesReflectedInSpellbook() {
+    void testThatSpellListCanBeUpdatedAndUpdatesReflectedInSpellbook() {
         User user1 = User.builder()
             .username("Cameron")
             .password("password")
@@ -117,7 +117,7 @@ public class SpellListRepositoryTest {
 
     @Test
     @Transactional
-    public void testThatSpellListCanBeDeleted() {
+    void testThatSpellListCanBeDeleted() {
         User user1 = User.builder()
             .username("Cameron")
             .password("password")

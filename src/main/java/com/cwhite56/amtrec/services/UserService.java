@@ -12,7 +12,7 @@ public interface UserService {
     public Optional<User> getUser(User user);
 
     //PUT
-    public User updateUser(User user);
+    public User updateUser(User user, String update, char flag);
 
     //DELETE
     public void deleteUser(User user);

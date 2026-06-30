@@ -23,7 +23,7 @@ public class UserRepositoryTest {
 
     
     @Test
-    public void testThatUserCanBeCreatedAndRecalled() {
+    void testThatUserCanBeCreatedAndRecalled() {
     
         User user1 = User.builder()
             .username("Cameron")
@@ -36,7 +36,7 @@ public class UserRepositoryTest {
         
     }
     @Test
-    public void testThatUserCanBeUpdated() {
+    void testThatUserCanBeUpdated() {
         User user1 = User.builder()
             .username("Cameron")
             .password("password")
@@ -50,7 +50,7 @@ public class UserRepositoryTest {
     }
 
     @Test
-    public void testThatUserCanBeDeleted() {
+    void testThatUserCanBeDeleted() {
     
         User user1 = User.builder()
             .username("Cameron")

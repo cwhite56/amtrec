@@ -15,7 +15,7 @@ private String username;
 
 private String password;
 
-private Spellbook spellbook;
+private SpellbookDto spellbook;
 
 
 
