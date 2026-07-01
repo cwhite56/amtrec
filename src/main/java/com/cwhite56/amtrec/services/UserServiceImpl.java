@@ -1,6 +1,7 @@
 package com.cwhite56.amtrec.services;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -32,8 +33,8 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public Optional<User> getUser(User user) {
-        return userRepository.findById(user.getUsername());
+    public Optional<User> getUser(String username) {
+        return userRepository.findById(username);
     }
 
     @Override
@@ -46,8 +47,13 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public void deleteUser(User user) {
-        userRepository.deleteById(user.getUsername());
+    public void deleteUser(String username) {
+        userRepository.deleteById(username);
+    }
+
+    @Override
+    public List<User> getAllUsers() {
+       return userRepository.findAll();
     }
     
 }
