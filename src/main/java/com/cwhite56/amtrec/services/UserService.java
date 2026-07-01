@@ -2,7 +2,7 @@ package com.cwhite56.amtrec.services;
 
 import java.util.Optional;
 
-import com.cwhite56.amtrec.domain.User;
+import com.cwhite56.amtrec.domain.entities.User;
 
 public interface UserService {
     //POST

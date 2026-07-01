@@ -4,7 +4,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import com.cwhite56.amtrec.domain.SpellList;
+import com.cwhite56.amtrec.domain.entities.SpellList;
 import com.cwhite56.amtrec.repositories.SpellListRepository;
 
 @Service

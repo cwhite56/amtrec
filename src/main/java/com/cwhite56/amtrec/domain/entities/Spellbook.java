@@ -1,4 +1,4 @@
-package com.cwhite56.amtrec.domain;
+package com.cwhite56.amtrec.domain.entities;
 
 
 import java.util.ArrayList;
@@ -15,7 +15,9 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Data
 @NoArgsConstructor
@@ -31,6 +33,8 @@ private String id;
 @OneToOne
 @MapsId
 @JoinColumn(name = "user_id")
+@ToString.Exclude
+@EqualsAndHashCode.Exclude
 private User user;
 
 @OneToMany(mappedBy = "spellbook", cascade = CascadeType.ALL)

@@ -1,4 +1,4 @@
-package com.cwhite56.amtrec.domain;
+package com.cwhite56.amtrec.domain.dtos;
 
 import java.util.List;
 

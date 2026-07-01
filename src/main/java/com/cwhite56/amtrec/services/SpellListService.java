@@ -2,7 +2,7 @@ package com.cwhite56.amtrec.services;
 
 import java.util.Optional;
 
-import com.cwhite56.amtrec.domain.SpellList;
+import com.cwhite56.amtrec.domain.entities.SpellList;
 
 public interface SpellListService {
     //POST

@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cwhite56.amtrec.domain.User;
-import com.cwhite56.amtrec.domain.UserDto;
+import com.cwhite56.amtrec.domain.dtos.UserDto;
+import com.cwhite56.amtrec.domain.entities.User;
 import com.cwhite56.amtrec.mappers.UserMapper;
 import com.cwhite56.amtrec.services.UserService;
 
@@ -26,11 +26,12 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<UserDto> createUser(@RequestBody UserDto userDto ) {
-        
+
         User newUser = userMapper.mapFrom(userDto);
 
-        userService.createUser(newUser);
+        User savedNewUser = userService.createUser(newUser);
 
-        return new ResponseEntity<>(userMapper.mapTo(newUser), HttpStatus.CREATED);
+        return new ResponseEntity<>(userMapper.mapTo(savedNewUser), HttpStatus.CREATED);
+        
     }
 }

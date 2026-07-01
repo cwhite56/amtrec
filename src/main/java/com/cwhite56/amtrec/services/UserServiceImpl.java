@@ -5,8 +5,8 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import com.cwhite56.amtrec.domain.Spellbook;
-import com.cwhite56.amtrec.domain.User;
+import com.cwhite56.amtrec.domain.entities.Spellbook;
+import com.cwhite56.amtrec.domain.entities.User;
 import com.cwhite56.amtrec.repositories.UserRepository;
 
 @Service

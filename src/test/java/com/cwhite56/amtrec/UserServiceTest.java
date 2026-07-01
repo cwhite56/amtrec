@@ -7,7 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import com.cwhite56.amtrec.domain.User;
+import com.cwhite56.amtrec.domain.entities.User;
 import com.cwhite56.amtrec.repositories.SpellbookRepository;
 import com.cwhite56.amtrec.services.UserService;
 

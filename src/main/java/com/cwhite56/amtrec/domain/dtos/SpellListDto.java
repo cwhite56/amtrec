@@ -1,4 +1,4 @@
-package com.cwhite56.amtrec.domain;
+package com.cwhite56.amtrec.domain.dtos;
 
 import java.util.List;
 
@@ -15,7 +15,7 @@ public class SpellListDto {
 
     private String title; 
     
-    private Spellbook spellbook;
+    private SpellbookDto spellbook;
 
     private List<Integer> spentPoints;
     
