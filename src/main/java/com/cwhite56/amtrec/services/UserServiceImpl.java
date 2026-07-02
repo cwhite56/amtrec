@@ -1,12 +1,10 @@
 package com.cwhite56.amtrec.services;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import com.cwhite56.amtrec.domain.entities.Spellbook;
 import com.cwhite56.amtrec.domain.entities.User;
 import com.cwhite56.amtrec.repositories.UserRepository;
 
@@ -15,20 +13,12 @@ public class UserServiceImpl implements UserService{
 
     private UserRepository userRepository;
 
-    public UserServiceImpl(UserRepository userRepository, SpellbookService spellbookService) {
+    public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
     @Override
     public User createUser(User user) {
-        Spellbook spellbook = Spellbook.builder()
-            .id(user.getUsername())
-            .user(user)
-            .spellListCollection(new ArrayList<>())
-            .build();
-        
-        user.setSpellbook(spellbook);
-
         return userRepository.save(user);
     }
 

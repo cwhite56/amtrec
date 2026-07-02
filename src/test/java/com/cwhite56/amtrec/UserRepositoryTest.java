@@ -43,10 +43,11 @@ public class UserRepositoryTest {
             .build();
         
         underTest.save(user1);
-        user1.setUsername("Updated");
+        String newName = "Updated";
+        user1.setUsername(newName);
         underTest.save(user1);
 
-        assertThat(underTest.findById(user1.getUsername())).isPresent();
+        assertThat(underTest.findById(newName)).isPresent();
     }
 
     @Test

@@ -1,5 +1,7 @@
 package com.cwhite56.amtrec.domain.dtos;
 
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,7 +17,7 @@ private String username;
 
 private String password;
 
-private SpellbookDto spellbook;
+private List<SpellListDto> spellbook;
 
 
 

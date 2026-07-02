@@ -10,22 +10,14 @@ import com.cwhite56.amtrec.domain.entities.User;
 public class UserMapper implements Mapper<User, UserDto> {
 
     private ModelMapper modelMapper;
-    private SpellbookMapper spellbookMapper;
 
-    public UserMapper(ModelMapper modelMapper, SpellbookMapper spellbookMapper) {
+    public UserMapper(ModelMapper modelMapper) {
         this.modelMapper = modelMapper;
-        this.spellbookMapper = spellbookMapper;
     }
 
     @Override
     public UserDto mapTo(User a) {
-        UserDto dto = modelMapper.map(a, UserDto.class);
-
-        if (a.getSpellbook() != null) {
-            dto.setSpellbook(spellbookMapper.mapTo(a.getSpellbook()));
-        }
-
-        return dto;
+        return modelMapper.map(a, UserDto.class);
     }
 
     @Override

@@ -26,8 +26,8 @@ public class SpellList {
     private String title;
 
     @ManyToOne
-    @JoinColumn(name = "spellbook_id")
-    private Spellbook spellbook;
+    @JoinColumn(name = "user_id")
+    private User user;
 
     private List<Integer> spentPoints;
     

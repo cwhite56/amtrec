@@ -19,7 +19,7 @@ import com.cwhite56.amtrec.mappers.UserMapper;
 import com.cwhite56.amtrec.services.UserService;
 
 @RestController
-@RequestMapping("/app/users")
+@RequestMapping("/app")
 public class UserController {
     
     private UserService userService;
@@ -30,7 +30,7 @@ public class UserController {
         this.userMapper = userMapper;
     }
 
-    @PostMapping
+    @PostMapping("/users")
     public ResponseEntity<UserDto> createUser(@RequestBody UserDto userDto ) {
 
         User newUser = userMapper.mapFrom(userDto);
@@ -41,7 +41,7 @@ public class UserController {
         
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/users/{id}")
     public ResponseEntity<UserDto> getUser(@PathVariable("id") String username) {
 
         Optional<User> foundUser = userService.getUser(username);
@@ -52,7 +52,7 @@ public class UserController {
         }).orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @GetMapping
+    @GetMapping("/users")
     public List<UserDto> getAllUsers() {
         List<User> users = userService.getAllUsers();
 
@@ -61,7 +61,7 @@ public class UserController {
             .toList();
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("users/{id}")
     public ResponseEntity<UserDto> deleteUser(@PathVariable("id") String username) {
 
         userService.deleteUser(username);

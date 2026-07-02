@@ -13,10 +13,8 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.cwhite56.amtrec.domain.entities.SpellList;
-import com.cwhite56.amtrec.domain.entities.Spellbook;
 import com.cwhite56.amtrec.domain.entities.User;
 import com.cwhite56.amtrec.repositories.SpellListRepository;
-import com.cwhite56.amtrec.repositories.SpellbookRepository;
 import com.cwhite56.amtrec.repositories.UserRepository;
 
 import jakarta.transaction.Transactional;
@@ -29,9 +27,6 @@ public class SpellListRepositoryTest {
     @Autowired
     SpellListRepository underTest;
 
-    @Autowired
-    SpellbookRepository spellbookRepository;
-
     @Autowired 
     UserRepository userRepository;
 
@@ -41,77 +36,56 @@ public class SpellListRepositoryTest {
         User user1 = User.builder()
             .username("Cameron")
             .password("password")
+            .spellbook(new ArrayList<>())
             .build();
-
-       userRepository.save(user1);
-
-        Spellbook spellbook1 = Spellbook.builder()
-            .user(user1)
-            .spellListCollection(new ArrayList<>())
-            .build();
-        
-        
-        spellbookRepository.save(spellbook1);
 
         SpellList spellList = SpellList.builder()
             .title("wizard")
-            .spellbook(spellbook1)
+            .user(user1)
             .spentPoints(new ArrayList<>())
             .build();
 
-        underTest.save(spellList);
+        user1.getSpellbook().add(spellList);
+    
+        userRepository.save(user1);
 
-        spellbook1.getSpellListCollection().add(spellList);
-
-        spellbookRepository.save(spellbook1);
-
-        Optional<Spellbook> savedSpellbook = spellbookRepository.findById(user1.getUsername());
         Optional<SpellList> savedSpellList = underTest.findById("wizard");
+        assertThat(savedSpellList).isPresent();
 
-
-
-        assertThat(savedSpellbook.get().getSpellListCollection().get(0)).isEqualTo(savedSpellList.get());
+        assertThat(savedSpellList.get().getUser()).isNotNull();
+        assertThat(savedSpellList.get().getUser().getUsername()).isEqualTo("Cameron");
         
     }
 
     @Test
     @Transactional
-    void testThatSpellListCanBeUpdatedAndUpdatesReflectedInSpellbook() {
+    void testThatSpellListCanBeUpdated() {
         User user1 = User.builder()
             .username("Cameron")
             .password("password")
+            .spellbook(new ArrayList<>())
             .build();
-
-       
-        userRepository.save(user1);
-
-        Spellbook spellbook1 = Spellbook.builder()
-            .user(user1)
-            .spellListCollection(new ArrayList<>())
-            .build();
-
-        spellbookRepository.save(spellbook1);
 
         SpellList spellList = SpellList.builder()
             .title("wizard")
-            .spellbook(spellbook1)
+            .user(user1)
             .spentPoints(new ArrayList<>())
             .build();
 
-        underTest.save((spellList));
-
-        spellbook1.getSpellListCollection().add(spellList);
+        user1.getSpellbook().add(spellList);
+        
+        userRepository.save(user1);
+        
         spellList.setTitle("bard");
+        
+        userRepository.save(user1);
 
-        spellbookRepository.save(spellbook1);
-
-        underTest.save(spellList);
-
-        Optional<Spellbook> savedSpellbook = spellbookRepository.findById(user1.getUsername());
-        SpellList savedSpellListInSpellbook = savedSpellbook.get().getSpellListCollection().get(0);
         Optional<SpellList> savedSpellList = underTest.findById("bard");
 
-        assertThat(savedSpellListInSpellbook.getTitle()).isEqualTo(savedSpellList.get().getTitle());
+        assertThat(savedSpellList).isPresent();
+
+        assertThat(savedSpellList.get().getUser()).isNotNull();
+        assertThat(savedSpellList.get().getUser().getUsername()).isEqualTo("Cameron");
         
     }
 
@@ -121,37 +95,31 @@ public class SpellListRepositoryTest {
         User user1 = User.builder()
             .username("Cameron")
             .password("password")
+            .spellbook(new ArrayList<>())
             .build();
-
-       
-        userRepository.save(user1);
-
-        Spellbook spellbook1 = Spellbook.builder()
-            .user(user1)
-            .spellListCollection(new ArrayList<>())
-            .build();
-
-        spellbookRepository.save(spellbook1);
-
+      
         SpellList spellList = SpellList.builder()
             .title("wizard")
-            .spellbook(spellbook1)
+            .user(user1)
             .spentPoints(new ArrayList<>())
             .build();
 
-        underTest.save((spellList));
+        user1.getSpellbook().add(spellList);
 
-        spellbook1.getSpellListCollection().add(spellList);
+        userRepository.save(user1);
 
+    
+        user1.getSpellbook().remove(spellList);
         underTest.delete(spellList);
-        spellbook1.getSpellListCollection().remove(spellList);
 
-        spellbookRepository.save(spellbook1);
+        userRepository.save(user1);
 
-        Optional<Spellbook> savedSpellbook = spellbookRepository.findById(user1.getUsername());
 
-        assertThat(savedSpellbook.get().getSpellListCollection()).isEmpty();
-        assertThat(underTest.findById("wizard")).isNotPresent();
+        Optional<SpellList> savedSpellList = underTest.findById("wizard");
+        Optional<User> savedUser = userRepository.findById(user1.getUsername());
+
+        assertThat(savedSpellList).isNotPresent();
+        assertThat(savedUser.get().getSpellbook()).isEmpty();
 
     }
 }
