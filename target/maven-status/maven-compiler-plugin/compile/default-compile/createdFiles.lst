@@ -12,6 +12,7 @@ com/cwhite56/amtrec/services/UserServiceImpl.class
 com/cwhite56/amtrec/repositories/UserRepository.class
 com/cwhite56/amtrec/domain/dtos/SpellListDto.class
 com/cwhite56/amtrec/domain/entities/User.class
+com/cwhite56/amtrec/mappers/SpellListMapper.class
 com/cwhite56/amtrec/services/SpellListServiceImpl.class
 com/cwhite56/amtrec/config/MapperConfig.class
 com/cwhite56/amtrec/repositories/SpellListRepository.class

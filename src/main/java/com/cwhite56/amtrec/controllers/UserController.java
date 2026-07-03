@@ -13,8 +13,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cwhite56.amtrec.domain.dtos.SpellListDto;
 import com.cwhite56.amtrec.domain.dtos.UserDto;
+import com.cwhite56.amtrec.domain.entities.SpellList;
 import com.cwhite56.amtrec.domain.entities.User;
+import com.cwhite56.amtrec.mappers.SpellListMapper;
 import com.cwhite56.amtrec.mappers.UserMapper;
 import com.cwhite56.amtrec.services.UserService;
 
@@ -25,9 +28,13 @@ public class UserController {
     private UserService userService;
     private UserMapper userMapper;
 
-    public UserController(UserService userService, UserMapper userMapper) {
+    private SpellListMapper spellListMapper;
+
+    public UserController(UserService userService, UserMapper userMapper, SpellListMapper spellListMapper) {
         this.userService = userService;
         this.userMapper = userMapper;
+
+        this.spellListMapper = spellListMapper;
     }
 
     @PostMapping("/users")
@@ -39,6 +46,20 @@ public class UserController {
 
         return new ResponseEntity<>(userMapper.mapTo(savedNewUser), HttpStatus.CREATED);
         
+    }
+
+    @PostMapping("/users/{id}/spelllists")
+    public ResponseEntity<UserDto> createSpellList(@PathVariable("id") String username, @RequestBody SpellListDto spellListDto) {
+
+        SpellList newSpellList = spellListMapper.mapFrom(spellListDto);
+
+        Optional<User> foundUser = userService.getUser(username);
+
+        if(!foundUser.isPresent()) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+        User updatedUser = userService.createSpellList(foundUser, newSpellList);
+
+        return new ResponseEntity<>(userMapper.mapTo(updatedUser), HttpStatus.CREATED);
     }
 
     @GetMapping("/users/{id}")
@@ -54,6 +75,7 @@ public class UserController {
 
     @GetMapping("/users")
     public List<UserDto> getAllUsers() {
+
         List<User> users = userService.getAllUsers();
 
         return users.stream()

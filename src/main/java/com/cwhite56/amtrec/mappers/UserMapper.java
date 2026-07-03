@@ -3,6 +3,7 @@ package com.cwhite56.amtrec.mappers;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
+import com.cwhite56.amtrec.domain.dtos.SpellListDto;
 import com.cwhite56.amtrec.domain.dtos.UserDto;
 import com.cwhite56.amtrec.domain.entities.User;
 
@@ -17,7 +18,13 @@ public class UserMapper implements Mapper<User, UserDto> {
 
     @Override
     public UserDto mapTo(User a) {
-        return modelMapper.map(a, UserDto.class);
+        UserDto dto = modelMapper.map(a, UserDto.class);
+
+        for(SpellListDto spellList : dto.getSpellbook()) {
+            spellList.setUser(a.getUsername());
+        }
+        
+        return dto;
     }
 
     @Override

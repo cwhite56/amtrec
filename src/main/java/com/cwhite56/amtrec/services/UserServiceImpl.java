@@ -1,10 +1,12 @@
 package com.cwhite56.amtrec.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.cwhite56.amtrec.domain.entities.SpellList;
 import com.cwhite56.amtrec.domain.entities.User;
 import com.cwhite56.amtrec.repositories.UserRepository;
 
@@ -19,6 +21,7 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public User createUser(User user) {
+        user.setSpellbook(new ArrayList<>());
         return userRepository.save(user);
     }
 
@@ -28,12 +31,8 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public User updateUser(User user, String update, char flag) {
-        if (flag == 'u') user.setUsername(update);
-        else if (flag == 'p') user.setPassword(update);
-
-        else System.out.println("Invalid update flag"); 
-        return userRepository.save(user);
+    public List<User> getAllUsers() {
+       return userRepository.findAll();
     }
 
     @Override
@@ -42,8 +41,11 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public List<User> getAllUsers() {
-       return userRepository.findAll();
+    public User createSpellList(Optional<User> foundUser, SpellList newSpellList) {
+        
+        newSpellList.setUser(foundUser.get());
+        foundUser.get().getSpellbook().add(newSpellList);
+
+        return userRepository.save(foundUser.get());
     }
-    
 }

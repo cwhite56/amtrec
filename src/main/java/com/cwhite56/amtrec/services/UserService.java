@@ -3,6 +3,7 @@ package com.cwhite56.amtrec.services;
 import java.util.List;
 import java.util.Optional;
 
+import com.cwhite56.amtrec.domain.entities.SpellList;
 import com.cwhite56.amtrec.domain.entities.User;
 
 public interface UserService {
@@ -11,13 +12,17 @@ public interface UserService {
 
     //GET
     public Optional<User> getUser(String username);
+    public List<User> getAllUsers();
 
     //PUT
-    public User updateUser(User user, String update, char flag);
 
     //DELETE
     public void deleteUser(String username);
 
-    public List<User> getAllUsers();
+    public User createSpellList(Optional<User> foundUser, SpellList newSpellList);
+
+    
+
+    
 
 }

@@ -15,7 +15,7 @@ public class SpellListDto {
 
     private String title; 
     
-    private UserDto user;
+    private String user;
 
     private List<Integer> spentPoints;
     

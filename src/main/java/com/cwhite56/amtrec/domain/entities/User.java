@@ -10,7 +10,9 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Data
 @NoArgsConstructor
@@ -27,6 +29,8 @@ private String username;
 private String password;
 
 @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+@ToString.Exclude
+@EqualsAndHashCode.Exclude
 private List<SpellList> spellbook;
 
 
