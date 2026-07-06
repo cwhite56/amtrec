@@ -10,7 +10,5 @@
 /home/cwhite56/Development/Java/amtrec/src/main/java/com/cwhite56/amtrec/mappers/UserMapper.java
 /home/cwhite56/Development/Java/amtrec/src/main/java/com/cwhite56/amtrec/repositories/SpellListRepository.java
 /home/cwhite56/Development/Java/amtrec/src/main/java/com/cwhite56/amtrec/repositories/UserRepository.java
-/home/cwhite56/Development/Java/amtrec/src/main/java/com/cwhite56/amtrec/services/SpellListService.java
-/home/cwhite56/Development/Java/amtrec/src/main/java/com/cwhite56/amtrec/services/SpellListServiceImpl.java
 /home/cwhite56/Development/Java/amtrec/src/main/java/com/cwhite56/amtrec/services/UserService.java
 /home/cwhite56/Development/Java/amtrec/src/main/java/com/cwhite56/amtrec/services/UserServiceImpl.java

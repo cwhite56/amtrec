@@ -8,15 +8,20 @@ import org.springframework.stereotype.Service;
 
 import com.cwhite56.amtrec.domain.entities.SpellList;
 import com.cwhite56.amtrec.domain.entities.User;
+import com.cwhite56.amtrec.repositories.SpellListRepository;
 import com.cwhite56.amtrec.repositories.UserRepository;
+
 
 @Service
 public class UserServiceImpl implements UserService{
 
     private UserRepository userRepository;
 
-    public UserServiceImpl(UserRepository userRepository) {
+    private SpellListRepository spellListRepository;
+
+    public UserServiceImpl(UserRepository userRepository, SpellListRepository spellListRepository) {
         this.userRepository = userRepository;
+        this.spellListRepository = spellListRepository;
     }
 
     @Override
@@ -41,11 +46,42 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public User createSpellList(Optional<User> foundUser, SpellList newSpellList) {
+    public SpellList createOrUpdateSpellList(Optional<User> foundUser, SpellList newSpellList) {
         
         newSpellList.setUser(foundUser.get());
+
         foundUser.get().getSpellbook().add(newSpellList);
 
-        return userRepository.save(foundUser.get());
+        userRepository.save(foundUser.get()); 
+
+        return spellListRepository.save(newSpellList);
+    }
+
+    @Override
+    public Optional<SpellList> getSpellList(Optional<User> foundUser, String title) {
+
+        Optional<SpellList> foundSpellList = spellListRepository.findById(title);
+
+        foundSpellList.get().setUser(foundUser.get());
+
+        return foundSpellList;
+    }
+
+    @Override
+    public void deleteSpellList(Optional<User> foundUser, String title) {
+
+        Optional<SpellList> foundSpellList = spellListRepository.findById(title);
+
+        if(!foundSpellList.isPresent()) return;
+
+        List<SpellList> spellbook = foundUser.get().getSpellbook();
+
+        for(SpellList e : spellbook) {
+            if (e.getTitle() == title) spellbook.remove(e);
+        }
+
+
+        spellListRepository.deleteById(title);
+        userRepository.save(foundUser.get());
     }
 }

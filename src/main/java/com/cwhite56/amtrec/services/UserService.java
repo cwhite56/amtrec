@@ -10,16 +10,20 @@ public interface UserService {
     //POST
     public User createUser(User user);
 
+    public SpellList createOrUpdateSpellList(Optional<User> foundUser, SpellList newSpellList);
+
     //GET
     public Optional<User> getUser(String username);
     public List<User> getAllUsers();
+
+    public Optional<SpellList> getSpellList(Optional<User> foundUser, String title);
 
     //PUT
 
     //DELETE
     public void deleteUser(String username);
 
-    public User createSpellList(Optional<User> foundUser, SpellList newSpellList);
+    public void deleteSpellList(Optional<User> foundUSer, String title);
 
     
 

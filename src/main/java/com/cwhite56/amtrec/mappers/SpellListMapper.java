@@ -17,7 +17,9 @@ public class SpellListMapper implements Mapper<SpellList, SpellListDto>{
 
     @Override
     public SpellListDto mapTo(SpellList a) {
-        return modelMapper.map(a, SpellListDto.class);
+        SpellListDto dto = modelMapper.map(a, SpellListDto.class);
+        dto.setUser(a.getUser().getUsername());
+        return dto;
     }
 
     @Override

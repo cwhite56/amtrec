@@ -49,7 +49,7 @@ public class UserController {
     }
 
     @PostMapping("/users/{id}/spelllists")
-    public ResponseEntity<UserDto> createSpellList(@PathVariable("id") String username, @RequestBody SpellListDto spellListDto) {
+    public ResponseEntity<SpellListDto> createOrUpdateSpellList(@PathVariable("id") String username, @RequestBody SpellListDto spellListDto) {
 
         SpellList newSpellList = spellListMapper.mapFrom(spellListDto);
 
@@ -57,10 +57,11 @@ public class UserController {
 
         if(!foundUser.isPresent()) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
-        User updatedUser = userService.createSpellList(foundUser, newSpellList);
+        SpellList savedSpellList = userService.createOrUpdateSpellList(foundUser, newSpellList);
 
-        return new ResponseEntity<>(userMapper.mapTo(updatedUser), HttpStatus.CREATED);
+        return new ResponseEntity<>(spellListMapper.mapTo(savedSpellList), HttpStatus.CREATED);
     }
+
 
     @GetMapping("/users/{id}")
     public ResponseEntity<UserDto> getUser(@PathVariable("id") String username) {
@@ -83,10 +84,38 @@ public class UserController {
             .toList();
     }
 
+    @GetMapping("/users/{id}/spelllists/{title}")
+    public ResponseEntity<SpellListDto> getSpellList(@PathVariable("id") String username, @PathVariable("title") String title) {
+
+        Optional<User> foundUser = userService.getUser(username);
+
+        if(!foundUser.isPresent()) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+        Optional<SpellList> foundSpellList = userService.getSpellList(foundUser, title);
+
+        if(!foundSpellList.isPresent()) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+        return foundSpellList.map(spellList -> {
+            SpellListDto spellListDto = spellListMapper.mapTo(spellList);
+            return new ResponseEntity<>(spellListDto, HttpStatus.OK);
+        }).orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
     @DeleteMapping("users/{id}")
     public ResponseEntity<UserDto> deleteUser(@PathVariable("id") String username) {
 
         userService.deleteUser(username);
+
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
+    }
+
+    @DeleteMapping("users/{id}/spelllists/{title}")
+    public ResponseEntity<SpellListDto> deleteSpellList(@PathVariable("id") String username, @PathVariable("title") String title) {
+        Optional<User> foundUser = userService.getUser(username);
+
+        if(!foundUser.isPresent()) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+        userService.deleteSpellList(foundUser, title);
 
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
