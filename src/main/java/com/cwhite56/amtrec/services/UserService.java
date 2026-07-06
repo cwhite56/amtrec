@@ -23,7 +23,7 @@ public interface UserService {
     //DELETE
     public void deleteUser(String username);
 
-    public void deleteSpellList(Optional<User> foundUSer, String title);
+    public void deleteSpellList(Optional<User> foundUser, Optional<SpellList> foundSpellList);
 
     
 

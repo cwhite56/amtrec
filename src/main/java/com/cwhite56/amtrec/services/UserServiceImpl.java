@@ -62,26 +62,16 @@ public class UserServiceImpl implements UserService{
 
         Optional<SpellList> foundSpellList = spellListRepository.findById(title);
 
-        foundSpellList.get().setUser(foundUser.get());
+        if(foundSpellList.isPresent()) foundSpellList.get().setUser(foundUser.get());
 
         return foundSpellList;
     }
 
     @Override
-    public void deleteSpellList(Optional<User> foundUser, String title) {
+    public void deleteSpellList(Optional<User> foundUser, Optional<SpellList> foundSpellList) {
 
-        Optional<SpellList> foundSpellList = spellListRepository.findById(title);
+        foundUser.get().deleteSpellList(foundSpellList.get());
 
-        if(!foundSpellList.isPresent()) return;
-
-        List<SpellList> spellbook = foundUser.get().getSpellbook();
-
-        for(SpellList e : spellbook) {
-            if (e.getTitle() == title) spellbook.remove(e);
-        }
-
-
-        spellListRepository.deleteById(title);
         userRepository.save(foundUser.get());
     }
 }

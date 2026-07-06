@@ -30,10 +30,15 @@ private String username;
 
 private String password;
 
-@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
 @ToString.Exclude
 @EqualsAndHashCode.Exclude
 private List<SpellList> spellbook;
+
+public void deleteSpellList(SpellList spellList) {
+    spellbook.remove(spellList);
+    spellList.setUser(null);
+}
 
 
 

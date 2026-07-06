@@ -115,7 +115,11 @@ public class UserController {
 
         if(!foundUser.isPresent()) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
-        userService.deleteSpellList(foundUser, title);
+        Optional<SpellList> foundSpellList = userService.getSpellList(foundUser, title);
+
+        if(!foundSpellList.isPresent()) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+        userService.deleteSpellList(foundUser, foundSpellList);
 
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
