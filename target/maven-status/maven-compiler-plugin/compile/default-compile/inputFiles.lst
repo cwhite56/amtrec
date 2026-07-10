@@ -1,7 +1,15 @@
 /home/cwhite56/Development/Java/amtrec/src/main/java/com/cwhite56/amtrec/AmtrecApplication.java
+/home/cwhite56/Development/Java/amtrec/src/main/java/com/cwhite56/amtrec/auth/AuthenticationResponse.java
+/home/cwhite56/Development/Java/amtrec/src/main/java/com/cwhite56/amtrec/auth/AuthenticationSerivce.java
+/home/cwhite56/Development/Java/amtrec/src/main/java/com/cwhite56/amtrec/auth/JwtAuthenticationFilter.java
+/home/cwhite56/Development/Java/amtrec/src/main/java/com/cwhite56/amtrec/auth/JwtService.java
+/home/cwhite56/Development/Java/amtrec/src/main/java/com/cwhite56/amtrec/auth/LoginController.java
+/home/cwhite56/Development/Java/amtrec/src/main/java/com/cwhite56/amtrec/auth/LoginRequest.java
+/home/cwhite56/Development/Java/amtrec/src/main/java/com/cwhite56/amtrec/auth/RegisterRequest.java
+/home/cwhite56/Development/Java/amtrec/src/main/java/com/cwhite56/amtrec/auth/Role.java
+/home/cwhite56/Development/Java/amtrec/src/main/java/com/cwhite56/amtrec/config/ApplicationConfig.java
 /home/cwhite56/Development/Java/amtrec/src/main/java/com/cwhite56/amtrec/config/MapperConfig.java
 /home/cwhite56/Development/Java/amtrec/src/main/java/com/cwhite56/amtrec/config/SecurityConfig.java
-/home/cwhite56/Development/Java/amtrec/src/main/java/com/cwhite56/amtrec/controllers/LoginController.java
 /home/cwhite56/Development/Java/amtrec/src/main/java/com/cwhite56/amtrec/controllers/UserController.java
 /home/cwhite56/Development/Java/amtrec/src/main/java/com/cwhite56/amtrec/domain/dtos/SpellListDto.java
 /home/cwhite56/Development/Java/amtrec/src/main/java/com/cwhite56/amtrec/domain/dtos/UserDto.java

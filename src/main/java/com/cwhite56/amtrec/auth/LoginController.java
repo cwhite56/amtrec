@@ -1,12 +1,7 @@
-package com.cwhite56.amtrec.controllers;
-
+package com.cwhite56.amtrec.auth;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,14 +11,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/app")
 public class LoginController {
     
-    private final AuthenticationManager authenticationManager;
+    //private final AuthenticationManager authenticationManager;
 
-    public LoginController(AuthenticationManager authenticationManager) {
-        this.authenticationManager = authenticationManager;
+    private final AuthenticationSerivce authenticationService;
+
+    public LoginController(AuthenticationSerivce authenticationSerivce) {
+        this.authenticationService = authenticationSerivce;
     }
 
     @PostMapping("/users/login")
-    public ResponseEntity<Void> login(@RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<AuthenticationResponse> login(@RequestBody LoginRequest loginRequest) {
+        /* 
         Authentication authenticationRequest = 
             UsernamePasswordAuthenticationToken.unauthenticated(loginRequest.username(), loginRequest.password());
 
@@ -37,8 +35,13 @@ public class LoginController {
             
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
+        */
+       return new ResponseEntity<>(authenticationService.authenticate(loginRequest), HttpStatus.OK);
     }
 
-    public record LoginRequest(String username, String password) {
-	}
+    @PostMapping("/users/register")
+    public ResponseEntity<AuthenticationResponse> register(@RequestBody RegisterRequest registerRequest) {
+
+        return new ResponseEntity<>(authenticationService.register(registerRequest), HttpStatus.OK);
+    }
 }

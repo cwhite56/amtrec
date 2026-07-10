@@ -9,6 +9,8 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import com.cwhite56.amtrec.auth.JwtAuthenticationFilter;
+
 import lombok.RequiredArgsConstructor;
 
 @Configuration
@@ -27,7 +29,7 @@ public class SecurityConfig {
         http
             .csrf(csrf -> csrf.disable()) 
             .authorizeHttpRequests((authorize) -> authorize
-                .requestMatchers("/app/users/login").permitAll()
+                .requestMatchers("/app/users/login", "/app/users/register").permitAll()
                 .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
