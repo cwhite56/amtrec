@@ -47,12 +47,14 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public SpellList createOrUpdateSpellList(Optional<User> foundUser, SpellList newSpellList) {
+
+        User user = foundUser.get();
         
-        newSpellList.setUser(foundUser.get());
+        newSpellList.setUser(user);
 
-        foundUser.get().getSpellbook().add(newSpellList);
+        user.getSpellbook().add(newSpellList);
 
-        userRepository.save(foundUser.get()); 
+        userRepository.save(user); 
 
         return spellListRepository.save(newSpellList);
     }
@@ -70,8 +72,10 @@ public class UserServiceImpl implements UserService{
     @Override
     public void deleteSpellList(Optional<User> foundUser, Optional<SpellList> foundSpellList) {
 
-        foundUser.get().deleteSpellList(foundSpellList.get());
+        User user = foundUser.get();
 
-        userRepository.save(foundUser.get());
+        user.deleteSpellList(foundSpellList.get());
+
+        userRepository.save(user);
     }
 }

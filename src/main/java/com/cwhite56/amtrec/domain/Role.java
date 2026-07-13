@@ -1,4 +1,4 @@
-package com.cwhite56.amtrec.auth;
+package com.cwhite56.amtrec.domain;
 
 public enum Role {
     USER,

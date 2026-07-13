@@ -7,7 +7,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.cwhite56.amtrec.auth.Role;
+import com.cwhite56.amtrec.domain.Role;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
