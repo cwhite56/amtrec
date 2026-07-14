@@ -2,9 +2,7 @@ package com.cwhite56.amtrec.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
-import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -32,11 +30,6 @@ public class SecurityConfig {
     }
 
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception{
-        return authConfig.getAuthenticationManager();
-    }
-
-    @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
@@ -47,12 +40,11 @@ public class SecurityConfig {
         
         http
             .csrf(csrf -> csrf.disable()) 
-            .formLogin(Customizer.withDefaults())
             .authorizeHttpRequests((authorize) -> authorize
-                .requestMatchers("/app/users/login").permitAll()
                 .anyRequest().authenticated()
-                );
-            
+            )
+            .formLogin(Customizer.withDefaults())
+            .httpBasic(Customizer.withDefaults());
 
         return http.build();
     }
