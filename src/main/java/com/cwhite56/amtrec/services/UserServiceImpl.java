@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.cwhite56.amtrec.domain.dtos.SpellListDto;
@@ -27,17 +28,22 @@ public class UserServiceImpl implements UserService{
 
     private final SpellListMapper spellListMapper;
 
-    public UserServiceImpl(UserRepository userRepository, SpellListRepository spellListRepository, UserMapper userMapper, SpellListMapper spellListMapper) {
+    private final PasswordEncoder passwordEncoder;
+
+    public UserServiceImpl(UserRepository userRepository, SpellListRepository spellListRepository, UserMapper userMapper, SpellListMapper spellListMapper, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.spellListRepository = spellListRepository;
         this.userMapper = userMapper;
         this.spellListMapper = spellListMapper;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
     public UserDto createUser(UserDto user) {
 
-        User newUser = userMapper.mapFrom(user);
+        User newUser = userMapper.mapFrom(user); 
+
+        newUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
 
         newUser.setSpellbook(new ArrayList<>());
 
