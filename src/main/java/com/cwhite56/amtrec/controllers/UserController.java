@@ -14,89 +14,72 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cwhite56.amtrec.domain.dtos.SpellListDto;
 import com.cwhite56.amtrec.domain.dtos.UserDto;
-import com.cwhite56.amtrec.domain.entities.SpellList;
-import com.cwhite56.amtrec.domain.entities.User;
-import com.cwhite56.amtrec.mappers.SpellListMapper;
-import com.cwhite56.amtrec.mappers.UserMapper;
 import com.cwhite56.amtrec.services.UserService;
 
 @RestController
 public class UserController {
     
-    private UserService userService;
-    private UserMapper userMapper;
+    private final UserService userService;
 
-    private SpellListMapper spellListMapper;
-
-    public UserController(UserService userService, UserMapper userMapper, SpellListMapper spellListMapper) {
+    public UserController(UserService userService) {
         this.userService = userService;
-        this.userMapper = userMapper;
-
-        this.spellListMapper = spellListMapper;
     }
 
     @PostMapping("/users")
     public ResponseEntity<UserDto> createUser(@RequestBody UserDto userDto ) {
 
-        User newUser = userMapper.mapFrom(userDto);
+        UserDto savedUser = userService.createUser(userDto);
 
-        User savedNewUser = userService.createUser(newUser);
-
-        return new ResponseEntity<>(userMapper.mapTo(savedNewUser), HttpStatus.CREATED);
+        return new ResponseEntity<>((savedUser), HttpStatus.CREATED);
         
     }
 
     @PostMapping("/users/{id}/spelllists")
-    public ResponseEntity<SpellListDto> createOrUpdateSpellList(@PathVariable("id") String username, @RequestBody SpellListDto spellListDto) {
+    public ResponseEntity<SpellListDto> createUpdateSpellList(@PathVariable("id") String username, @RequestBody SpellListDto spellListDto) {
 
-        SpellList newSpellList = spellListMapper.mapFrom(spellListDto);
+        boolean doesUserExists = userService.userExists(username);
 
-        Optional<User> foundUser = userService.getUser(username);
+        if(!doesUserExists) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
-        if(!foundUser.isPresent()) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        SpellListDto savedSpellList = userService.createOrUpdateSpellList(username, spellListDto);
 
-        SpellList savedSpellList = userService.createOrUpdateSpellList(foundUser, newSpellList);
-
-        return new ResponseEntity<>(spellListMapper.mapTo(savedSpellList), HttpStatus.CREATED);
+        return new ResponseEntity<>(savedSpellList, HttpStatus.CREATED);
     }
 
 
     @GetMapping("/users/{id}")
     public ResponseEntity<UserDto> getUser(@PathVariable("id") String username) {
 
-        Optional<User> foundUser = userService.getUser(username);
+        boolean doesUserExist = userService.userExists(username);
 
-        return foundUser.map(user -> {
-            UserDto userDto = userMapper.mapTo(user);
-            return new ResponseEntity<>(userDto, HttpStatus.OK);
-        }).orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        if(!doesUserExist) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+        UserDto foundUser = userService.getUser(username);
+
+        return new ResponseEntity<>(foundUser, HttpStatus.OK);
     }
 
     @GetMapping("/users")
     public List<UserDto> getAllUsers() {
 
-        List<User> users = userService.getAllUsers();
-
-        return users.stream()
-            .map(userMapper::mapTo)
-            .toList();
+        return userService.getAllUsers();
     }
 
     @GetMapping("/users/{id}/spelllists/{title}")
     public ResponseEntity<SpellListDto> getSpellList(@PathVariable("id") String username, @PathVariable("title") String title) {
 
-        Optional<User> foundUser = userService.getUser(username);
+        boolean doesUserExist = userService.userExists(username);
 
-        if(!foundUser.isPresent()) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        if(!doesUserExist) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
-        Optional<SpellList> foundSpellList = userService.getSpellList(foundUser, title);
+        boolean doesSpellListExist = userService.spellListExists(title);
 
-        if(!foundSpellList.isPresent()) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        if(!doesSpellListExist) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
-        return foundSpellList.map(spellList -> {
-            SpellListDto spellListDto = spellListMapper.mapTo(spellList);
-            return new ResponseEntity<>(spellListDto, HttpStatus.OK);
-        }).orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        SpellListDto foundSpellList = userService.getSpellList(username, title);
+
+
+        return new ResponseEntity<>(foundSpellList, HttpStatus.OK);
     }
 
     @DeleteMapping("users/{id}")
@@ -104,21 +87,22 @@ public class UserController {
 
         userService.deleteUser(username);
 
-        return new ResponseEntity(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<UserDto>(HttpStatus.NO_CONTENT);
     }
 
     @DeleteMapping("users/{id}/spelllists/{title}")
     public ResponseEntity<SpellListDto> deleteSpellList(@PathVariable("id") String username, @PathVariable("title") String title) {
-        Optional<User> foundUser = userService.getUser(username);
 
-        if(!foundUser.isPresent()) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+         boolean doesUserExist = userService.userExists(username);
 
-        Optional<SpellList> foundSpellList = userService.getSpellList(foundUser, title);
+        if(!doesUserExist) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
-        if(!foundSpellList.isPresent()) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        boolean doesSpellListExist = userService.spellListExists(title);
 
-        userService.deleteSpellList(foundUser, foundSpellList);
+        if(!doesSpellListExist) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
-        return new ResponseEntity(HttpStatus.NO_CONTENT);
+        userService.deleteSpellList(username, title);
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

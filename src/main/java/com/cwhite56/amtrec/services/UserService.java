@@ -1,29 +1,30 @@
 package com.cwhite56.amtrec.services;
 
 import java.util.List;
-import java.util.Optional;
 
-import com.cwhite56.amtrec.domain.entities.SpellList;
-import com.cwhite56.amtrec.domain.entities.User;
+import com.cwhite56.amtrec.domain.dtos.SpellListDto;
+import com.cwhite56.amtrec.domain.dtos.UserDto;
 
 public interface UserService {
     //POST
-    public User createUser(User user);
+    public UserDto createUser(UserDto user);
 
-    public SpellList createOrUpdateSpellList(Optional<User> foundUser, SpellList newSpellList);
+    public SpellListDto createOrUpdateSpellList(String username, SpellListDto spellList);
 
     //GET
-    public Optional<User> getUser(String username);
-    public List<User> getAllUsers();
+    public UserDto getUser(String username);
+    public List<UserDto> getAllUsers();
 
-    public Optional<SpellList> getSpellList(Optional<User> foundUser, String title);
-
-    //PUT
+    public SpellListDto getSpellList(String username, String title);
 
     //DELETE
     public void deleteUser(String username);
 
-    public void deleteSpellList(Optional<User> foundUser, Optional<SpellList> foundSpellList);
+    public void deleteSpellList(String username, String title);
+
+    public boolean userExists(String username);
+
+    public boolean spellListExists(String title);
 
     
 
