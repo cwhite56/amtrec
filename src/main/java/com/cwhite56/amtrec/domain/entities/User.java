@@ -16,6 +16,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -33,9 +34,17 @@ public class User implements UserDetails {
 
 
     @Id
+    @NotEmpty
+    @Size(max = 32)
     private String username;
 
+    @NotEmpty
+    @Size(max = 32)
     private String password;
+
+    @NotNull
+    @Size(min = 2, max = 2)
+    private String kingdom;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @ToString.Exclude

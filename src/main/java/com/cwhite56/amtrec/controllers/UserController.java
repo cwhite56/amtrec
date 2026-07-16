@@ -15,6 +15,8 @@ import com.cwhite56.amtrec.domain.dtos.SpellListDto;
 import com.cwhite56.amtrec.domain.dtos.UserDto;
 import com.cwhite56.amtrec.services.UserService;
 
+import jakarta.validation.Valid;
+
 @RestController
 public class UserController {
     
@@ -25,7 +27,7 @@ public class UserController {
     }
 
     @PostMapping("/users")
-    public ResponseEntity<UserDto> createUser(@RequestBody UserDto userDto ) {
+    public ResponseEntity<UserDto> createUser(@Valid @RequestBody UserDto userDto ) {
 
         UserDto savedUser = userService.createUser(userDto);
 
@@ -34,7 +36,7 @@ public class UserController {
     }
 
     @PostMapping("/users/{id}/spelllists")
-    public ResponseEntity<SpellListDto> createUpdateSpellList(@PathVariable("id") String username, @RequestBody SpellListDto spellListDto) {
+    public ResponseEntity<SpellListDto> createUpdateSpellList(@PathVariable("id") String username, @Valid @RequestBody SpellListDto spellListDto) {
 
         boolean doesUserExists = userService.userExists(username);
 
