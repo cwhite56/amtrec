@@ -16,7 +16,8 @@ public interface UserService {
     public UserDto getUser(String username);
     public List<UserDto> getAllUsers();
 
-    public SpellListDto getSpellList(String username, String title);
+    public SpellListDto getSpellList(String title);
+    public List<SpellListDto> getAllUsersSpellLists(String username);
 
     //DELETE
     public void deleteUser(String username);

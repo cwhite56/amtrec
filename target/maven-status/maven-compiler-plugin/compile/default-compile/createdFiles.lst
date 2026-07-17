@@ -4,7 +4,6 @@ com/cwhite56/amtrec/domain/entities/User$UserBuilder.class
 com/cwhite56/amtrec/controllers/UserController.class
 com/cwhite56/amtrec/services/UserService.class
 com/cwhite56/amtrec/domain/dtos/SpellListDto$SpellListDtoBuilder.class
-com/cwhite56/amtrec/domain/CasterClass.class
 com/cwhite56/amtrec/controllers/UserController$NewUserRequest.class
 com/cwhite56/amtrec/domain/entities/User.class
 com/cwhite56/amtrec/config/MapperConfig.class
@@ -13,6 +12,7 @@ com/cwhite56/amtrec/mappers/Mapper.class
 com/cwhite56/amtrec/domain/dtos/UserDto$UserDtoBuilder.class
 com/cwhite56/amtrec/domain/dtos/UserDto.class
 com/cwhite56/amtrec/domain/entities/SpellList$SpellListBuilder.class
+com/cwhite56/amtrec/services/SpellListGen.class
 com/cwhite56/amtrec/domain/Role.class
 com/cwhite56/amtrec/config/SecurityConfig.class
 com/cwhite56/amtrec/mappers/UserMapper.class

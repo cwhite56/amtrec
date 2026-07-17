@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.cwhite56.amtrec.controllers.UserController.NewUserRequest;
+import com.cwhite56.amtrec.domain.Role;
 import com.cwhite56.amtrec.domain.dtos.SpellListDto;
 import com.cwhite56.amtrec.domain.dtos.UserDto;
 import com.cwhite56.amtrec.domain.entities.SpellList;
@@ -16,7 +18,7 @@ import com.cwhite56.amtrec.mappers.SpellListMapper;
 import com.cwhite56.amtrec.mappers.UserMapper;
 import com.cwhite56.amtrec.repositories.SpellListRepository;
 import com.cwhite56.amtrec.repositories.UserRepository;
-
+// Add user specific authorization
 
 @Service
 public class UserServiceImpl implements UserService{
@@ -45,6 +47,8 @@ public class UserServiceImpl implements UserService{
         User newUser = User.builder()
             .username(request.username())
             .password(passwordEncoder.encode(request.password()))
+            .kingdom(request.kingdom())
+            .role(Role.USER)
             .build(); 
 
         newUser.setSpellbook(new ArrayList<>());
@@ -56,6 +60,10 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public SpellListDto createOrUpdateSpellList(String username, SpellListDto spellList) {
+
+        String authorizedUser = SecurityContextHolder.getContext().getAuthentication().getName();
+
+        if(!authorizedUser.equals(username)) return new SpellListDto();
 
         Optional<User> foundUser = userRepository.findById(username);
 
@@ -88,28 +96,43 @@ public class UserServiceImpl implements UserService{
             .map(userMapper::mapTo)
             .toList();
     }
+    
 
     @Override
-    public SpellListDto getSpellList(String username, String title) {
-
-        Optional<User> foundUser = userRepository.findById(username);
+    public SpellListDto getSpellList(String title) {
 
         Optional<SpellList> foundSpellList = spellListRepository.findById(title);
 
-        // test if already happens
-        foundSpellList.get().setUser(foundUser.get());
-
         return spellListMapper.mapTo(foundSpellList.get());
+    }
+
+      @Override
+    public List<SpellListDto> getAllUsersSpellLists(String username) {
+
+        List<SpellList> foundSpellLists = spellListRepository.findAllByUserUsername(username);
+
+        return foundSpellLists.stream()
+            .map(spellListMapper::mapTo)
+            .toList();
     }
     
     @Override
     public void deleteUser(String username) {
+
+        String authorizedUser = SecurityContextHolder.getContext().getAuthentication().getName();
+
+        if(!authorizedUser.equals(username)) return;
+
         userRepository.deleteById(username);
     }
 
 
     @Override
     public void deleteSpellList(String username, String title) {
+
+        String authorizedUser = SecurityContextHolder.getContext().getAuthentication().getName();
+
+        if(!authorizedUser.equals(username)) return;
 
         Optional<User> foundUser = userRepository.findById(username);
 

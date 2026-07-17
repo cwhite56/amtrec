@@ -44,8 +44,9 @@ public class UserController {
 
     @PostMapping("/users/{id}/spelllists")
     public ResponseEntity<SpellListDto> createUpdateSpellList(@PathVariable("id") String username, @Valid @RequestBody SpellListDto spellListDto, Authentication auth) {
+        System.out.println("auth name is " + auth.getName() + " and username is " + username);
 
-        if(auth.getName() != username) return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        if(!auth.getName().equals(username)) return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         
         boolean doesUserExist = userService.userExists(username);
 
@@ -86,16 +87,21 @@ public class UserController {
 
         if(!doesSpellListExist) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
-        SpellListDto foundSpellList = userService.getSpellList(username, title);
+        SpellListDto foundSpellList = userService.getSpellList(title);
 
 
         return new ResponseEntity<>(foundSpellList, HttpStatus.OK);
     }
 
+    @GetMapping("users/{id}/spelllists")
+    public List<SpellListDto> getAllUsersSpellLists(@PathVariable("id") String username) {
+        return userService.getAllUsersSpellLists(username);
+    }
+
     @DeleteMapping("users/{id}")
     public ResponseEntity<UserDto> deleteUser(@PathVariable("id") String username, Authentication auth) {
 
-        if(auth.getName() != username) return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        if(!auth.getName().equals(username)) return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 
         userService.deleteUser(username);
 
@@ -105,7 +111,7 @@ public class UserController {
     @DeleteMapping("users/{id}/spelllists/{title}")
     public ResponseEntity<SpellListDto> deleteSpellList(@PathVariable("id") String username, @PathVariable("title") String title, Authentication auth) {
 
-        if(auth.getName() != username) return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        if(!auth.getName().equals(username)) return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 
         boolean doesUserExist = userService.userExists(username);
 
@@ -127,7 +133,11 @@ public class UserController {
 
         @NotEmpty
         @Size(max = 32)
-        String password
+        String password,
+
+        @NotEmpty
+        @Size(max = 2, min = 2)
+        String kingdom
     ) {}
 
 }

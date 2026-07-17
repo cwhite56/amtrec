@@ -2,11 +2,8 @@ package com.cwhite56.amtrec.domain.dtos;
 
 import java.util.List;
 
-import com.cwhite56.amtrec.domain.CasterClass;
-
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,11 +20,9 @@ public class SpellListDto {
     @Size(max = 32)
     private String title; 
 
-    @NotEmpty
-    @Enumerated(EnumType.STRING)
-    private CasterClass casterClass;
+    @Pattern(regexp = "WIZARD|DRUID|BARD|HEALER")
+    private String casterClass;
     
-    @NotEmpty
     @Size(max = 32)
     private String user;
 
