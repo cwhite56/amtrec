@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -42,8 +43,10 @@ public class UserController {
     }
 
     @PostMapping("/users/{id}/spelllists")
-    public ResponseEntity<SpellListDto> createUpdateSpellList(@PathVariable("id") String username, @Valid @RequestBody SpellListDto spellListDto) {
+    public ResponseEntity<SpellListDto> createUpdateSpellList(@PathVariable("id") String username, @Valid @RequestBody SpellListDto spellListDto, Authentication auth) {
 
+        if(auth.getName() != username) return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        
         boolean doesUserExist = userService.userExists(username);
 
         if(!doesUserExist) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -90,7 +93,9 @@ public class UserController {
     }
 
     @DeleteMapping("users/{id}")
-    public ResponseEntity<UserDto> deleteUser(@PathVariable("id") String username) {
+    public ResponseEntity<UserDto> deleteUser(@PathVariable("id") String username, Authentication auth) {
+
+        if(auth.getName() != username) return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 
         userService.deleteUser(username);
 
@@ -98,9 +103,11 @@ public class UserController {
     }
 
     @DeleteMapping("users/{id}/spelllists/{title}")
-    public ResponseEntity<SpellListDto> deleteSpellList(@PathVariable("id") String username, @PathVariable("title") String title) {
+    public ResponseEntity<SpellListDto> deleteSpellList(@PathVariable("id") String username, @PathVariable("title") String title, Authentication auth) {
 
-         boolean doesUserExist = userService.userExists(username);
+        if(auth.getName() != username) return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+
+        boolean doesUserExist = userService.userExists(username);
 
         if(!doesUserExist) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
