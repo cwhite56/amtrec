@@ -2,12 +2,13 @@ package com.cwhite56.amtrec.services;
 
 import java.util.List;
 
+import com.cwhite56.amtrec.controllers.UserController.NewUserRequest;
 import com.cwhite56.amtrec.domain.dtos.SpellListDto;
 import com.cwhite56.amtrec.domain.dtos.UserDto;
 
 public interface UserService {
     //POST
-    public UserDto createUser(UserDto user);
+    public UserDto createUser(NewUserRequest request);
 
     public SpellListDto createOrUpdateSpellList(String username, SpellListDto spellList);
 

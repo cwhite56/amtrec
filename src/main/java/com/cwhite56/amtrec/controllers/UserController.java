@@ -16,6 +16,8 @@ import com.cwhite56.amtrec.domain.dtos.UserDto;
 import com.cwhite56.amtrec.services.UserService;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 
 @RestController
 public class UserController {
@@ -27,9 +29,13 @@ public class UserController {
     }
 
     @PostMapping("/users")
-    public ResponseEntity<UserDto> createUser(@Valid @RequestBody UserDto userDto ) {
+    public ResponseEntity<UserDto> createUser(@Valid @RequestBody NewUserRequest request ) {
 
-        UserDto savedUser = userService.createUser(userDto);
+        boolean doesUserExist = userService.userExists(request.username());
+
+        if(doesUserExist) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+        UserDto savedUser = userService.createUser(request);
 
         return new ResponseEntity<>((savedUser), HttpStatus.CREATED);
         
@@ -38,9 +44,9 @@ public class UserController {
     @PostMapping("/users/{id}/spelllists")
     public ResponseEntity<SpellListDto> createUpdateSpellList(@PathVariable("id") String username, @Valid @RequestBody SpellListDto spellListDto) {
 
-        boolean doesUserExists = userService.userExists(username);
+        boolean doesUserExist = userService.userExists(username);
 
-        if(!doesUserExists) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        if(!doesUserExist) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
         SpellListDto savedSpellList = userService.createOrUpdateSpellList(username, spellListDto);
 
@@ -106,4 +112,15 @@ public class UserController {
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+    public record NewUserRequest (
+        @NotEmpty
+        @Size(max = 32)
+        String username, 
+
+        @NotEmpty
+        @Size(max = 32)
+        String password
+    ) {}
+
 }

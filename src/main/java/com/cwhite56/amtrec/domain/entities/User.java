@@ -39,7 +39,6 @@ public class User implements UserDetails {
     private String username;
 
     @NotEmpty
-    @Size(max = 32)
     private String password;
 
     @NotNull

@@ -2,6 +2,10 @@ package com.cwhite56.amtrec.domain.dtos;
 
 import java.util.List;
 
+import com.cwhite56.amtrec.domain.CasterClass;
+
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -20,7 +24,8 @@ public class SpellListDto {
     private String title; 
 
     @NotEmpty
-    private String casterClass;
+    @Enumerated(EnumType.STRING)
+    private CasterClass casterClass;
     
     @NotEmpty
     @Size(max = 32)

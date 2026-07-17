@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.cwhite56.amtrec.controllers.UserController.NewUserRequest;
 import com.cwhite56.amtrec.domain.dtos.SpellListDto;
 import com.cwhite56.amtrec.domain.dtos.UserDto;
 import com.cwhite56.amtrec.domain.entities.SpellList;
@@ -39,11 +40,12 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public UserDto createUser(UserDto user) {
+    public UserDto createUser(NewUserRequest request) {
 
-        User newUser = userMapper.mapFrom(user); 
-
-        newUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
+        User newUser = User.builder()
+            .username(request.username())
+            .password(passwordEncoder.encode(request.password()))
+            .build(); 
 
         newUser.setSpellbook(new ArrayList<>());
 
@@ -94,7 +96,7 @@ public class UserServiceImpl implements UserService{
 
         Optional<SpellList> foundSpellList = spellListRepository.findById(title);
 
-        // Figure this out in mapper
+        // test if already happens
         foundSpellList.get().setUser(foundUser.get());
 
         return spellListMapper.mapTo(foundSpellList.get());
