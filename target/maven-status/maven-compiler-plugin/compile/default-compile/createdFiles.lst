@@ -10,6 +10,7 @@ com/cwhite56/amtrec/config/MapperConfig.class
 com/cwhite56/amtrec/repositories/SpellListRepository.class
 com/cwhite56/amtrec/mappers/Mapper.class
 com/cwhite56/amtrec/domain/dtos/UserDto$UserDtoBuilder.class
+com/cwhite56/amtrec/controllers/ViewController.class
 com/cwhite56/amtrec/domain/dtos/UserDto.class
 com/cwhite56/amtrec/domain/entities/SpellList$SpellListBuilder.class
 com/cwhite56/amtrec/services/SpellListGen.class
@@ -19,5 +20,4 @@ com/cwhite56/amtrec/mappers/UserMapper.class
 com/cwhite56/amtrec/services/UserServiceImpl.class
 com/cwhite56/amtrec/repositories/UserRepository.class
 com/cwhite56/amtrec/domain/dtos/SpellListDto.class
-com/cwhite56/amtrec/controllers/IndexController.class
 com/cwhite56/amtrec/mappers/SpellListMapper.class

@@ -1,8 +1,8 @@
 /home/cwhite56/Development/Java/amtrec/src/main/java/com/cwhite56/amtrec/AmtrecApplication.java
 /home/cwhite56/Development/Java/amtrec/src/main/java/com/cwhite56/amtrec/config/MapperConfig.java
 /home/cwhite56/Development/Java/amtrec/src/main/java/com/cwhite56/amtrec/config/SecurityConfig.java
-/home/cwhite56/Development/Java/amtrec/src/main/java/com/cwhite56/amtrec/controllers/IndexController.java
 /home/cwhite56/Development/Java/amtrec/src/main/java/com/cwhite56/amtrec/controllers/UserController.java
+/home/cwhite56/Development/Java/amtrec/src/main/java/com/cwhite56/amtrec/controllers/ViewController.java
 /home/cwhite56/Development/Java/amtrec/src/main/java/com/cwhite56/amtrec/domain/Role.java
 /home/cwhite56/Development/Java/amtrec/src/main/java/com/cwhite56/amtrec/domain/dtos/SpellListDto.java
 /home/cwhite56/Development/Java/amtrec/src/main/java/com/cwhite56/amtrec/domain/dtos/UserDto.java
