@@ -41,11 +41,13 @@ public class SecurityConfig {
         http
             .csrf(csrf -> csrf.disable()) 
             .authorizeHttpRequests((authorize) -> authorize
-                .requestMatchers("/", "/register").permitAll()
+                .requestMatchers("/", "/register", "/api/v1/users").permitAll()
                 .anyRequest().authenticated()
             )
             .formLogin(Customizer.withDefaults())
             .httpBasic(Customizer.withDefaults());
+            //defaultSuccessUrl()
+            
 
         return http.build();
     }

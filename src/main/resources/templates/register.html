@@ -9,6 +9,57 @@
     <body>
         <header>Please register</header>
 
+        <form class="form" th:action="@{/api/v1/users}" th:object="${newUserRequest}" method="post">
+
+            <div>
+                <label>Username</label>
+                <input type="text" th:field="*{username}" placeholder="Username" />
+                <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
+            </div>
+
+            <div>
+                <label>Password</label>
+                <input type="password" th:field="*{password}" placeholder="Passowrd" />
+                <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+            </div>
+
+                <label>Kingdom</label>
+                <select th:field="*{kingdom}">
+                    <option value="" disabled selected> Select Kingdom</option>
+                    <option th:each="k : ${T(com.cwhite56.amtrec.domain.Kingdom).values()}"
+                            th:value="${k}"
+                            th:text="${k}">
+                    </option>
+                </select>
+
+            <button type="submit"> Submit </button>
+
+        </form>
+
+        <script>
+
+            const form = document.querySelector('.form');
+
+            form.addEventListener('submit', event => {
+                event.preventDefault();
+
+                const formData = new FormData(form);
+
+                const data = Object.fromEntries(formData);
+
+                fetch('http://localhost:8080/api/v1/users', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+
+                });
+            });
+        </script>
+
+
+
     </body>
 
 

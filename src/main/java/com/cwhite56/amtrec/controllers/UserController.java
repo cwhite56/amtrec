@@ -10,17 +10,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cwhite56.amtrec.domain.dtos.NewUserRequest;
 import com.cwhite56.amtrec.domain.dtos.SpellListDto;
 import com.cwhite56.amtrec.domain.dtos.UserDto;
 import com.cwhite56.amtrec.services.UserService;
 
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Size;
 
 @RestController
+@RequestMapping("/api/v1")
 public class UserController {
     
     private final UserService userService;
@@ -32,7 +33,7 @@ public class UserController {
     @PostMapping("/users")
     public ResponseEntity<UserDto> createUser(@Valid @RequestBody NewUserRequest request ) {
 
-        boolean doesUserExist = userService.userExists(request.username());
+        boolean doesUserExist = userService.userExists(request.getUsername());
 
         if(doesUserExist) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
@@ -125,19 +126,4 @@ public class UserController {
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-
-    public record NewUserRequest (
-        @NotEmpty
-        @Size(max = 32)
-        String username, 
-
-        @NotEmpty
-        @Size(max = 32)
-        String password,
-
-        @NotEmpty
-        @Size(max = 2, min = 2)
-        String kingdom
-    ) {}
-
 }

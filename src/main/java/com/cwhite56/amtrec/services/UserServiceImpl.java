@@ -8,7 +8,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.cwhite56.amtrec.controllers.UserController.NewUserRequest;
 import com.cwhite56.amtrec.domain.Role;
 import com.cwhite56.amtrec.domain.dtos.SpellListDto;
 import com.cwhite56.amtrec.domain.dtos.UserDto;
@@ -18,7 +17,7 @@ import com.cwhite56.amtrec.mappers.SpellListMapper;
 import com.cwhite56.amtrec.mappers.UserMapper;
 import com.cwhite56.amtrec.repositories.SpellListRepository;
 import com.cwhite56.amtrec.repositories.UserRepository;
-// Add user specific authorization
+import com.cwhite56.amtrec.domain.dtos.NewUserRequest;
 
 @Service
 public class UserServiceImpl implements UserService{
@@ -45,9 +44,9 @@ public class UserServiceImpl implements UserService{
     public UserDto createUser(NewUserRequest request) {
 
         User newUser = User.builder()
-            .username(request.username())
-            .password(passwordEncoder.encode(request.password()))
-            .kingdom(request.kingdom())
+            .username(request.getUsername())
+            .password(passwordEncoder.encode(request.getPassword()))
+            .kingdom(request.getKingdom())
             .role(Role.USER)
             .build(); 
 

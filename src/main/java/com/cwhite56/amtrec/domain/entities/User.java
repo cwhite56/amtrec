@@ -7,6 +7,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.cwhite56.amtrec.domain.Kingdom;
 import com.cwhite56.amtrec.domain.Role;
 
 import jakarta.persistence.CascadeType;
@@ -41,9 +42,8 @@ public class User implements UserDetails {
     @NotEmpty
     private String password;
 
-    @NotNull
-    @Size(min = 2, max = 2)
-    private String kingdom;
+    @Enumerated(EnumType.STRING)
+    private Kingdom kingdom;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @ToString.Exclude

@@ -1,9 +1,6 @@
 package com.cwhite56.amtrec.domain.dtos;
 
-import java.util.List;
-
 import com.cwhite56.amtrec.domain.Kingdom;
-import com.cwhite56.amtrec.domain.Role;
 
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -18,21 +15,17 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class UserDto {
+public class NewUserRequest {
 
-@NotEmpty
-@Size(max = 32)    
-private String username;
+    @NotEmpty(message = "Username cannot be empty")
+    @Size(max = 32)
+    private String username;
 
-@Enumerated(EnumType.STRING)
-private Kingdom kingdom;
+    @NotEmpty(message = "Password cannot be empty")
+    @Size(max = 32)
+    private String password;
 
-@Enumerated(EnumType.STRING)
-private Role role;
-
-private List<SpellListDto> spellbook;
-
-
-
+    @Enumerated(EnumType.STRING)
+    private Kingdom kingdom;
     
 }

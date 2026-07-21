@@ -2,9 +2,10 @@ package com.cwhite56.amtrec.services;
 
 import java.util.List;
 
-import com.cwhite56.amtrec.controllers.UserController.NewUserRequest;
+
 import com.cwhite56.amtrec.domain.dtos.SpellListDto;
 import com.cwhite56.amtrec.domain.dtos.UserDto;
+import com.cwhite56.amtrec.domain.dtos.NewUserRequest;
 
 public interface UserService {
     //POST
