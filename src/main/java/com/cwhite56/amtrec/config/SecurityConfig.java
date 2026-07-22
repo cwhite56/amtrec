@@ -10,6 +10,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+
 import com.cwhite56.amtrec.repositories.UserRepository;
 
 
@@ -41,15 +43,28 @@ public class SecurityConfig {
         http
             .csrf(csrf -> csrf.disable()) 
             .authorizeHttpRequests((authorize) -> authorize
-                .requestMatchers("/", "/register", "/api/v1/users").permitAll()
+                .requestMatchers("/", "/login", "/register", "/api/v1/users").permitAll()
                 .anyRequest().authenticated()
             )
-            .formLogin(Customizer.withDefaults())
+            .formLogin(form -> form
+                .successHandler(customSuccessHandler())
+                .permitAll())
             .httpBasic(Customizer.withDefaults());
-            //defaultSuccessUrl()
             
 
         return http.build();
+    }
+
+    @Bean
+    public AuthenticationSuccessHandler customSuccessHandler() {
+        return (request, response, authentication) -> {
+
+            String username = authentication.getName();
+
+            String targetUrl = "/api/v1/users/" + username;
+
+            response.sendRedirect(request.getContextPath() + targetUrl);
+        };
     }
 
 }
