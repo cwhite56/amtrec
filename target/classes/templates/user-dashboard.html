@@ -11,13 +11,13 @@
         <header th:text="'Hello ' + ${username} + '!'"> </header>
 
         <div>
-            <a th:href="@{/users/{name}/spelllists(name = ${username})}">
+            <a th:href="@{/users/{name}/spell-lists/dashboard(name = ${username})}">
                 My spell lists
             </a>
         </div>
 
         <div>
-            <a href="/users/${username}/spelllists">
+            <a th:href="@{/users/{username}/spell-lists(username = ${username})}">
                 Create new spell list
             </a>
         </div>

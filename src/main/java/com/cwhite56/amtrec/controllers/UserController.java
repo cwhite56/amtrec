@@ -43,7 +43,7 @@ public class UserController {
         
     }
 
-    @PostMapping("/users/{id}/spelllists")
+    @PostMapping("/users/{id}/spell-lists")
     public ResponseEntity<SpellListDto> createUpdateSpellList(@PathVariable("id") String username, @Valid @RequestBody SpellListDto spellListDto, Authentication auth) {
         System.out.println("auth name is " + auth.getName() + " and username is " + username);
 
@@ -77,7 +77,7 @@ public class UserController {
         return userService.getAllUsers();
     }
 
-    @GetMapping("/users/{id}/spelllists/{title}")
+    @GetMapping("/users/{id}/spell-lists/{title}")
     public ResponseEntity<SpellListDto> getSpellList(@PathVariable("id") String username, @PathVariable("title") String title) {
 
         boolean doesUserExist = userService.userExists(username);
@@ -94,7 +94,7 @@ public class UserController {
         return new ResponseEntity<>(foundSpellList, HttpStatus.OK);
     }
 
-    @GetMapping("users/{id}/spelllists")
+    @GetMapping("users/{id}/spell-lists")
     public List<SpellListDto> getAllUsersSpellLists(@PathVariable("id") String username) {
         return userService.getAllUsersSpellLists(username);
     }
@@ -109,7 +109,7 @@ public class UserController {
         return new ResponseEntity<UserDto>(HttpStatus.NO_CONTENT);
     }
 
-    @DeleteMapping("users/{id}/spelllists/{title}")
+    @DeleteMapping("users/{id}/spell-lists/{title}")
     public ResponseEntity<SpellListDto> deleteSpellList(@PathVariable("id") String username, @PathVariable("title") String title, Authentication auth) {
 
         if(!auth.getName().equals(username)) return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);

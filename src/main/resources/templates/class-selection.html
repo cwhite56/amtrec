@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html lang="en-US" xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <title>Builder</title>
+    </head>
+
+    <body>
+        <header> Please select a class</header>
+
+        <form th:action="@{/users/{username}/spell-lists/builder}" method="post">
+            <fieldset>
+                <legend>Class selection</legend>
+
+                <button type="submit" name="classSelection" value="wizard">Wizard</button>
+                <button type="submit" name="classSelection" value="bard">Bard</button>
+                <button type="submit" name="classSelection" value="healer">Healer</button>
+                <button type="submit" name="classSelection" value="druid">Druid</button>
+            </fieldset>
+            
+        </form>
+       
+
+    </body>
+
+
+
+
+</html>
