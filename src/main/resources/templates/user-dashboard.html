@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html lang="en-US" xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <title>Dashboard</title>
+    </head>
+
+    <body>
+        <header th:text="'Hello ' + ${username} + '!'"> </header>
+
+        <div>
+            <a th:href="@{/users/{name}/spelllists(name = ${username})}">
+                My spell lists
+            </a>
+        </div>
+
+        <div>
+            <a href="/users/${username}/spelllists">
+                Create new spell list
+            </a>
+        </div>
+
+    </body>
+
+
+
+
+</html>

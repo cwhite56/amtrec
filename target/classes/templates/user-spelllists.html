@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html lang="en-US" xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <title>Spell Lists</title>
+    </head>
+
+    <body>
+        <header th:text="${username} + '\'s ' + 'Spell ' + 'Lists'"> </header>
+
+        <ul>
+            <li th:each="spelllist : ${dtoList}">
+                <a th:href="@{/api/v1/users/{username}/spelllists/{title}(username = ${username}, title = ${spelllist.title})}" 
+                th:text="${spelllist.title}" Spell List Title>
+                </a>
+            </li>
+        </ul>
+
+    </body>
+
+
+
+
+</html>

@@ -1,8 +1,10 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+
+<html lang="en-US" xmlns:th="http://www.thymeleaf.org">
 
     <head>
         <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
         <title>Register</title>
     </head>
 
@@ -13,14 +15,12 @@
 
             <div>
                 <label>Username</label>
-                <input type="text" th:field="*{username}" placeholder="Username" />
-                <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
+                <input type="text" th:field="*{username}" placeholder="Username" required/>
             </div>
 
             <div>
                 <label>Password</label>
-                <input type="password" th:field="*{password}" placeholder="Passowrd" />
-                <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+                <input type="password" th:field="*{password}" placeholder="Password" required/>
             </div>
 
                 <label>Kingdom</label>
@@ -47,7 +47,7 @@
 
                 const data = Object.fromEntries(formData);
 
-                fetch('http://localhost:8080/api/v1/users', {
+                fetch('/api/v1/users', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -55,12 +55,9 @@
                     body: JSON.stringify(data)
 
                 }).then(res =>  {
+                    window.location.href = `/`;
                     return res.json();
 
-                }).then(postData => {
-
-                    const username = postData.username;
-                    window.location.href = `http://localhost:8080/api/v1/users/${username}`;
                 });
             });
         </script>

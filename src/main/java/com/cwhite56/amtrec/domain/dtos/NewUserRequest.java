@@ -17,11 +17,11 @@ import lombok.NoArgsConstructor;
 @Builder
 public class NewUserRequest {
 
-    @NotEmpty(message = "Username cannot be empty")
+    @NotEmpty
     @Size(max = 32)
     private String username;
 
-    @NotEmpty(message = "Password cannot be empty")
+    @NotEmpty
     @Size(max = 32)
     private String password;
 

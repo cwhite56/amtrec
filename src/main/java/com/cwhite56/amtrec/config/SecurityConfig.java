@@ -15,6 +15,8 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import com.cwhite56.amtrec.repositories.UserRepository;
 
 
+
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
@@ -61,7 +63,7 @@ public class SecurityConfig {
 
             String username = authentication.getName();
 
-            String targetUrl = "/api/v1/users/" + username;
+            String targetUrl = "/users/" + username;
 
             response.sendRedirect(request.getContextPath() + targetUrl);
         };
