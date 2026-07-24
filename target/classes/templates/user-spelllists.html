@@ -9,7 +9,9 @@
 
     <body>
         <header th:text="${username} + '\'s ' + 'Spell ' + 'Lists'"> </header>
-
+        <a th:href="@{/users/{username}(username = ${username})}" dashboard>
+            Dashboard
+        </a>
         <ul>
             <li th:each="spelllist : ${dtoList}">
                 <a th:href="@{/api/v1/users/{username}/spelllists/{title}(username = ${username}, title = ${spelllist.title})}" 
