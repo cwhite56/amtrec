@@ -14,7 +14,7 @@
         </a>
         <ul>
             <li th:each="spelllist : ${dtoList}">
-                <a th:href="@{/api/v1/users/{username}/spelllists/{title}(username = ${username}, title = ${spelllist.title})}" 
+                <a th:href="@{/users/{username}/spell-lists/{title}(username = ${username}, title = ${spelllist.title})}" 
                 th:text="${spelllist.title}" Spell List Title>
                 </a>
             </li>

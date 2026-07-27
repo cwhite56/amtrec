@@ -6,7 +6,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.cwhite56.amtrec.domain.dtos.NewUserRequest;
@@ -64,27 +63,59 @@ public class ViewController {
         return "class-selection";
     }
 
-    @PostMapping("users/{id}/spell-lists/builder")
+    @GetMapping("users/{id}/spell-lists/builder")
     public String spellListBuilder(@PathVariable("id") String username, @RequestParam("classSelection") String classSelection, Model model) {
 
 
         model.addAttribute("username", username);
-        model.addAttribute("newList", new SpellListDto());
+        model.addAttribute("classSelection", classSelection);
+        model.addAttribute("spelllist", new SpellListDto());
 
         switch (classSelection) {
-            case "wizard":
+            case "WIZARD":
                 
                 return "wizard-builder";
 
-            case "bard":
+            case "BARD":
 
                 return "bard-builder";
 
-            case "healer":
+            case "HEALER":
 
                 return "healer-builder";
             
-            case "druid":
+            case "DRUID":
+
+                return "druid-builder";
+        
+            default:
+                return "home";
+        }
+    }
+
+    @GetMapping("users/{id}/spell-lists/{title}")
+    public String updateSpellList(@PathVariable("id") String username, @PathVariable("title") String title, Model model) {
+
+        model.addAttribute("username", username);
+
+        SpellListDto foundSpellList = userService.getSpellList(title);
+
+        model.addAttribute("spelllist", foundSpellList);
+
+        switch (foundSpellList.getCasterClass()) {
+            case "WIZARD":
+                
+                return "wizard-builder";
+
+            case "BARD":
+
+                return "bard-builder";
+
+            case "HEALER":
+
+                return "healer-builder";
+            
+            case "DRUID":
 
                 return "druid-builder";
         

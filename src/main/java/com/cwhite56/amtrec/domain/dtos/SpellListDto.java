@@ -1,5 +1,7 @@
 package com.cwhite56.amtrec.domain.dtos;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import jakarta.validation.constraints.NotEmpty;
@@ -26,7 +28,7 @@ public class SpellListDto {
     @Size(max = 32)
     private String user;
 
-    @Size(max = 52, min = 43)
-    private List<Integer> spentPoints;
+    @Builder.Default
+    private List<Integer> spentPoints = new ArrayList<>(Collections.nCopies(52, 0));
     
 }

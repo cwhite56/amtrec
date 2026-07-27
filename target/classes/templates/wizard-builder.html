@@ -7,8 +7,51 @@
         <title>Wizard List</title>
     </head>
 
-    <body>
+    <body>  
+        <form class="form" th:action="@{api/v1/users/{username}/spell-lists (username = ${username})}" th:object="${spelllist}" method="post">
+
+            <div>
+                <label>Title </label>
+                <input type="text" th:field="*{title}" required/>
+            </div>
+
+            <h1>Level 1</h1>
+
+            <div>
+                <label>Banish</label>
+                <input type="number" id="banish" th:field="*{spentPoints[0]}" value="0"/>
+                <input type="button" onclick="countUp('banish')" value="+"/>        
+                <input type="button" onclick="countDown('banish')" value="-"/>         
+            </div>
+
+            <div>
+                <label>Weapon Short</label>
+                <input type="number" id="short" th:field="*{spentPoints[1]}" value="0"/>
+                <input type="button" onclick="countUp('short')" value="+"/>        
+                <input type="button" onclick="countDown('short')" value="-"/>
+            </div>
+
+            <button type="submit"> Save list </button>
+        </form>
         
+        <script>
+            function countUp(spell) {
+                const inputField = document.getElementById(spell);
+
+                inputField.value++;
+            }
+
+            function countDown(spell) {
+                const inputField = document.getElementById(spell);
+
+                let val = parseInt(inputField.value);
+
+                if(val <= 0) {
+                    return;
+                }
+                inputField.value--;
+            }
+        </script>
     </body>
 
 

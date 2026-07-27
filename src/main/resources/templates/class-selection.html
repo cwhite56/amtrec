@@ -10,14 +10,14 @@
     <body>
         <header> Please select a class</header>
 
-        <form th:action="@{/users/{username}/spell-lists/builder}" method="post">
+        <form th:action="@{/users/{username}/spell-lists/builder}">
             <fieldset>
                 <legend>Class selection</legend>
 
-                <button type="submit" name="classSelection" value="wizard">Wizard</button>
-                <button type="submit" name="classSelection" value="bard">Bard</button>
-                <button type="submit" name="classSelection" value="healer">Healer</button>
-                <button type="submit" name="classSelection" value="druid">Druid</button>
+                <button type="submit" name="classSelection" value="WIZARD">Wizard</button>
+                <button type="submit" name="classSelection" value="BARD">Bard</button>
+                <button type="submit" name="classSelection" value="HEALER">Healer</button>
+                <button type="submit" name="classSelection" value="DRUID">Druid</button>
             </fieldset>
             
         </form>

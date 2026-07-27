@@ -151,4 +151,5 @@ public class UserServiceImpl implements UserService{
     public boolean spellListExists(String title) {
         return spellListRepository.existsById(title);
     }
+
 }
