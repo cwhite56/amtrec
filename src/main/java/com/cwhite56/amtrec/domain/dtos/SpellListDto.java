@@ -31,6 +31,7 @@ public class SpellListDto {
     @Builder.Default
     private List<Integer> spentPoints = new ArrayList<>(Collections.nCopies(52, 0));
 
-    
+    @Builder.Default
+    private List<Integer> pointsRemainingByLevel = new ArrayList<>(Collections.nCopies(6, 5));
     
 }

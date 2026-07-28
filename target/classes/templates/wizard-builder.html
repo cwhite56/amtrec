@@ -8,6 +8,7 @@
     </head>
 
     <body>  
+
         <form class="form" th:action="@{/api/v1/users/{id}/spell-lists (id = ${username})}" th:object="${spelllist}" method="post">
 
             <div>
@@ -15,6 +16,12 @@
                 <input type="text" th:field="*{title}" required/>
                 <input type="hidden" id="form-username" th:field="*{user}"/>
                 <input type="hidden" th:field="*{casterClass}" />
+            </div>
+
+            <div>
+                <label>Look the part</label>
+                <input type="checkbox" id="LTP-checkbox" onchange="LTP('LTP-checkbox')" value="true"/>
+                
             </div>
 
             <h1>Level 1</h1>
@@ -28,7 +35,7 @@
 
             <div>
                 <label>Weapon Short</label>
-                <input type="number" id="short" class="spell-input" th:field="*{spentPoints[1]}" data-cost="2" data-limit="1" data-level="5" value="0" readonly/>
+                <input type="number" id="short" class="spell-input" th:field="*{spentPoints[1]}" data-cost="2"  data-limit="1" data-level="1" value="0" readonly/>
                 <input type="button" onclick="countUp('short')" value="+"/>        
                 <input type="button" onclick="countDown('short')" value="-"/>
             </div>
@@ -45,11 +52,13 @@
             <span id="reqLevel6">6:</span><input type="number" id="level6Points" name="level6Points"  value = "5" size = "2" disabled > 
         </footer>
         
+        
         <script>
             function countUp(spell) {
+
                 const inputField = document.getElementById(spell);
 
-                if(inputField.value + 1 > inputField.dataset.limit) return;
+                if(parseInt(inputField.value) + 1 > parseInt(inputField.dataset.limit)) return;
 
                 const levelPoints = document.querySelectorAll('[id^="level"]');
 
@@ -74,6 +83,7 @@
 
                     if(cost == 0) break;
 
+                    // Not enough points remaining
                     else if(cost > 0 && i == 5) {
 
                         levelPoints[i].value = startingVal;
@@ -102,11 +112,17 @@
 
                 for (let i = 5; i >= 0; i--) {
 
-                    if(levelPoints[i].value == 5) continue;
+                    if(levelPoints[i].value >= 5) continue;
 
                     while(levelPoints[i].value < 5 && cost > 0) {
                         levelPoints[i].value++;
                         cost--;
+                        
+                        //Level 6 gets an extra point for LTP bonus
+                        if(i == 5 && cost > 0) {
+                            levelPoints[i].value++;
+                            cost--;
+                        }
                     }
 
                     if(cost == 0) break;
@@ -114,6 +130,31 @@
                 }
 
                 inputField.value--;
+            }
+
+            function LTP(checkboxId) {
+
+                const checkbox = document.getElementById(checkboxId);
+
+                if(freshList()) {
+
+                    const level6 = document.getElementById('level6Points');
+                    
+                    if(checkbox.checked) level6.value++;
+
+                    else level6.value--;
+                }
+            }
+
+            function freshList() {
+
+                const levelPoints = document.querySelectorAll('[id^="level"]');
+
+                for(let i = 0; i < 6; i++) {
+                    if(levelPoints[i].value != 5 && levelPoints[i].value != 6) return false;
+                }
+
+                return true;
             }
         
             const form = document.querySelector('.form');

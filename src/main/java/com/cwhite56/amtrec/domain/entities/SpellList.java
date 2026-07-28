@@ -40,5 +40,7 @@ public class SpellList {
     private User user;
 
     private List<Integer> spentPoints;
+
+    private List<Integer> pointsRemainingByLevel;
     
 }
