@@ -39,7 +39,6 @@ public class SpellList {
     @EqualsAndHashCode.Exclude
     private User user;
 
-    @Size(max = 52, min = 43)
     private List<Integer> spentPoints;
     
 }

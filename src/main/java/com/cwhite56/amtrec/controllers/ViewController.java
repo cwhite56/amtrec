@@ -66,10 +66,11 @@ public class ViewController {
     @GetMapping("users/{id}/spell-lists/builder")
     public String spellListBuilder(@PathVariable("id") String username, @RequestParam("classSelection") String classSelection, Model model) {
 
-
         model.addAttribute("username", username);
-        model.addAttribute("classSelection", classSelection);
-        model.addAttribute("spelllist", new SpellListDto());
+        SpellListDto spellListDto = new SpellListDto();
+        spellListDto.setUser(username);
+        spellListDto.setCasterClass(classSelection);
+        model.addAttribute("spelllist", spellListDto);
 
         switch (classSelection) {
             case "WIZARD":

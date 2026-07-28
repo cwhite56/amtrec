@@ -8,25 +8,27 @@
     </head>
 
     <body>  
-        <form class="form" th:action="@{api/v1/users/{username}/spell-lists (username = ${username})}" th:object="${spelllist}" method="post">
+        <form class="form" th:action="@{/api/v1/users/{id}/spell-lists (id = ${username})}" th:object="${spelllist}" method="post">
 
             <div>
                 <label>Title </label>
                 <input type="text" th:field="*{title}" required/>
+                <input type="hidden" id="form-username" th:field="*{user}"/>
+                <input type="hidden" th:field="*{casterClass}" />
             </div>
 
             <h1>Level 1</h1>
-
+            <h2>Name    Purchased   Cost    Max</h2>
             <div>
                 <label>Banish</label>
-                <input type="number" id="banish" th:field="*{spentPoints[0]}" value="0"/>
+                <input type="number" id="banish" class="spell-input" th:field="*{spentPoints[0]}" value="0"/>
                 <input type="button" onclick="countUp('banish')" value="+"/>        
-                <input type="button" onclick="countDown('banish')" value="-"/>         
+                <input type="button" onclick="countDown('banish')" value="-"/>      
             </div>
 
             <div>
                 <label>Weapon Short</label>
-                <input type="number" id="short" th:field="*{spentPoints[1]}" value="0"/>
+                <input type="number" id="short" class="spell-input" th:field="*{spentPoints[1]}" value="0"/>
                 <input type="button" onclick="countUp('short')" value="+"/>        
                 <input type="button" onclick="countDown('short')" value="-"/>
             </div>
@@ -51,6 +53,35 @@
                 }
                 inputField.value--;
             }
+        
+            const form = document.querySelector('.form');
+
+            form.addEventListener('submit', event => {
+                event.preventDefault();
+
+                const data = Object.fromEntries(new FormData(form));
+
+                const spellInputs = document.querySelectorAll('.spell-input');
+                data.spentPoints = Array.from(spellInputs).map(input => parseInt(input.value) || 0);
+        
+
+                const username = document.getElementById('form-username').value;
+                data.user = username;
+
+
+                fetch(`/api/v1/users/${username}/spell-lists`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+
+                }).then(res =>  {
+                    window.location.href = `/users/${username}/spell-lists/dashboard`;
+                    return res.json();
+
+                });
+            });
         </script>
     </body>
 
