@@ -21,24 +21,68 @@
             <h2>Name    Purchased   Cost    Max</h2>
             <div>
                 <label>Banish</label>
-                <input type="number" id="banish" class="spell-input" th:field="*{spentPoints[0]}" value="0"/>
+                <input type="number" id="banish" class="spell-input" th:field="*{spentPoints[0]}" data-cost="1" data-level="1" value="0" readonly/>
                 <input type="button" onclick="countUp('banish')" value="+"/>        
                 <input type="button" onclick="countDown('banish')" value="-"/>      
             </div>
 
             <div>
                 <label>Weapon Short</label>
-                <input type="number" id="short" class="spell-input" th:field="*{spentPoints[1]}" value="0"/>
+                <input type="number" id="short" class="spell-input" th:field="*{spentPoints[1]}" data-cost="2" data-limit="1" data-level="5" value="0" readonly/>
                 <input type="button" onclick="countUp('short')" value="+"/>        
                 <input type="button" onclick="countDown('short')" value="-"/>
             </div>
 
             <button type="submit"> Save list </button>
         </form>
+
+        <footer>
+            <span id="reqLevel1">1:</span><input type="number" id="level1Points" name="level1Points"  value = "5" size = "2" disabled > 
+            <span id="reqLevel2">2:</span><input type="number" id="level2Points" name="level2Points"  value = "5" size = "2" disabled > 
+            <span id="reqLevel3">3:</span><input type="number" id="level3Points" name="level3Points"  value = "5" size = "2" disabled > 
+            <span id="reqLevel4">4:</span><input type="number" id="level4Points" name="level4Points"  value = "5" size = "2" disabled > 
+            <span id="reqLevel5">5:</span><input type="number" id="level5Points" name="level5Points"  value = "5" size = "2" disabled > 
+            <span id="reqLevel6">6:</span><input type="number" id="level6Points" name="level6Points"  value = "5" size = "2" disabled > 
+        </footer>
         
         <script>
             function countUp(spell) {
                 const inputField = document.getElementById(spell);
+
+                if(inputField.value + 1 > inputField.dataset.limit) return;
+
+                const levelPoints = document.querySelectorAll('[id^="level"]');
+
+                let cost = inputField.dataset.cost;
+
+                const spellLevel = inputField.dataset.level;
+
+
+                for(let i = 0; i < 6; i++) {
+
+                    if(i + 1 < spellLevel) continue;
+
+                    if(levelPoints[i].value == 0) continue;
+
+                    const startingVal = levelPoints[i].value;
+
+                    while(levelPoints[i].value > 0  && cost > 0) {
+
+                        levelPoints[i].value--;
+                        cost--;
+                    }
+
+                    if(cost == 0) break;
+
+                    else if(cost > 0 && i == 5) {
+
+                        levelPoints[i].value = startingVal;
+
+                        return;
+                    }
+                }
+
+                if(cost > 0) return;
 
                 inputField.value++;
             }
@@ -51,6 +95,24 @@
                 if(val <= 0) {
                     return;
                 }
+
+                const levelPoints = document.querySelectorAll('[id^="level"]');
+
+                let cost = inputField.dataset.cost;
+
+                for (let i = 5; i >= 0; i--) {
+
+                    if(levelPoints[i].value == 5) continue;
+
+                    while(levelPoints[i].value < 5 && cost > 0) {
+                        levelPoints[i].value++;
+                        cost--;
+                    }
+
+                    if(cost == 0) break;
+
+                }
+
                 inputField.value--;
             }
         

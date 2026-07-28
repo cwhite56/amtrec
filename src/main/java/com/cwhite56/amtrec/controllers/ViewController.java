@@ -67,6 +67,7 @@ public class ViewController {
     public String spellListBuilder(@PathVariable("id") String username, @RequestParam("classSelection") String classSelection, Model model) {
 
         model.addAttribute("username", username);
+        
         SpellListDto spellListDto = new SpellListDto();
         spellListDto.setUser(username);
         spellListDto.setCasterClass(classSelection);
