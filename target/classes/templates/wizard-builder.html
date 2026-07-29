@@ -45,9 +45,11 @@
                 <input type="number" id="ex-1" class="spell-input" th:field="*{spentPoints[2]}" data-cost="2"  data-limit="1" data-level="1" value="0" readonly/>
                 <input type="button" onclick="countUp('ex-1')" value="+"/>        
                 <input type="button" onclick="countDown('ex-1')" value="-"/>
-                <select onselect="">
+                <div>
+                    <select onselect="">
 
-                </select>     
+                    </select>
+                </div>     
             </div>
 
             <div>
@@ -55,9 +57,11 @@
                 <input type="number" id="ex-2" class="spell-input" th:field="*{spentPoints[3]}" data-cost="2"  data-limit="1" data-level="1" value="0" readonly/>
                 <input type="button" onclick="countUp('ex-2')" value="+"/>        
                 <input type="button" onclick="countDown('ex-2')" value="-"/>
-                <select onselect="">
+                <div>
+                    <select onselect="">
 
-                </select>     
+                    </select>
+                </div>    
             </div>
 
             <div>
@@ -95,6 +99,7 @@
                 <input type="button" onclick="countDown('shove')" value="-"/>
             </div>
             <h1>Level 2</h1>
+            <h2>Name    Purchased   Cost    Max</h2>
 
 
 
