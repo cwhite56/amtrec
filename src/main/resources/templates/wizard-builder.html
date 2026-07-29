@@ -14,7 +14,7 @@
             <div>
                 <label>Title </label>
                 <input type="text" th:field="*{title}" required/>
-                <input type="hidden" id="form-username" th:field="*{user}"/>
+                <input type="hidden" th:field="*{user}"/>
                 <input type="hidden" th:field="*{casterClass}" />
             </div>
 
@@ -40,17 +40,19 @@
                 <input type="button" onclick="countDown('short')" value="-"/>
             </div>
 
+            <div id="form-footer">
+                <span id="reqLevel1">1:</span><input type="number" id="level1Points" name="level1Points"  class="level-input" th:field="*{pointsRemainingByLevel[0]}" value="5" size="2" disabled > 
+                <span id="reqLevel2">2:</span><input type="number" id="level2Points" name="level2Points"  class="level-input" th:field="*{pointsRemainingByLevel[1]}" value="5" size="2" disabled > 
+                <span id="reqLevel3">3:</span><input type="number" id="level3Points" name="level3Points"  class="level-input" th:field="*{pointsRemainingByLevel[2]}" value="5" size="2" disabled > 
+                <span id="reqLevel4">4:</span><input type="number" id="level4Points" name="level4Points"  class="level-input" th:field="*{pointsRemainingByLevel[3]}" value="5" size="2" disabled > 
+                <span id="reqLevel5">5:</span><input type="number" id="level5Points" name="level5Points"  class="level-input" th:field="*{pointsRemainingByLevel[4]}" value="5" size="2" disabled > 
+                <span id="reqLevel6">6:</span><input type="number" id="level6Points" name="level6Points"  class="level-input" th:field="*{pointsRemainingByLevel[5]}" value="5" size="2" disabled > 
+            </div>
+
             <button type="submit"> Save list </button>
         </form>
 
-        <footer>
-            <span id="reqLevel1">1:</span><input type="number" id="level1Points" name="level1Points"  value = "5" size = "2" disabled > 
-            <span id="reqLevel2">2:</span><input type="number" id="level2Points" name="level2Points"  value = "5" size = "2" disabled > 
-            <span id="reqLevel3">3:</span><input type="number" id="level3Points" name="level3Points"  value = "5" size = "2" disabled > 
-            <span id="reqLevel4">4:</span><input type="number" id="level4Points" name="level4Points"  value = "5" size = "2" disabled > 
-            <span id="reqLevel5">5:</span><input type="number" id="level5Points" name="level5Points"  value = "5" size = "2" disabled > 
-            <span id="reqLevel6">6:</span><input type="number" id="level6Points" name="level6Points"  value = "5" size = "2" disabled > 
-        </footer>
+        
         
         
         <script>
@@ -166,10 +168,12 @@
 
                 const spellInputs = document.querySelectorAll('.spell-input');
                 data.spentPoints = Array.from(spellInputs).map(input => parseInt(input.value) || 0);
+
+                const pointsPerLevel = document.querySelectorAll('.level-input');
+                data.pointsRemainingByLevel = Array.from(pointsPerLevel).map(input => parseInt(input.value));
         
 
-                const username = document.getElementById('form-username').value;
-                data.user = username;
+                const username = data.user;
 
 
                 fetch(`/api/v1/users/${username}/spell-lists`, {

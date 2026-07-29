@@ -45,7 +45,6 @@ public class UserController {
 
     @PostMapping("/users/{id}/spell-lists")
     public ResponseEntity<SpellListDto> createUpdateSpellList(@PathVariable("id") String username, @Valid @RequestBody SpellListDto spellListDto, Authentication auth) {
-        System.out.println("auth name is " + auth.getName() + " and username is " + username);
 
         if(!auth.getName().equals(username)) return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         

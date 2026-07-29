@@ -10,7 +10,7 @@
     <body>
         <header> Please select a class</header>
 
-        <form th:action="@{/users/{username}/spell-lists/builder}">
+        <form th:action="@{/users/{username}/spell-lists/builder (username = ${username})}">
             <fieldset>
                 <legend>Class selection</legend>
 
