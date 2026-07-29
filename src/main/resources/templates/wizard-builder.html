@@ -27,21 +27,21 @@
             <h1>Level 1</h1>
             <h2>Name    Purchased   Cost    Max</h2>
             <div>
-                <label for="banish"> Banish </label>
+                <label for="banish">Banish</label>
                 <input type="number" id="banish" class="spell-input" th:field="*{spentPoints[0]}" data-cost="1" data-level="1" value="0" readonly/>
                 <input type="button" onclick="countUp('banish')" value="+"/>        
                 <input type="button" onclick="countDown('banish')" value="-"/>      
             </div>
 
             <div>
-                <label>Weapon Short</label>
+                <label for="short">Weapon Short</label>
                 <input type="number" id="short" class="spell-input" th:field="*{spentPoints[1]}" data-cost="2"  data-limit="1" data-level="1" value="0" readonly/>
                 <input type="button" onclick="countUp('short')" value="+"/>        
                 <input type="button" onclick="countDown('short')" value="-"/>
             </div>
 
             <div>
-                <label>Experienced 1</label>
+                <label for="ex-1">Experienced 1</label>
                 <input type="number" id="ex-1" class="spell-input" th:field="*{spentPoints[2]}" data-cost="2"  data-limit="1" data-level="1" value="0" readonly/>
                 <input type="button" onclick="countUp('ex-1')" value="+"/>        
                 <input type="button" onclick="countDown('ex-1')" value="-"/>
@@ -53,7 +53,7 @@
             </div>
 
             <div>
-                <label>Experienced 2</label>
+                <label for="ex-2">Experienced 2</label>
                 <input type="number" id="ex-2" class="spell-input" th:field="*{spentPoints[3]}" data-cost="2"  data-limit="1" data-level="1" value="0" readonly/>
                 <input type="button" onclick="countUp('ex-2')" value="+"/>        
                 <input type="button" onclick="countDown('ex-2')" value="-"/>
@@ -65,35 +65,35 @@
             </div>
 
             <div>
-                <label>Force Barrier</label>
+                <label for="force-barrier">Force Barrier</label>
                 <input type="number" id="force-barrier" class="spell-input" th:field="*{spentPoints[4]}" data-cost="1" data-level="1" value="0" readonly/>
                 <input type="button" onclick="countUp('force-barrier')" value="+"/>        
                 <input type="button" onclick="countDown('force-barrier')" value="-"/>
             </div>
 
              <div>
-                <label>Force Bolt</label>
+                <label for="force-bolt">Force Bolt</label>
                 <input type="number" id="force-bolt" class="spell-input" th:field="*{spentPoints[5]}" data-cost="1" data-limit="8" data-level="1" value="0" readonly/>
                 <input type="button" onclick="countUp('force-bolt')" value="+"/>        
                 <input type="button" onclick="countDown('force-bolt')" value="-"/>
             </div>
 
              <div>
-                <label>Heat Weapon</label>
+                <label for="heat-weapon">Heat Weapon</label>
                 <input type="number" id="heat-weapon" class="spell-input" th:field="*{spentPoints[6]}" data-cost="1" data-level="1" value="0" readonly/>
                 <input type="button" onclick="countUp('heat-weapon')" value="+"/>        
                 <input type="button" onclick="countDown('heat-weapon')" value="-"/>
             </div>
 
              <div>
-                <label>Mend</label>
+                <label for="mend">Mend</label>
                 <input type="number" id="mend" class="spell-input" th:field="*{spentPoints[7]}" data-cost="1" data-level="1" value="0" readonly/>
                 <input type="button" onclick="countUp('mend')" value="+"/>        
                 <input type="button" onclick="countDown('mend')" value="-"/>
             </div>
 
              <div>
-                <label>Shove</label>
+                <label for="shove">Shove</label>
                 <input type="number" id="shove" class="spell-input" th:field="*{spentPoints[8]}" data-cost="1" data-level="1" value="0" readonly/>
                 <input type="button" onclick="countUp('shove')" value="+"/>        
                 <input type="button" onclick="countDown('shove')" value="-"/>
