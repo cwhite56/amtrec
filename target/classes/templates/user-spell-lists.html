@@ -9,17 +9,28 @@
 
     <body>
         <header th:text="${username} + '\'s ' + 'Spell ' + 'Lists'"> </header>
-        <a th:href="@{/users/{username}(username = ${username})}" dashboard>
-            Dashboard
-        </a>
-        <ul>
-            <li th:each="spelllist : ${dtoList}">
-                <a th:href="@{/users/{username}/spell-lists/{title}(username = ${username}, title = ${spelllist.title})}" 
-                th:text="${spelllist.title}" Spell List Title>
-                </a>
-            </li>
-        </ul>
 
+        <div>
+            <a th:href="@{/users/{username}(username = ${username})}" dashboard>
+            Dashboard
+            </a>
+        </div>
+        
+        <div>
+            <ul>
+                <li th:each="spelllist : ${dtoList}">
+                    <a th:href="@{/users/{username}/spell-lists/{title}(username = ${username}, title = ${spelllist.title})}" 
+                    th:text="${spelllist.title}" Spell List Title>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div>
+            <a th:href="@{/users/{username}/spell-lists(username = ${username})}">
+                Create new spell list
+            </a>
+        </div>
     </body>
 
 

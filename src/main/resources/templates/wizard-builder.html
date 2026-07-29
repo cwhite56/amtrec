@@ -49,7 +49,11 @@
                 <span id="reqLevel6">6:</span><input type="number" id="level6Points" name="level6Points"  class="level-input" th:field="*{pointsRemainingByLevel[5]}" value="5" size="2" disabled > 
             </div>
 
-            <button type="submit"> Save list </button>
+            <div>
+                <button type="submit"> Save list </button>
+                <input type="button" onclick="deleteList()" value="Delete list"/>
+            </div>
+
         </form>
 
         
@@ -158,6 +162,29 @@
 
                 return true;
             }
+
+            function deleteList() {
+
+                const titleField = document.getElementById('title');
+                const title = titleField.value;
+
+                const userField = document.getElementById('user');
+                const user = userField.value;
+
+                fetch(`/api/v1/users/${user}/spell-lists/${title}`,{
+                    method: 'DELETE'
+                }).then(res => {
+
+                    if(!res.ok) {
+                        throw new Error("Error: could not delete spell list");
+                    }
+                    return res.json;
+
+                }).then(data => {
+                    window.location.href = `/users/${user}/spell-lists/dashboard`;
+                });
+
+            }
         
             const form = document.querySelector('.form');
 
@@ -184,9 +211,15 @@
                     body: JSON.stringify(data)
 
                 }).then(res =>  {
-                    window.location.href = `/users/${username}/spell-lists/dashboard`;
+
+                    if(!res.ok) {
+
+                        throw new Error('Error: could not save spell list');
+                    }
                     return res.json();
 
+                }).then(data => {
+                    window.location.href = `/users/${username}/spell-lists/dashboard`;
                 });
             });
         </script>
