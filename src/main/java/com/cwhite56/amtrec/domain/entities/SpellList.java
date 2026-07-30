@@ -42,5 +42,12 @@ public class SpellList {
     private List<Integer> spentPoints;
 
     private List<Integer> pointsRemainingByLevel;
+
+    private String exp1;
+    private String exp2;
+
+    private boolean isLTP;
+    private boolean isExp1;
+    private boolean isExp2;
     
 }

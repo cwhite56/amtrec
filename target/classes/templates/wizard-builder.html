@@ -41,12 +41,12 @@
             </div>
 
             <div>
-                <label for="ex-1">Experienced 1</label>
-                <input type="number" id="ex-1" class="spell-input" th:field="*{spentPoints[2]}" data-cost="2"  data-limit="1" data-level="1" value="0" readonly/>     
-                <input type="button" onclick="countDown('ex-1'); exSpell(1, false)" value="-"/>
+                <label for="ex-1-label">Experienced 1</label>
+                <input type="number" id="ex-1-label" class="spell-input" th:field="*{spentPoints[2]}" data-cost="2"  data-limit="1" data-level="1" value="0" readonly/>     
+                <input type="button" onclick="countDown('ex-1-label'); exSpell(1, false)" value="-"/>
                 <div>
-                    <select id="ex-1-select" onchange="exSpell(1, true); countUp('ex-1')">
-                        <option value="" disabled selected> Select Spell to Experience</option>
+                    <select th:field="*{exp1}" onchange="exSpell(1, true); countUp('ex-1-label')">
+                        <option value=""> Select Spell to Experience</option>
                         <option value="banish">Banish</option>
                         <option value="force-barrier">Force Barrier</option>
                         <option value="heat-weapon">Heat Weapon</option>
@@ -57,12 +57,12 @@
             </div>
 
             <div>
-                <label for="ex-2">Experienced 2</label>
-                <input type="number" id="ex-2" class="spell-input" th:field="*{spentPoints[2]}" data-cost="2"  data-limit="1" data-level="1" value="0" readonly/>       
+                <label for="ex-2-label">Experienced 2</label>
+                <input type="number" id="ex-2-label" class="spell-input" th:field="*{spentPoints[3]}" data-cost="2"  data-limit="1" data-level="1" value="0" readonly/>       
                 <input type="button" onclick="countDown('ex-2'); exSpell(2, false)" value="-"/>
                 <div>
-                    <select id="ex-2-select" onchange="exSpell(2, true); countUp('ex-2')">
-                        <option value="" disabled selected> Select Spell to Experience</option>
+                    <select th:field="*{exp2}" onchange="exSpell(2, true); countUp('ex-2-label')">
+                        <option value=""> Select Spell to Experience</option>
                         <option value="banish">Banish</option>
                         <option value="force-barrier">Force Barrier</option>
                         <option value="heat-weapon">Heat Weapon</option>
@@ -263,11 +263,11 @@
                 let sel;
 
                 if(exNum == 1) {
-                    sel = document.getElementById('ex-1-select');
+                    sel = document.getElementById('exp1');
                     spell = sel.value;
                 }
                 else if (exNum == 2){
-                    sel = document.getElementById('ex-2-select');
+                    sel = document.getElementById('exp2');
                     spell = sel.value;
                 }
                 
@@ -300,6 +300,12 @@
 
                 const pointsPerLevel = document.querySelectorAll('.level-input');
                 data.pointsRemainingByLevel = Array.from(pointsPerLevel).map(input => parseInt(input.value));
+
+                const exp1Select = document.getElementById('exp1');
+                data.exp1 = exp1Select.value;
+
+                const exp2Select = document.getElementById('exp2');
+                data.exp2 = exp2Select.value;
         
 
                 const username = data.user;
@@ -324,6 +330,24 @@
                     window.location.href = `/users/${username}/spell-lists/dashboard`;
                 });
             });
+        </script>
+        <script th:inline="javascript">
+
+
+            const exp1Check = /*[[${spelllist.isExp1}]]*/ 'false';
+            const exp2Check = /*[[${spelllist.isExp2}]]*/ 'false';
+
+            if(exp1Check) {
+                const sel1 = document.getElementById('exp1');
+                sel1.disabled = true;
+            }
+
+            if(exp2Check) {
+                const sel2 = document.getElementById('exp2');
+                sel2.disabled = true;
+            }
+
+        
         </script>
     </body>
 

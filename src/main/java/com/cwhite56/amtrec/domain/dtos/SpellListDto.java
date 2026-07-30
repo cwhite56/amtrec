@@ -29,9 +29,16 @@ public class SpellListDto {
     private String user;
 
     @Builder.Default
-    private List<Integer> spentPoints = new ArrayList<>(Collections.nCopies(52, 0));
+    private List<Integer> spentPoints = new ArrayList<>(Collections.nCopies(53, 0));
 
     @Builder.Default
     private List<Integer> pointsRemainingByLevel = new ArrayList<>(Collections.nCopies(6, 5));
+
+    private String exp1;
+    private String exp2;
+
+    private boolean isLTP;
+    private boolean isExp1;
+    private boolean isExp2;
     
 }
