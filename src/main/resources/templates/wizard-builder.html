@@ -42,11 +42,10 @@
 
             <div>
                 <label for="ex-1">Experienced 1</label>
-                <input type="number" id="ex-1" class="spell-input" th:field="*{spentPoints[2]}" data-cost="2"  data-limit="1" data-level="1" value="0" readonly/>
-                <input type="button" onclick="countUp('ex-1')" value="+"/>        
+                <input type="number" id="ex-1" class="spell-input" th:field="*{spentPoints[2]}" data-cost="2"  data-limit="1" data-level="1" value="0" readonly/>     
                 <input type="button" onclick="countDown('ex-1'); exSpell(1, false)" value="-"/>
                 <div>
-                    <select id="ex-1-select" onchange="exSpell(1, true)">
+                    <select id="ex-1-select" onchange="exSpell(1, true); countUp('ex-1')">
                         <option value="" disabled selected> Select Spell to Experience</option>
                         <option value="banish">Banish</option>
                         <option value="force-barrier">Force Barrier</option>
@@ -59,11 +58,10 @@
 
             <div>
                 <label for="ex-2">Experienced 2</label>
-                <input type="number" id="ex-2" class="spell-input" th:field="*{spentPoints[2]}" data-cost="2"  data-limit="1" data-level="1" value="0" readonly/>
-                <input type="button" onclick="countUp('ex-2')" value="+"/>        
+                <input type="number" id="ex-2" class="spell-input" th:field="*{spentPoints[2]}" data-cost="2"  data-limit="1" data-level="1" value="0" readonly/>       
                 <input type="button" onclick="countDown('ex-2'); exSpell(2, false)" value="-"/>
                 <div>
-                    <select id="ex-2-select" onchange="exSpell(2, true)">
+                    <select id="ex-2-select" onchange="exSpell(2, true); countUp('ex-2')">
                         <option value="" disabled selected> Select Spell to Experience</option>
                         <option value="banish">Banish</option>
                         <option value="force-barrier">Force Barrier</option>
@@ -262,27 +260,31 @@
             function exSpell(exNum, isEx) {
                 
                 let spell;
+                let sel;
 
                 if(exNum == 1) {
-                    const sel = document.getElementById('ex-1-select');
+                    sel = document.getElementById('ex-1-select');
                     spell = sel.value;
                 }
                 else if (exNum == 2){
-                    const sel = document.getElementById('ex-2-select');
+                    sel = document.getElementById('ex-2-select');
                     spell = sel.value;
                 }
                 
                 const spellLabel = document.querySelector(`label[for="${spell}"]`);
 
                 if(isEx) {
+
                 spellLabel.textContent += ' (ex)';  
+                sel.disabled = true;
+
                 }
                 
                 else {
-                    spellLabel.textContent = spellLabel.textContent
-                        .replace(/\s*\(ex\)/gi, '') 
-                        .replace(/-/g, ' ')
-                        .replace(/\b\w/g, l => l.toUpperCase());
+                    spellLabel.textContent = spellLabel.textContent.replace(/\s*\(ex\)/i, '');
+
+                    sel.disabled = false;
+                    sel.selectedIndex = 0;
                 }
             }
         
