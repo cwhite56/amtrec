@@ -37,5 +37,7 @@ public class SpellListDto {
     private String exp1;
     private String exp2;
 
+    private boolean LTP;
+
     
 }
