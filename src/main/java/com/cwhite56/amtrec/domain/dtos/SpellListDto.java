@@ -37,8 +37,5 @@ public class SpellListDto {
     private String exp1;
     private String exp2;
 
-    private boolean isLTP;
-    private boolean isExp1;
-    private boolean isExp2;
     
 }

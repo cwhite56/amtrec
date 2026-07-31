@@ -20,7 +20,7 @@
 
             <div>
                 <label>Look the part</label>
-                <input type="checkbox" id="LTP-checkbox" onchange="LTP('LTP-checkbox')" value="true"/>
+                <input type="checkbox" onchange="LTP('LTPSet')" value="true"/>
                 
             </div>
 
@@ -330,22 +330,15 @@
                     window.location.href = `/users/${username}/spell-lists/dashboard`;
                 });
             });
-        </script>
-        <script th:inline="javascript">
 
 
-            const exp1Check = /*[[${spelllist.isExp1}]]*/ 'false';
-            const exp2Check = /*[[${spelllist.isExp2}]]*/ 'false';
-
-            if(exp1Check) {
                 const sel1 = document.getElementById('exp1');
-                sel1.disabled = true;
-            }
 
-            if(exp2Check) {
+                if(sel1.value != '') sel1.disabled = true;
+            
                 const sel2 = document.getElementById('exp2');
-                sel2.disabled = true;
-            }
+
+                if(sel2.value != '') sel2.disabled = true;
 
         
         </script>
