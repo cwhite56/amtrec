@@ -39,5 +39,7 @@ public class SpellListDto {
 
     private boolean LTP;
 
+    private String archtype;
+
     
 }

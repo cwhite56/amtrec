@@ -1,6 +1,9 @@
 function countUp(spell) {
 
+                if(checkArchtype(spell)) return;
+
                 const inputField = document.getElementById(spell);
+
 
                 if(parseInt(inputField.value) + 1 > parseInt(inputField.dataset.limit)) return;
 
@@ -42,6 +45,7 @@ function countUp(spell) {
             }
 
             function countDown(spell) {
+
                 const inputField = document.getElementById(spell);
 
                 let val = parseInt(inputField.value);
@@ -76,7 +80,7 @@ function countUp(spell) {
                 inputField.value--;
             }
 
-            function LTP(checkboxId) {
+            function setLTP(checkboxId) {
 
                 const checkbox = document.getElementById(checkboxId);
 
@@ -158,6 +162,37 @@ function countUp(spell) {
                     sel.selectedIndex = 0;
                 }
             }
+
+            function checkArchtype(spell) {
+                const getArchtype = document.getElementById('archtype');
+                const spellInput = document.getElementById(spell);
+
+                switch(getArchtype.value) {
+
+                    case 'battlemage':
+                        if(spellInput.dataset.type == "ball" || spellInput.dataset.type == "enchantment") return true;
+                        break;
+                    
+                    case 'evoker':
+                        if(spellInput.dataset.range == "20" || spellInput.dataset.range == "50") return true;
+                        break;
+
+                    case 'warlock':
+                        if(spellInput.dataset.school != "flame" || spellInput.dataset.school != "death") return true;
+                        break;
+
+                    default:
+                        return false;
+                }
+
+            }
+
+            function setArchtype(spell) {
+                const getArchtype = document.getElementById('archtype');
+                getArchtype.value = spell; 
+            }
+
+            
         
             const form = document.querySelector('.form');
 
@@ -177,8 +212,7 @@ function countUp(spell) {
 
                 const exp2Select = document.getElementById('exp2');
                 data.exp2 = exp2Select.value;
-        
-
+                
                 const username = data.user;
 
 

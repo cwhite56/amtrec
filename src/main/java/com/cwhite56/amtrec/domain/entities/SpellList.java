@@ -47,5 +47,7 @@ public class SpellList {
     private String exp2;
 
     private boolean LTP;
+
+    private String archtype;
     
 }
