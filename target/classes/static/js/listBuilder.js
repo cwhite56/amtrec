@@ -9,7 +9,7 @@ function countUp(spell) {
 
                 const levelPoints = document.querySelectorAll('[id^="level"]');
 
-                let cost = inputField.dataset.cost;
+                let cost = parseInt(inputField.dataset.cost) * parseInt(inputField.dataset.costMultiplier);
 
                 const spellLevel = inputField.dataset.level;
 
@@ -41,7 +41,8 @@ function countUp(spell) {
 
                 if(cost > 0) return;
 
-                inputField.value++;
+                let endVal = 1 * parseInt(inputField.dataset.valueMultiplier);
+                inputField.value += endVal;
             }
 
             function countDown(spell) {
@@ -56,7 +57,7 @@ function countUp(spell) {
 
                 const levelPoints = document.querySelectorAll('[id^="level"]');
 
-                let cost = inputField.dataset.cost;
+                let cost = parseInt(inputField.dataset.cost) * parseInt(inputField.dataset.costMultiplier);
 
                 for (let i = 5; i >= 0; i--) {
 
@@ -76,8 +77,8 @@ function countUp(spell) {
                     if(cost == 0) break;
 
                 }
-
-                inputField.value--;
+                let endVal = 1 * parseInt(inputField.dataset.valueMultiplier);
+                inputField.value -= endVal;
             }
 
             function setLTP(checkboxId) {
