@@ -41,8 +41,8 @@ function countUp(spell) {
 
                 if(cost > 0) return;
 
-                let endVal = 1 * parseInt(inputField.dataset.valueMultiplier);
-                inputField.value += endVal;
+                let endVal = 1 * parseInt(inputField.dataset.valueMultiplier) + parseInt(inputField.value);
+                inputField.value = endVal;
             }
 
             function countDown(spell) {
@@ -77,15 +77,15 @@ function countUp(spell) {
                     if(cost == 0) break;
 
                 }
-                let endVal = 1 * parseInt(inputField.dataset.valueMultiplier);
-                inputField.value -= endVal;
+                let endVal = parseInt(inputField.value) - parseInt(inputField.dataset.valueMultiplier);
+                inputField.value = endVal;
             }
 
             function setLTP(checkboxId) {
 
                 const checkbox = document.getElementById(checkboxId);
 
-                if(freshList()) {
+                if(isFreshList()) {
 
                     const level6 = document.getElementById('level6Points');
                     
@@ -99,7 +99,7 @@ function countUp(spell) {
                 }
             }
 
-            function freshList() {
+            function isFreshList() {
 
                 const levelPoints = document.querySelectorAll('[id^="level"]');
 
@@ -179,7 +179,7 @@ function countUp(spell) {
                         break;
 
                     case 'warlock':
-                        if(spellInput.dataset.school != "flame" || spellInput.dataset.school != "death") return true;
+                        if(spellInput.dataset.school != "flame" && spellInput.dataset.school != "death") return true;
                         break;
 
                     default:
