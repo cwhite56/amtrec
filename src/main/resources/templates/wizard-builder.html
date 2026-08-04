@@ -7,108 +7,6 @@
         <title>Wizard List</title>
         <link rel="stylesheet" th:href="@{/style.css}">
 
-        <style>
-            .spell-grid {
-                display: grid;
-                grid-template-columns: max-content max-content max-content max-content max-content max-content;
-                border-top: 1px solid #444;
-                border-left: 1px solid #444;
-                width: max-content;
-            }
-
-            .spell-grid h1 {
-                grid-column: 1 / -1;
-                margin: 0;
-                padding: 8px 10px;
-                border-right: 1px solid #444;
-                border-bottom: 1px solid #444;
-                background: #f2f2f2;
-            }
-
-            .spell-grid .subhead {
-                margin: 0;
-                padding: 6px 10px;
-                border-right: 1px solid #444;
-                border-bottom: 1px solid #444;
-                font-size: 0.85em;
-                font-weight: 600;
-                background: #fafafa;
-                color: #555;
-                display: flex;
-                align-items: center;
-            }
-
-            .subhead-name { grid-column: 1; }
-            .subhead-purchased { grid-column: 2 / 5; justify-content: center; }
-            .subhead-cost { grid-column: 5; justify-content: center; }
-            .subhead-max { grid-column: 6; justify-content: center; }
-
-            .spell-row {
-                display: contents;
-            }
-
-            .spell-row > * {
-                border-right: 1px solid #444;
-                border-bottom: 1px solid #444;
-                padding: 4px 10px;
-                margin: 0;
-                display: flex;
-                align-items: center;
-            }
-
-            .spell-row > *:nth-child(1) { grid-column: 1; }
-            .spell-row > *:nth-child(2) { grid-column: 2; }
-            .spell-row > *:nth-child(3) { grid-column: 3; }
-            .spell-row > *:nth-child(4) { grid-column: 4; }
-            .spell-row > *:nth-child(5) { grid-column: 5; }
-            .spell-row > *:nth-child(6) { grid-column: 6; }
-            .spell-row > *:nth-child(7) { grid-column: 1; }
-            .spell-row > *:nth-child(8) { grid-column: 2 / -1; }
-
-            .spell-row > label {
-                justify-content: flex-start;
-                white-space: nowrap;
-            }
-
-            .spell-row > input[type="number"] {
-                width: 2.5em;
-                text-align: center;
-                justify-content: center;
-            }
-
-            .spell-row > input[type="button"] {
-                justify-content: center;
-                width: 2em;
-                box-sizing: content-box;
-            }
-
-            .blank-cell {
-                min-height: 1.6em;
-                border-top: 2px solid #000;
-                border-left: 2px solid #000;
-            }
-
-            .cost-cell,
-            .limit-cell {
-                justify-content: center;
-                width: 2.5em;
-                text-align: center;
-            }
-
-            .exp-select-cell {
-                justify-content: flex-start;
-                width: 230px;
-                box-sizing: border-box;
-            }
-
-            .exp-select-cell select {
-                width: 100%;
-            }
-
-            .fill-cell {
-                background: #f2f2f2;
-            }
-        </style>
     </head>
 
     <body>  
@@ -174,7 +72,22 @@
                             <option value="force-barrier">Force Barrier</option>
                             <option value="heat-weapon">Heat Weapon</option>
                             <option value="mend">Mend</option>
-                            <option value="shove">Shove</option>
+                            <option value="astral-intervention">Astral Intervention</option>
+                            <option value="break-con">Break Concentration</option>
+                            <option value="planar-grounding">Planar Grounding</option>
+                            <option value="release">Release</option>
+                            <option value="teleport">Teleport</option>
+                            <option value="dragged-below">Dragged Below</option>
+                            <option value="greater-mend">Greater Mend</option>
+                            <option value="hold-person">Hold Person</option>
+                            <option value="ravage">Ravage</option>
+                            <option value="shatter-weapon">Shatter Weapon</option>
+                            <option value="throw">Throw</option>
+                            <option value="destroy-armor">Destroy Armor</option>
+                            <option value="d-rift">Dimensional Rift</option>
+                            <option value="icy-blast">Icy Blast</option>
+                            <option value="shatter">Shatter</option>
+                            <option value="suppress-aura">Suppress Aura</option>
                         </select>
                     </div>     
                     <span class="fill-cell"></span>
@@ -186,7 +99,7 @@
                     data-cost="2"  data-cost-multiplier="1" data-limit="1" data-level="1" data-type="neutral" data-school="neutral" 
                     data-value-multiplier="1" value="0" readonly/>       
                     <span class="blank-cell"></span>
-                    <input type="button" onclick="countDown('ex-2'); exSpell(2, false)" value="-"/>
+                    <input type="button" onclick="countDown('ex-2-label'); exSpell(2, false)" value="-"/>
                     <span class="cost-cell"></span>
                     <span class="limit-cell"></span>
                     <div class="exp-select-cell">
@@ -196,7 +109,18 @@
                             <option value="force-barrier">Force Barrier</option>
                             <option value="heat-weapon">Heat Weapon</option>
                             <option value="mend">Mend</option>
-                            <option value="shove">Shove</option>
+                            <option value="teleport">Teleport</option>
+                            <option value="dragged-below">Dragged Below</option>
+                            <option value="greater-mend">Greater Mend</option>
+                            <option value="hold-person">Hold Person</option>
+                            <option value="ravage">Ravage</option>
+                            <option value="shatter-weapon">Shatter Weapon</option>
+                            <option value="throw">Throw</option>
+                            <option value="destroy-armor">Destroy Armor</option>
+                            <option value="d-rift">Dimensional Rift</option>
+                            <option value="icy-blast">Icy Blast</option>
+                            <option value="shatter">Shatter</option>
+                            <option value="suppress-aura">Suppress Aura</option>
                         </select>
                     </div>     
                     <span class="fill-cell"></span>
@@ -617,7 +541,7 @@
                     data-cost="1" data-cost-multiplier="1" data-level="5" data-limit="4" data-type="ball" data-school="sorcery" data-range="ball"  
                     data-value-multiplier="1" value="0" readonly/>
                     <input type="button" onclick="countUp('phase-bolt')" value="+"/>        
-                    <input type="button" onclick="countDown('iphase-bolt')" value="-"/>
+                    <input type="button" onclick="countDown('phase-bolt')" value="-"/>
                     <span class="cost-cell"></span>
                     <span class="limit-cell"></span>
                 </div>
@@ -789,6 +713,14 @@
             </div>
 
         </form>
+        <style>
+            #form-footer {
+                background: #e8eb3d;
+            }
+            .spell-grid h1 {
+                background: #e8eb3d;
+            }
+        </style>
         <script type="text/javascript" th:src="@{/js/listBuilder.js}"></script>
 
         <script>
@@ -874,23 +806,6 @@
                     setArchtype('');
                 }
             }
-
-            document.addEventListener('DOMContentLoaded', function () {
-                document.querySelectorAll('.spell-row').forEach(function (row) {
-                    var input = row.querySelector('.spell-input');
-                    if (!input) return;
-
-                    var costCell = row.querySelector('.cost-cell');
-                    var limitCell = row.querySelector('.limit-cell');
-
-                    if (costCell) {
-                        costCell.textContent = input.dataset.cost || '\u2014';
-                    }
-                    if (limitCell) {
-                        limitCell.textContent = input.dataset.limit || '\u2014';
-                    }
-                });
-            });
         </script>
     </body>
 

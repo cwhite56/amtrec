@@ -237,11 +237,27 @@ function countUp(spell) {
                 });
             });
 
+            document.addEventListener('DOMContentLoaded', function () {
+                document.querySelectorAll('.spell-row').forEach(function (row) {
+                    var input = row.querySelector('.spell-input');
+                    if (!input) return;
 
-                const sel1 = document.getElementById('exp1');
+                    var costCell = row.querySelector('.cost-cell');
+                    var limitCell = row.querySelector('.limit-cell');
 
-                if(sel1.value != '') sel1.disabled = true;
+                    if (costCell) {
+                        costCell.textContent = input.dataset.cost || '\u2014';
+                    }
+                    if (limitCell) {
+                        limitCell.textContent = input.dataset.limit || '\u2014';
+                    }
+                });
+            });
+
+            const sel1 = document.getElementById('exp1');
+
+            if(sel1.value != '') sel1.disabled = true;
             
-                const sel2 = document.getElementById('exp2');
+            const sel2 = document.getElementById('exp2');
 
-                if(sel2.value != '') sel2.disabled = true;
+            if(sel2.value != '') sel2.disabled = true;
