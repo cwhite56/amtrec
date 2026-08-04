@@ -5,6 +5,110 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width">
         <title>Wizard List</title>
+        <link rel="stylesheet" th:href="@{/style.css}">
+
+        <style>
+            .spell-grid {
+                display: grid;
+                grid-template-columns: max-content max-content max-content max-content max-content max-content;
+                border-top: 1px solid #444;
+                border-left: 1px solid #444;
+                width: max-content;
+            }
+
+            .spell-grid h1 {
+                grid-column: 1 / -1;
+                margin: 0;
+                padding: 8px 10px;
+                border-right: 1px solid #444;
+                border-bottom: 1px solid #444;
+                background: #f2f2f2;
+            }
+
+            .spell-grid .subhead {
+                margin: 0;
+                padding: 6px 10px;
+                border-right: 1px solid #444;
+                border-bottom: 1px solid #444;
+                font-size: 0.85em;
+                font-weight: 600;
+                background: #fafafa;
+                color: #555;
+                display: flex;
+                align-items: center;
+            }
+
+            .subhead-name { grid-column: 1; }
+            .subhead-purchased { grid-column: 2 / 5; justify-content: center; }
+            .subhead-cost { grid-column: 5; justify-content: center; }
+            .subhead-max { grid-column: 6; justify-content: center; }
+
+            .spell-row {
+                display: contents;
+            }
+
+            .spell-row > * {
+                border-right: 1px solid #444;
+                border-bottom: 1px solid #444;
+                padding: 4px 10px;
+                margin: 0;
+                display: flex;
+                align-items: center;
+            }
+
+            .spell-row > *:nth-child(1) { grid-column: 1; }
+            .spell-row > *:nth-child(2) { grid-column: 2; }
+            .spell-row > *:nth-child(3) { grid-column: 3; }
+            .spell-row > *:nth-child(4) { grid-column: 4; }
+            .spell-row > *:nth-child(5) { grid-column: 5; }
+            .spell-row > *:nth-child(6) { grid-column: 6; }
+            .spell-row > *:nth-child(7) { grid-column: 1; }
+            .spell-row > *:nth-child(8) { grid-column: 2 / -1; }
+
+            .spell-row > label {
+                justify-content: flex-start;
+                white-space: nowrap;
+            }
+
+            .spell-row > input[type="number"] {
+                width: 2.5em;
+                text-align: center;
+                justify-content: center;
+            }
+
+            .spell-row > input[type="button"] {
+                justify-content: center;
+                width: 2em;
+                box-sizing: content-box;
+            }
+
+            .blank-cell {
+                min-height: 1.6em;
+                border-top: 2px solid #000;
+                border-left: 2px solid #000;
+            }
+
+            .cost-cell,
+            .limit-cell {
+                justify-content: center;
+                width: 2.5em;
+                text-align: center;
+            }
+
+            .exp-select-cell {
+                justify-content: flex-start;
+                width: 230px;
+                box-sizing: border-box;
+            }
+
+            .exp-select-cell select {
+                width: 100%;
+            }
+
+            .fill-cell {
+                background: #f2f2f2;
+            }
+        </style>
     </head>
 
     <body>  
@@ -25,183 +129,335 @@
                 
             </div>
 
-            <h1>Level 1</h1>
-            <h2>Name    Purchased   Cost    Max</h2>
-            <div>
-                <label for="banish">Banish</label>
-                <input type="number" id="banish" class="spell-input" th:field="*{spentPoints[0]}" 
-                data-cost="1" data-cost-multiplier="1" data-level="1" data-type="verbal" data-school="spirit" data-range="20" 
-                data-value-multiplier="1" value="0" readonly/>
-                <input type="button" onclick="countUp('banish')" value="+"/>        
-                <input type="button" onclick="countDown('banish')" value="-"/>      
+            <div class="spell-grid">
+
+                <h1>Level 1</h1>
+                <div class="subhead subhead-name">Name</div>
+                <div class="subhead subhead-purchased">Purchased</div>
+                <div class="subhead subhead-cost">Cost</div>
+                <div class="subhead subhead-max">Max</div>
+                <div class="spell-row">
+                    <label for="banish">Banish</label>
+                    <input type="number" id="banish" class="spell-input" th:field="*{spentPoints[0]}" 
+                    data-cost="1" data-cost-multiplier="1" data-level="1" data-type="verbal" data-school="spirit" data-range="20" 
+                    data-value-multiplier="1" value="0" readonly/>
+                    <input type="button" onclick="countUp('banish')" value="+"/>        
+                    <input type="button" onclick="countDown('banish')" value="-"/>
+                    <span class="cost-cell"></span>
+                    <span class="limit-cell"></span>
+                </div>
+
+                <div class="spell-row">
+                    <label for="short">Weapon Short</label>
+                    <input type="number" id="short" class="spell-input" th:field="*{spentPoints[1]}" 
+                    data-cost="2"  data-cost-multiplier="1" data-limit="1" data-level="1" data-type="weapon" 
+                    data-value-multiplier="1" value="0" readonly/>
+                    <input type="button" onclick="countUp('short')" value="+"/>        
+                    <input type="button" onclick="countDown('short')" value="-"/>
+                    <span class="cost-cell"></span>
+                    <span class="limit-cell"></span>
+                </div>
+
+                <div class="spell-row">
+                    <label for="ex-1-label">Experienced 1</label>
+                    <input type="number" id="ex-1-label" class="spell-input" th:field="*{spentPoints[2]}" 
+                    data-cost="2"  data-cost-multiplier="1" data-limit="1" data-level="1" data-type="neutral" data-school="neutral" 
+                    data-value-multiplier="1" value="0" readonly/>     
+                    <span class="blank-cell"></span>
+                    <input type="button" onclick="countDown('ex-1-label'); exSpell(1, false)" value="-"/>
+                    <span class="cost-cell"></span>
+                    <span class="limit-cell"></span>
+                    <div class="exp-select-cell">
+                        <select th:field="*{exp1}" onchange="exSpell(1, true); countUp('ex-1-label')">
+                            <option value=""> Select Spell to Experience</option>
+                            <option value="banish">Banish</option>
+                            <option value="force-barrier">Force Barrier</option>
+                            <option value="heat-weapon">Heat Weapon</option>
+                            <option value="mend">Mend</option>
+                            <option value="shove">Shove</option>
+                        </select>
+                    </div>     
+                    <span class="fill-cell"></span>
+                </div>
+
+                <div class="spell-row">
+                    <label for="ex-2-label">Experienced 2</label>
+                    <input type="number" id="ex-2-label" class="spell-input" th:field="*{spentPoints[3]}" 
+                    data-cost="2"  data-cost-multiplier="1" data-limit="1" data-level="1" data-type="neutral" data-school="neutral" 
+                    data-value-multiplier="1" value="0" readonly/>       
+                    <span class="blank-cell"></span>
+                    <input type="button" onclick="countDown('ex-2'); exSpell(2, false)" value="-"/>
+                    <span class="cost-cell"></span>
+                    <span class="limit-cell"></span>
+                    <div class="exp-select-cell">
+                        <select th:field="*{exp2}" onchange="exSpell(2, true); countUp('ex-2-label')">
+                            <option value=""> Select Spell to Experience</option>
+                            <option value="banish">Banish</option>
+                            <option value="force-barrier">Force Barrier</option>
+                            <option value="heat-weapon">Heat Weapon</option>
+                            <option value="mend">Mend</option>
+                            <option value="shove">Shove</option>
+                        </select>
+                    </div>     
+                    <span class="fill-cell"></span>
+                </div>
+
+                <div class="spell-row">
+                    <label for="force-barrier">Force Barrier</label>
+                    <input type="number" id="force-barrier" class="spell-input" th:field="*{spentPoints[4]}" 
+                    data-cost="1" data-cost-multiplier="1" data-level="1" data-type="verbal" data-school="sorcery" data-range="self" 
+                    data-value-multiplier="1" value="0" readonly/>
+                    <input type="button" onclick="countUp('force-barrier')" value="+"/>        
+                    <input type="button" onclick="countDown('force-barrier')" value="-"/>
+                    <span class="cost-cell"></span>
+                    <span class="limit-cell"></span>
+                </div>
+
+                <div class="spell-row">
+                    <label for="force-bolt">Force Bolt</label>
+                    <input type="number" id="force-bolt" class="spell-input" th:field="*{spentPoints[5]}" 
+                    data-cost="1" data-cost-multiplier="1" data-limit="8" data-level="1" data-type="ball" data-school="sorcery" data-range="ball" 
+                    data-value-multiplier="1" value="0" readonly/>
+                    <input type="button" onclick="countUp('force-bolt')" value="+"/>        
+                    <input type="button" onclick="countDown('force-bolt')" value="-"/>
+                    <span class="cost-cell"></span>
+                    <span class="limit-cell"></span>
+                </div>
+
+                <div class="spell-row">
+                    <label for="heat-weapon">Heat Weapon</label>
+                    <input type="number" id="heat-weapon" class="spell-input" th:field="*{spentPoints[6]}" 
+                    data-cost="1" data-cost-multiplier="1" data-level="1" data-type="verbal" data-school="flame" data-range="20" 
+                    data-value-multiplier="1" value="0" readonly/>
+                    <input type="button" onclick="countUp('heat-weapon')" value="+"/>        
+                    <input type="button" onclick="countDown('heat-weapon')" value="-"/>
+                    <span class="cost-cell"></span>
+                    <span class="limit-cell"></span>
+                </div>
+
+                <div class="spell-row">
+                    <label for="mend">Mend</label>
+                    <input type="number" id="mend" class="spell-input" th:field="*{spentPoints[7]}" 
+                    data-cost="1" data-cost-multiplier="1" data-level="1" data-type="verbal" data-school="sorcery" data-range="touch" 
+                    data-value-multiplier="1" value="0" readonly/>
+                    <input type="button" onclick="countUp('mend')" value="+"/>        
+                    <input type="button" onclick="countDown('mend')" value="-"/>
+                    <span class="cost-cell"></span>
+                    <span class="limit-cell"></span>
+                </div>
+
+                <div class="spell-row">
+                    <label for="shove">Shove</label>
+                    <input type="number" id="shove" class="spell-input" th:field="*{spentPoints[8]}" 
+                    data-cost="1" data-cost-multiplier="1" data-level="1" data-type="verbal" data-school="sorcery" data-range="20" 
+                    data-value-multiplier="1" value="0" readonly/>
+                    <input type="button" onclick="countUp('shove')" value="+"/>        
+                    <input type="button" onclick="countDown('shove')" value="-"/>
+                    <span class="cost-cell"></span>
+                    <span class="limit-cell"></span>
+                </div>
+
+                <h1>Level 2</h1>
+                <div class="subhead subhead-name">Name</div>
+                <div class="subhead subhead-purchased">Purchased</div>
+                <div class="subhead subhead-cost">Cost</div>
+                <div class="subhead subhead-max">Max</div>
+
+                <div class="spell-row">
+                    <label for="astral-intervention">Astral Intervention</label>
+                    <input type="number" id="astral-intervention" class="spell-input" th:field="*{spentPoints[9]}" 
+                    data-cost="1" data-cost-multiplier="1" data-level="2" data-type="verbal" data-school="command" data-range="20"
+                    data-value-multiplier="1" value="0" readonly/>
+                    <input type="button" onclick="countUp('astral-intervention')" value="+"/>        
+                    <input type="button" onclick="countDown('astral-intervention')" value="-"/>
+                    <span class="cost-cell"></span>
+                    <span class="limit-cell"></span>
+                </div>
+
+                <div class="spell-row">
+                    <label for="break-con">Break Concentration</label>
+                    <input type="number" id="break-con" class="spell-input" th:field="*{spentPoints[10]}" 
+                    data-cost="1" data-cost-multiplier="1"  data-level="2" data-type="verbal" data-school="command" data-range="20" 
+                    data-value-multiplier="1" value="0" readonly/>
+                    <input type="button" onclick="countUp('break-con')" value="+"/>        
+                    <input type="button" onclick="countDown('break-con')" value="-"/>
+                    <span class="cost-cell"></span>
+                    <span class="limit-cell"></span>
+                </div>
+
+                <div class="spell-row">
+                    <label for="entangle">Entangle</label>
+                    <input type="number" id="entangle" class="spell-input" th:field="*{spentPoints[11]}" 
+                    data-cost="1" data-cost-multiplier="1" data-limit="3" data-level="2" data-type="ball" data-school="subdual" data-range="ball"
+                    data-value-multiplier="1" value="0" readonly/>
+                    <input type="button" onclick="countUp('entangle')" value="+"/>        
+                    <input type="button" onclick="countDown('entangle')" value="-"/>
+                    <span class="cost-cell"></span>
+                    <span class="limit-cell"></span>
+                </div>
+
+                <div class="spell-row">
+                    <label for="inate">Inate</label>
+                    <input type="number" id="inate" class="spell-input" th:field="*{spentPoints[12]}" 
+                    data-cost="1" data-cost-multiplier="1" data-level="2" data-type="meta" data-school="neutral"  
+                    data-value-multiplier="1" value="0" readonly/>
+                    <input type="button" onclick="countUp('inate')" value="+"/>        
+                    <input type="button" onclick="countDown('inate')" value="-"/>
+                    <span class="cost-cell"></span>
+                    <span class="limit-cell"></span>
+                </div>
+
+                <div class="spell-row">
+                    <label for="planar-grounding">Planar Grounding</label>
+                    <input type="number" id="planar-grounding" class="spell-input" th:field="*{spentPoints[13]}" 
+                    data-cost="1" data-cost-multiplier="1" data-level="2" data-type="verbal" data-school="sorcery" data-range="20"
+                    data-value-multiplier="1" value="0" readonly/>
+                    <input type="button" onclick="countUp('planar-grounding')" value="+"/>        
+                    <input type="button" onclick="countDown('planar-grounding')" value="-"/>
+                    <span class="cost-cell"></span>
+                    <span class="limit-cell"></span>
+                </div>
+
+                <div class="spell-row">
+                    <label for="release">Release</label>
+                    <input type="number" id="release" class="spell-input" th:field="*{spentPoints[14]}" 
+                    data-cost="1" data-cost-multiplier="1" data-level="2" data-type="verbal" data-school="sorcery" data-range="touch" 
+                    data-value-multiplier="1" value="0" readonly/>
+                    <input type="button" onclick="countUp('release')" value="+"/>        
+                    <input type="button" onclick="countDown('release')" value="-"/>
+                    <span class="cost-cell"></span>
+                    <span class="limit-cell"></span>
+                </div>
+
+                <div class="spell-row">
+                    <label for="suppression-bolt">Suppression Bolt</label>
+                    <input type="number" id="suppression-bolt" class="spell-input" th:field="*{spentPoints[15]}" 
+                    data-cost="1" data-cost-multiplier="1" data-limit="3" data-level="2" data-type="ball" data-school="subdual" data-range="ball" 
+                    data-value-multiplier="1" value="0" readonly/>
+                    <input type="button" onclick="countUp('suppression-bolt')" value="+"/>        
+                    <input type="button" onclick="countDown('suppression-bolt')" value="-"/>
+                    <span class="cost-cell"></span>
+                    <span class="limit-cell"></span>
+                </div>
+
+                <div class="spell-row">
+                    <label for="teleport">Teleport</label>
+                    <input type="number" id="teleport" class="spell-input" th:field="*{spentPoints[16]}" 
+                    data-cost="1" data-cost-multiplier="1" data-limit="2" data-level="2" data-type="verbal" data-school="sorcery" data-range="touch"
+                    data-value-multiplier="1" value="0" readonly/>
+                    <input type="button" onclick="countUp('teleport')" value="+"/>        
+                    <input type="button" onclick="countDown('teleport')" value="-"/>
+                    <span class="cost-cell"></span>
+                    <span class="limit-cell"></span>
+                </div>
+
+
+                <h1>Level 6</h1>
+                <div class="subhead subhead-name">Name</div>
+                <div class="subhead subhead-purchased">Purchased</div>
+                <div class="subhead subhead-cost">Cost</div>
+                <div class="subhead subhead-max">Max</div>
+
+                <div class="spell-row">
+                    <label for="battlemage">Battlemage 44</label>
+                    <input type="number" id="battlemage" class="spell-input" th:field="*{spentPoints[9]}" 
+                    data-cost="2" data-cost-multiplier="1" data-limit="1" data-level="6" data-type="archtype" data-school="neutral" 
+                    data-value-multiplier="1" value="0" readonly/>
+                    <input type="button" onclick="setBattlemage(true)" value="+"/>        
+                    <input type="button" onclick="setBattlemage(false)" value="-"/>
+                    <span class="cost-cell"></span>
+                    <span class="limit-cell"></span>
+                </div>
+
+                <div class="spell-row">
+                    <label for="elemental-barrage">Elemental Barrage</label>
+                    <input type="number" id="elemental-barrage" class="spell-input" th:field="*{spentPoints[10]}" 
+                    data-cost="1" data-cost-multiplier="1" data-limit="2" data-level="6" data-type="verbal" data-school="sorcery" data-range="self" 
+                    data-value-multiplier="1" value="0" readonly/>
+                    <input type="button" onclick="countUp('elemental-barrage')" value="+"/>        
+                    <input type="button" onclick="countDown('elemental-barrage')" value="-"/>
+                    <span class="cost-cell"></span>
+                    <span class="limit-cell"></span>
+                </div>
+
+                <div class="spell-row">
+                    <label for="evoker">Evoker</label>
+                    <input type="number" id="evoker" class="spell-input" th:field="*{spentPoints[11]}" 
+                    data-cost="2" data-cost-multiplier="1" data-limit="1" data-level="6" data-type="archtype" data-school="neutral" 
+                    data-value-multiplier="1" value="0" readonly/>
+                    <input type="button" onclick="setEvoker(true)" value="+"/>        
+                    <input type="button" onclick="setEvoker(false)" value="-"/>
+                    <span class="cost-cell"></span>
+                    <span class="limit-cell"></span>
+                </div>
+
+                <div class="spell-row">
+                    <label for="finger">Finger of Death</label>
+                    <input type="number" id="finger" class="spell-input" th:field="*{spentPoints[12]}" 
+                    data-cost="1" data-cost-multiplier="1" data-level="6" data-type="verbal" data-school="death" data-range="20" 
+                    data-value-multiplier="1" value="0" readonly/>
+                    <input type="button" onclick="countUp('finger')" value="+"/>        
+                    <input type="button" onclick="countDown('finger')" value="-"/>
+                    <span class="cost-cell"></span>
+                    <span class="limit-cell"></span>
+                </div>
+
+                <div class="spell-row">
+                    <label for="persistent">Persistent</label>
+                    <input type="number" id="persistent" class="spell-input" th:field="*{spentPoints[13]}" 
+                    data-cost="2" data-cost-multiplier="1" data-level="6" data-type="meta" data-school="neutral"
+                    data-value-multiplier="1" value="0" readonly/>
+                    <input type="button" onclick="countUp('persistent')" value="+"/>        
+                    <input type="button" onclick="countDown('persistent')" value="-"/>
+                    <span class="cost-cell"></span>
+                    <span class="limit-cell"></span>
+                </div>
+
+                <div class="spell-row">
+                    <label for="pro-magic">Protection from Magic</label>
+                    <input type="number" id="pro-magic" class="spell-input" th:field="*{spentPoints[14]}" 
+                    data-cost="1" data-cost-multiplier="1" data-level="6" data-type="enchantment" data-school="protection" data-range="other" 
+                    data-value-multiplier="1" value="0" readonly/>
+                    <input type="button" onclick="countUp('pro-magic')" value="+"/>        
+                    <input type="button" onclick="countDown('pro-magic')" value="-"/>
+                    <span class="cost-cell"></span>
+                    <span class="limit-cell"></span>
+                </div>
+
+                <div class="spell-row">
+                    <label for="sphere">Sphere of Annihilation</label>
+                    <input type="number" id="sphere" class="spell-input" th:field="*{spentPoints[15]}" 
+                    data-cost="2" data-cost-multiplier="1" data-limit="1" data-level="6" data-type="ball" data-school="sorcery" data-range="ball" 
+                    data-value-multiplier="1" value="0" readonly/>
+                    <input type="button" onclick="countUp('sphere')" value="+"/>        
+                    <input type="button" onclick="countDown('sphere')" value="-"/>
+                    <span class="cost-cell"></span>
+                    <span class="limit-cell"></span>
+                </div>
+
+                <div class="spell-row">
+                    <label for="warlock">Warlock</label>
+                    <input type="number" id="warlock" class="spell-input" th:field="*{spentPoints[16]}" 
+                    data-cost="2" data-cost-multiplier="1" data-limit="1" data-level="6" data-type="archtype" data-school="neutral"
+                    data-value-multiplier="1" value="0" readonly/>
+                    <input type="button" onclick="setWarlock(true)" value="+"/>        
+                    <input type="button" onclick="setWarlock(false)" value="-"/>
+                    <span class="cost-cell"></span>
+                    <span class="limit-cell"></span>
+                </div>
+
+                <div class="spell-row">
+                    <label for="word-mending">Word of Mending</label>
+                    <input type="number" id="word-mending" class="spell-input" th:field="*{spentPoints[17]}" 
+                    data-cost="1" data-cost-multiplier="1" data-level="6" data-type="verbal" data-school="sorcery" data-range="touch" 
+                    data-value-multiplier="1" value="0" readonly/>
+                    <input type="button" onclick="countUp('word-mending')" value="+"/>        
+                    <input type="button" onclick="countDown('word-mending')" value="-"/>
+                    <span class="cost-cell"></span>
+                    <span class="limit-cell"></span>
+                </div>
+
             </div>
-
-            <div>
-                <label for="short">Weapon Short</label>
-                <input type="number" id="short" class="spell-input" th:field="*{spentPoints[1]}" 
-                data-cost="2"  data-cost-multiplier="1" data-limit="1" data-level="1" data-type="weapon" 
-                data-value-multiplier="1" value="0" readonly/>
-                <input type="button" onclick="countUp('short')" value="+"/>        
-                <input type="button" onclick="countDown('short')" value="-"/>
-            </div>
-
-            <div>
-                <label for="ex-1-label">Experienced 1</label>
-                <input type="number" id="ex-1-label" class="spell-input" th:field="*{spentPoints[2]}" 
-                data-cost="2"  data-cost-multiplier="1" data-limit="1" data-level="1" data-type="neutral" data-school="neutral" 
-                data-value-multiplier="1" value="0" readonly/>     
-                <input type="button" onclick="countDown('ex-1-label'); exSpell(1, false)" value="-"/>
-                <div>
-                    <select th:field="*{exp1}" onchange="exSpell(1, true); countUp('ex-1-label')">
-                        <option value=""> Select Spell to Experience</option>
-                        <option value="banish">Banish</option>
-                        <option value="force-barrier">Force Barrier</option>
-                        <option value="heat-weapon">Heat Weapon</option>
-                        <option value="mend">Mend</option>
-                        <option value="shove">Shove</option>
-                    </select>
-                </div>     
-            </div>
-
-            <div>
-                <label for="ex-2-label">Experienced 2</label>
-                <input type="number" id="ex-2-label" class="spell-input" th:field="*{spentPoints[3]}" 
-                data-cost="2"  data-cost-multiplier="1" data-limit="1" data-level="1" data-type="neutral" data-school="neutral" 
-                data-value-multiplier="1" value="0" readonly/>       
-                <input type="button" onclick="countDown('ex-2'); exSpell(2, false)" value="-"/>
-                <div>
-                    <select th:field="*{exp2}" onchange="exSpell(2, true); countUp('ex-2-label')">
-                        <option value=""> Select Spell to Experience</option>
-                        <option value="banish">Banish</option>
-                        <option value="force-barrier">Force Barrier</option>
-                        <option value="heat-weapon">Heat Weapon</option>
-                        <option value="mend">Mend</option>
-                        <option value="shove">Shove</option>
-                    </select>
-                </div>     
-            </div>
-
-            <div>
-                <label for="force-barrier">Force Barrier</label>
-                <input type="number" id="force-barrier" class="spell-input" th:field="*{spentPoints[4]}" 
-                data-cost="1" data-cost-multiplier="1" data-level="1" data-type="verbal" data-school="sorcery" data-range="self" 
-                data-value-multiplier="1" value="0" readonly/>
-                <input type="button" onclick="countUp('force-barrier')" value="+"/>        
-                <input type="button" onclick="countDown('force-barrier')" value="-"/>
-            </div>
-
-             <div>
-                <label for="force-bolt">Force Bolt</label>
-                <input type="number" id="force-bolt" class="spell-input" th:field="*{spentPoints[5]}" 
-                data-cost="1" data-cost-multiplier="1" data-limit="8" data-level="1" data-type="ball" data-school="sorcery" data-range="ball" 
-                data-value-multiplier="1" value="0" readonly/>
-                <input type="button" onclick="countUp('force-bolt')" value="+"/>        
-                <input type="button" onclick="countDown('force-bolt')" value="-"/>
-            </div>
-
-             <div>
-                <label for="heat-weapon">Heat Weapon</label>
-                <input type="number" id="heat-weapon" class="spell-input" th:field="*{spentPoints[6]}" 
-                data-cost="1" data-cost-multiplier="1" data-level="1" data-type="verbal" data-school="flame" data-range="20" 
-                data-value-multiplier="1" value="0" readonly/>
-                <input type="button" onclick="countUp('heat-weapon')" value="+"/>        
-                <input type="button" onclick="countDown('heat-weapon')" value="-"/>
-            </div>
-
-             <div>
-                <label for="mend">Mend</label>
-                <input type="number" id="mend" class="spell-input" th:field="*{spentPoints[7]}" 
-                data-cost="1" data-cost-multiplier="1" data-level="1" data-type="verbal" data-school="sorcery" data-range="touch" 
-                data-value-multiplier="1" value="0" readonly/>
-                <input type="button" onclick="countUp('mend')" value="+"/>        
-                <input type="button" onclick="countDown('mend')" value="-"/>
-            </div>
-
-             <div>
-                <label for="shove">Shove</label>
-                <input type="number" id="shove" class="spell-input" th:field="*{spentPoints[8]}" 
-                data-cost="1" data-cost-multiplier="1" data-level="1" data-type="verbal" data-school="sorcery" data-range="20" 
-                data-value-multiplier="1" value="0" readonly/>
-                <input type="button" onclick="countUp('shove')" value="+"/>        
-                <input type="button" onclick="countDown('shove')" value="-"/>
-            </div>
-
-            <h1>Level 6</h1>
-            <h2>Name    Purchased   Cost    Max</h2>
-
-            <div>
-                <label for="battlemage">Battlemage 44</label>
-                <input type="number" id="battlemage" class="spell-input" th:field="*{spentPoints[9]}" 
-                data-cost="2" data-cost-multiplier="1" data-limit="1" data-level="6" data-type="archtype" data-school="neutral" 
-                data-value-multiplier="1" value="0" readonly/>
-                <input type="button" onclick="setBattlemage(true)" value="+"/>        
-                <input type="button" onclick="setBattlemage(false)" value="-"/>
-            </div>
-
-            <div>
-                <label for="elemental-barrage">Elemental Barrage</label>
-                <input type="number" id="elemental-barrage" class="spell-input" th:field="*{spentPoints[10]}" 
-                data-cost="1" data-cost-multiplier="1" data-limit="2" data-level="6" data-type="verbal" data-school="sorcery" data-range="self" 
-                data-value-multiplier="1" value="0" readonly/>
-                <input type="button" onclick="countUp('elemental-barrage')" value="+"/>        
-                <input type="button" onclick="countDown('elemental-barrage')" value="-"/>
-            </div>
-
-            <div>
-                <label for="evoker">Evoker</label>
-                <input type="number" id="evoker" class="spell-input" th:field="*{spentPoints[11]}" 
-                data-cost="2" data-cost-multiplier="1" data-limit="1" data-level="6" data-type="archtype" data-school="neutral" 
-                data-value-multiplier="1" value="0" readonly/>
-                <input type="button" onclick="setEvoker(true)" value="+"/>        
-                <input type="button" onclick="setEvoker(false)" value="-"/>
-            </div>
-
-             <div>
-                <label for="finger">Finger of Death</label>
-                <input type="number" id="finger" class="spell-input" th:field="*{spentPoints[12]}" 
-                data-cost="1" data-cost-multiplier="1" data-level="6" data-type="verbal" data-school="death" data-range="20" 
-                data-value-multiplier="1" value="0" readonly/>
-                <input type="button" onclick="countUp('finger')" value="+"/>        
-                <input type="button" onclick="countDown('finger')" value="-"/>
-            </div>
-
-             <div>
-                <label for="persistent">persistent</label>
-                <input type="number" id="persistent" class="spell-input" th:field="*{spentPoints[13]}" 
-                data-cost="2" data-cost-multiplier="1" data-level="6" data-type="meta" data-school="neutral"
-                data-value-multiplier="1" value="0" readonly/>
-                <input type="button" onclick="countUp('persistent')" value="+"/>        
-                <input type="button" onclick="countDown('persistent')" value="-"/>
-            </div>
-
-             <div>
-                <label for="pro-magic">Protection from Magic</label>
-                <input type="number" id="pro-magic" class="spell-input" th:field="*{spentPoints[14]}" 
-                data-cost="1" data-cost-multiplier="1" data-level="6" data-type="enchantment" data-school="protection" data-range="other" 
-                data-value-multiplier="1" value="0" readonly/>
-                <input type="button" onclick="countUp('pro-magic')" value="+"/>        
-                <input type="button" onclick="countDown('pro-magic')" value="-"/>
-            </div>
-
-             <div>
-                <label for="sphere">Sphere of Annihilation</label>
-                <input type="number" id="sphere" class="spell-input" th:field="*{spentPoints[15]}" 
-                data-cost="2" data-cost-multiplier="1" data-limit="1" data-level="6" data-type="ball" data-school="sorcery" data-range="ball" 
-                data-value-multiplier="1" value="0" readonly/>
-                <input type="button" onclick="countUp('sphere')" value="+"/>        
-                <input type="button" onclick="countDown('sphere')" value="-"/>
-            </div>
-
-             <div>
-                <label for="warlock">Warlock</label>
-                <input type="number" id="warlock" class="spell-input" th:field="*{spentPoints[16]}" 
-                data-cost="2" data-cost-multiplier="1" data-limit="1" data-level="6" data-type="archtype" data-school="neutral"
-                data-value-multiplier="1" value="0" readonly/>
-                <input type="button" onclick="setWarlock(true)" value="+"/>        
-                <input type="button" onclick="setWarlock(false)" value="-"/>
-            </div>
-
-
 
             <div id="form-footer">
                 <span id="reqLevel1">1:</span><input type="number" id="level1Points" name="level1Points"  class="level-input" th:field="*{pointsRemainingByLevel[0]}" value="5" size="2" disabled > 
@@ -218,10 +474,6 @@
             </div>
 
         </form>
-
-        
-        
-        
         <script type="text/javascript" th:src="@{/js/listBuilder.js}"></script>
 
         <script>
@@ -307,10 +559,24 @@
                     setArchtype('');
                 }
             }
+
+            document.addEventListener('DOMContentLoaded', function () {
+                document.querySelectorAll('.spell-row').forEach(function (row) {
+                    var input = row.querySelector('.spell-input');
+                    if (!input) return;
+
+                    var costCell = row.querySelector('.cost-cell');
+                    var limitCell = row.querySelector('.limit-cell');
+
+                    if (costCell) {
+                        costCell.textContent = input.dataset.cost || '\u2014';
+                    }
+                    if (limitCell) {
+                        limitCell.textContent = input.dataset.limit || '\u2014';
+                    }
+                });
+            });
         </script>
     </body>
-
-
-
 
 </html>
