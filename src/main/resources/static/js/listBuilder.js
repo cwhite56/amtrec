@@ -1,17 +1,39 @@
-function countUp(spell) {
+            function countUp(spell) {
 
-                if(checkArchtype(spell)) return;
+                if(checkArchtype(spell)) return -1;
 
                 const inputField = document.getElementById(spell);
 
+                if(parseInt(inputField.value) + 1 > parseInt(inputField.dataset.limit)) return -1;
 
-                if(parseInt(inputField.value) + 1 > parseInt(inputField.dataset.limit)) return;
+                if(spendPoints(inputField) < 0) return -1;
 
+                let endVal = 1 * parseInt(inputField.dataset.valueMultiplier) + parseInt(inputField.value);
+                inputField.value = endVal;
+            }
+
+            function countDown(spell) {
+
+                const inputField = document.getElementById(spell);
+
+                let val = parseInt(inputField.value);
+
+                if(val <= 0) {
+                    return -1;
+                }
+
+                refundPoints(inputField);
+
+                let endVal = parseInt(inputField.value) - parseInt(inputField.dataset.valueMultiplier);
+                inputField.value = endVal;
+            }
+
+            function spendPoints(spell) {
                 const levelPoints = document.querySelectorAll('[id^="level"]');
 
-                let cost = parseInt(inputField.dataset.cost) * parseInt(inputField.dataset.costMultiplier);
+                let cost = parseInt(spell.dataset.cost) * parseInt(spell.dataset.costMultiplier);
 
-                const spellLevel = inputField.dataset.level;
+                const spellLevel = spell.dataset.level;
 
 
                 for(let i = 0; i < 6; i++) {
@@ -35,29 +57,19 @@ function countUp(spell) {
 
                         levelPoints[i].value = startingVal;
 
-                        return;
+                        return -1;
                     }
                 }
 
-                if(cost > 0) return;
+                if(cost > 0) return -1;
 
-                let endVal = 1 * parseInt(inputField.dataset.valueMultiplier) + parseInt(inputField.value);
-                inputField.value = endVal;
+                return 0;
             }
 
-            function countDown(spell) {
-
-                const inputField = document.getElementById(spell);
-
-                let val = parseInt(inputField.value);
-
-                if(val <= 0) {
-                    return;
-                }
-
+            function refundPoints(spell) {
                 const levelPoints = document.querySelectorAll('[id^="level"]');
 
-                let cost = parseInt(inputField.dataset.cost) * parseInt(inputField.dataset.costMultiplier);
+                let cost = parseInt(spell.dataset.cost) * parseInt(spell.dataset.costMultiplier);
 
                 for (let i = 5; i >= 0; i--) {
 
@@ -75,10 +87,7 @@ function countUp(spell) {
                     }
 
                     if(cost == 0) break;
-
                 }
-                let endVal = parseInt(inputField.value) - parseInt(inputField.dataset.valueMultiplier);
-                inputField.value = endVal;
             }
 
             function setLTP(checkboxId) {
