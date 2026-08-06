@@ -8,7 +8,7 @@
 
                 if(spendPoints(inputField) < 0) return -1;
 
-                let endVal = 1 * parseInt(inputField.dataset.valueMultiplier) + parseInt(inputField.value);
+                let endVal = parseInt(inputField.dataset.valueMultiplier) + parseInt(inputField.value);
                 inputField.value = endVal;
             }
 
@@ -33,7 +33,7 @@
 
                 let cost = parseInt(spell.dataset.cost) * parseInt(spell.dataset.costMultiplier);
 
-                const spellLevel = spell.dataset.level;
+                const spellLevel = parseInt(spell.dataset.level);
 
 
                 for(let i = 0; i < 6; i++) {
@@ -73,21 +73,36 @@
 
                 for (let i = 5; i >= 0; i--) {
 
-                    if(levelPoints[i].value >= 5) continue;
+                    let remainingPoints = pointsRemainingByLevel(i + 1);
 
-                    while(levelPoints[i].value < 5 && cost > 0) {
+                    while(remainingPoints > 0 && cost > 0) {
                         levelPoints[i].value++;
                         cost--;
-                        
-                        //Level 6 gets an extra point for LTP bonus
-                        if(i == 5 && cost > 0) {
-                            levelPoints[i].value++;
-                            cost--;
-                        }
+                        remainingPoints--;
+
                     }
 
                     if(cost == 0) break;
                 }
+            }
+
+            function pointsRemainingByLevel(rank) {
+
+                const spellsAtLevel = document.querySelectorAll(`[data-level="${rank}"]`);
+
+                let count = 0;
+                let max = 5;
+
+                if(rank == 6 && isLTP()) max = 6;
+
+                for(const spell of spellsAtLevel) {
+
+                    let quantityPurchased = spell.value / parseInt(spell.dataset.valueMultiplier);
+
+                    count += quantityPurchased * ( parseInt(spell.cost) * parseInt(spell.dataset.costMultiplier) );
+
+                }
+                return count;
             }
 
             function setLTP(checkboxId) {
@@ -106,6 +121,11 @@
                 else {
                     checkbox.checked = true;
                 }
+            }
+
+            function isLTP() {
+                const checkbox = document.getElementById('LTP');
+                return checkbox.checked;
             }
 
             function isFreshList() {

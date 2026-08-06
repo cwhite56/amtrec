@@ -638,9 +638,14 @@
 
                     else if(spell.dataset.type == "weapon") {
 
+                        for(let i = 0; i < spell.value; i++) {
+                            refundPoints(spell);
+                        }
                         spell.dataset.costMultiplier = 2;
-                        if(spell.value < 1) continue;
-                        if(spendPoints(spell) < 0) return -1;
+
+                        for(let i = 0; i < spell.value; i++) {
+                            spendPoints(spell);
+                        }
                         
                     }
                 }
@@ -658,13 +663,16 @@
                     }
 
                     else if(spell.dataset.type =="weapon") {
-                        spell.dataset.valueMultiplier = 1;
 
-                        if(spell.value < 1) continue;
-
-                        for(let i = 0; i < spell.dataset.value; i++) {
+                        for(let i = 0; i < spell.value; i++) {
                             refundPoints(spell);
                         }
+                        spell.dataset.costMultiplier = 1;
+
+                        for(let i = 0; i < spell.value; i++) {
+                            spendPoints(spell);
+                        }
+                        
                     }
                 }
                 setArchtype('');
