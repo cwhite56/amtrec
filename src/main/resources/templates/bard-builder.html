@@ -644,7 +644,7 @@
                         spell.dataset.costMultiplier = 2;
 
                         for(let i = 0; i < spell.value; i++) {
-                            spendPoints(spell);
+                            if(spendPoints(spell) < 0) return -1;
                         }
                         
                     }
