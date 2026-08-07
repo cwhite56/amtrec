@@ -74,8 +74,6 @@ public class ViewController {
                 .build();
         model.addAttribute("spelllist", spellListDto);
 
-        System.out.println("Size is: " + spellListDto.getSpentPoints().size());
-
         switch (classSelection) {
             case "WIZARD":
                 

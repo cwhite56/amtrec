@@ -73,7 +73,12 @@
 
                 for (let i = 5; i >= 0; i--) {
 
-                    let remainingPoints = pointsRemainingByLevel(i + 1);
+                    let remainingPoints = parseInt(pointsRemainingByLevel(i + 1, spell));
+                    console.log(remainingPoints);
+
+                    remainingPoints -= levelPoints[i].value;
+
+                    console.log(remainingPoints);
 
                     while(remainingPoints > 0 && cost > 0) {
                         levelPoints[i].value++;
@@ -86,7 +91,7 @@
                 }
             }
 
-            function pointsRemainingByLevel(rank) {
+            function pointsRemainingByLevel(rank, spell) {
 
                 const spellsAtLevel = document.querySelectorAll(`[data-level="${rank}"]`);
 
@@ -95,14 +100,16 @@
 
                 if(rank == 6 && isLTP()) max = 6;
 
-                for(const spell of spellsAtLevel) {
+                for(const spells of spellsAtLevel) {
 
-                    let quantityPurchased = spell.value / parseInt(spell.dataset.valueMultiplier);
+                    let quantityPurchased = spells.value / parseInt(spells.dataset.valueMultiplier);
 
-                    count += quantityPurchased * ( parseInt(spell.cost) * parseInt(spell.dataset.costMultiplier) );
+                    if(spell.id == spells.id) quantityPurchased--;
+
+                    count += quantityPurchased * ( parseInt(spells.dataset.cost) * parseInt(spells.dataset.costMultiplier) );
 
                 }
-                return count;
+                return max - count;
             }
 
             function setLTP(checkboxId) {
