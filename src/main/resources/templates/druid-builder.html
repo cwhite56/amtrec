@@ -632,7 +632,7 @@
                 <div class="spell-row">
                     <label for="summoner">Summoner</label>
                     <input type="number" id="summoner" class="spell-input" th:field="*{spentPoints[49]}" 
-                    data-cost="2" data-cost-multiplier="1" data-limit="1"d ata-level="6" data-type="archtype" data-school="neutral"
+                    data-cost="2" data-cost-multiplier="1" data-limit="1" data-level="6" data-type="archtype" data-school="neutral"
                     data-value-multiplier="1" value="0" readonly/>
                     <input type="button" onclick="setSummoner(true)" value="+"/>        
                     <input type="button" onclick="setSummoner(false)" value="-"/>
@@ -670,10 +670,10 @@
         </form>
         <style>
             #form-footer {
-                background: #746d47;
+                background: #3f3a1b;
             }
             .spell-grid h1 {
-                background: #746d47;
+                background: #3f3a1b;
             }
         </style>
         <script type="text/javascript" th:src="@{/js/listBuilder.js}"></script>
@@ -702,24 +702,27 @@
 
                         if(spell.dataset.type == "weapon") {
 
-                            for(let i = 0; i < spell.value; i++) {
-                                refundPoints(spell);
+                            let count = spell.value;
+                            for(let i = 0; i < count; i++) {
+                                countDown(spell.id);
                             }
                             spell.dataset.costMultiplier = 0;
 
-                            for(let i = 0; i < spell.value; i++) {
-                                spendPoints(spell);
+                            for(let i = 0; i < count; i++) {
+                                countUp(spell.id); 
                             }
                         }
+
                         else if(spell.dataset.type == "enchantment") {
 
-                            for(let i = 0; i < spell.value; i++) {
-                                refundPoints(spell);
+                            let count = spell.value;
+                            for(let i = 0; i < count; i++) {
+                                countDown(spell.id);
                             }
                             spell.dataset.costMultiplier = 2;
 
-                            for(let i = 0; i < spell.value; i++) {
-                                if(spendPoints(spell) < 0) return -1;
+                            for(let i = 0; i < count; i++) {
+                                countUp(spell.id); 
                             }
                         }
                     }
@@ -731,29 +734,73 @@
 
                         if(spell.dataset.type == "weapon") {
 
-                            for(let i = 0; i < spell.value; i++) {
-                                refundPoints(spell);
+                            let count = spell.value;
+                            for(let i = 0; i < count; i++) {
+                                countDown(spell.id);
                             }
                             spell.dataset.costMultiplier = 1;
 
-                            for(let i = 0; i < spell.value; i++) {
-                                spendPoints(spell);
+                            for(let i = 0; i < count; i++) {
+                                countUp(spell.id); 
                             }
                         }
                         else if(spell.dataset.type == "enchantment") {
 
-                            for(let i = 0; i < spell.value; i++) {
-                                refundPoints(spell);
+                            let count = spell.value;
+                            for(let i = 0; i < count; i++) {
+                                countDown(spell.id);
                             }
                             spell.dataset.costMultiplier = 1;
 
-                            for(let i = 0; i < spell.value; i++) {
-                                if(spendPoints(spell) < 0) return -1;
+                            for(let i = 0; i < count; i++) {
+                                countUp(spell.id); 
                             }
                         }
                     }
                     setArchtype('');
                     countDown('ranger');
+                }
+            }
+
+            function setSummoner(bool) {
+                const spellInputs = document.querySelectorAll('.spell-input');
+
+                if(bool) {
+                    for(const spell of spellInputs) {
+
+                        if(spell.dataset.type == "verbal" && (spell.dataset.range != "self" && spell.dataset.range != "touch")) {
+
+                            if(spell.value > 0) return -1;
+                        }
+                    }
+                    for(const spell of spellInputs) {
+
+                        if(spell.dataset.type == "enchantment") {
+
+                            spell.dataset.valueMultiplier = 2;
+                            spell.value *= parseInt(spell.dataset.valueMultiplier);
+                        }
+
+                        
+                    }
+                    setArchtype('summoner');
+                    countUp('summoner');
+                }
+
+                else {
+                    
+                    for(const spell of spellInputs) {
+
+                        if(spell.dataset.type == "enchantment") {
+
+                            spell.value /= parseInt(spell.dataset.valueMultiplier);
+                            spell.dataset.valueMultiplier = 1;
+                        }
+
+                        
+                    }
+                    setArchtype('');
+                    countDown('summoner')
                 }
             }
         </script>

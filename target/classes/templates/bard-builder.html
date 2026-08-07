@@ -638,13 +638,16 @@
 
                     else if(spell.dataset.type == "weapon") {
 
-                        for(let i = 0; i < spell.value; i++) {
-                            refundPoints(spell);
+                        let count = spell.value;
+
+                        for(let i = 0; i < count; i++) {
+                            countDown(spell.id);
                         }
+
                         spell.dataset.costMultiplier = 2;
 
-                        for(let i = 0; i < spell.value; i++) {
-                            if(spendPoints(spell) < 0) return -1;
+                        for(let i = 0; i < count; i++) {
+                            countUp(spell.id); 
                         }
                         
                     }
@@ -664,13 +667,15 @@
 
                     else if(spell.dataset.type =="weapon") {
 
-                        for(let i = 0; i < spell.value; i++) {
-                            refundPoints(spell);
+                        let count = spell.value;
+                        for(let i = 0; i < count; i++) {
+                            countDown(spell.id);
                         }
+
                         spell.dataset.costMultiplier = 1;
 
-                        for(let i = 0; i < spell.value; i++) {
-                            spendPoints(spell);
+                        for(let i = 0; i < count; i++) {
+                            countUp(spell.id); 
                         }
                         
                     }
@@ -678,6 +683,31 @@
                 setArchtype('');
                 countDown('dervish');
             }
+           }
+
+           function setLegend(bool) {
+
+            const extension = document.getElementById('extension');
+            const swift = document.getElementById('swift');
+
+            if(bool) {
+
+                if(swift.value > 0)return -1;
+                
+                extension.dataset.valueMultiplier = 2;
+                extension.value *= parseInt(extension.dataset.valueMultiplier);
+
+                setArchtype('legend');
+                countUp('legend');
+            }
+            else {
+                extension.value /= parseInt(extension.dataset.valueMultiplier);
+                extension.dataset.valueMultiplier = 1;
+
+                setArchtype('');
+                countDown('legend');
+            }
+
            }
         </script>
     </body>

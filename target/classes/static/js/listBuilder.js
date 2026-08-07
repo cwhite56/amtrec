@@ -33,6 +33,7 @@
 
                 let cost = parseInt(spell.dataset.cost) * parseInt(spell.dataset.costMultiplier);
 
+
                 const spellLevel = parseInt(spell.dataset.level);
 
 
@@ -40,7 +41,7 @@
 
                     if(i + 1 < spellLevel) continue;
 
-                    if(levelPoints[i].value == 0) continue;
+                    //if(levelPoints[i].value == 0) continue;
 
                     const startingVal = levelPoints[i].value;
 
@@ -71,14 +72,12 @@
 
                 let cost = parseInt(spell.dataset.cost) * parseInt(spell.dataset.costMultiplier);
 
+
                 for (let i = 5; i >= 0; i--) {
 
                     let remainingPoints = parseInt(pointsRemainingByLevel(i + 1, spell));
-                    console.log(remainingPoints);
 
                     remainingPoints -= levelPoints[i].value;
-
-                    console.log(remainingPoints);
 
                     while(remainingPoints > 0 && cost > 0) {
                         levelPoints[i].value++;
@@ -216,6 +215,17 @@
 
                     case 'warlock':
                         if(spellInput.dataset.school != "flame" && spellInput.dataset.school != "death") return true;
+                        break;
+
+                    case 'legend':
+                        if(spellInput.id == "swift")return true;
+                        break;
+
+                    case 'summoner':
+                        if(spellInput.dataset.type == "verbal") {
+                            if(spellInput.dataset.range != "touch" && spellInput.dataset.range != "self") return true;
+                        }
+                        if(spellInput.dataset.type == "weapon" && parseInt(spellInput.dataset.level) > 2) return true;
                         break;
 
                     default:
