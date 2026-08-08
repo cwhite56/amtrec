@@ -228,6 +228,14 @@
                         if(spellInput.dataset.type == "weapon" && parseInt(spellInput.dataset.level) > 2) return true;
                         break;
 
+                    case 'necromancer':
+                        if(spellInput.dataset.school == "protection")return true;
+                        break;
+
+                    case 'warder':
+                        if(spellInput.dataset.school == "death" || spellInput.dataset.school == "command" || spellInput.dataset.school == "subdual")return true;
+                        break;
+
                     default:
                         return false;
                 }
