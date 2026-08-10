@@ -1,0 +1,70 @@
+<!DOCTYPE HTML>
+<html lang="en-US" xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <title>Class Stats</title>
+    </head>
+
+    <body>
+        <header> Please select a class to view</header>
+
+        <form th:action="@{/users/{username}/spell-lists/class-stats (username = ${username})}">
+            <fieldset>
+                <legend>Class selection</legend>
+
+                <button type="submit" id="wiz" name="classSelection" value="WIZARD">Wizard</button>
+                <button type="submit" id="bd" name="classSelection" value="BARD">Bard</button>
+                <button type="submit" id="heal" name="classSelection" value="HEALER">Healer</button>
+                <button type="submit" id="dru" name="classSelection" value="DRUID">Druid</button>
+            </fieldset>
+            
+        </form>
+       
+
+    </body>
+    <Style>
+        * {
+            text-align: center;
+            font-size: 20px;
+        }
+        header{
+                padding-top: 80px;
+                padding-bottom: 80px;
+            }
+            
+        body{
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border: 10px solid blueviolet;
+            }
+        button{
+            padding-top: 20px;
+            padding-bottom: 20px;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+        #wiz {
+            background: #e8eb3d;
+        }
+        #bd{
+            background: #4e68db;
+        }
+        #heal{
+            background: #a02020;
+        }
+        #dru{
+            background: #6b501f;
+        }
+
+    </Style>
+
+
+
+
+</html>

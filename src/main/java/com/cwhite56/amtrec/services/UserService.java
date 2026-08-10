@@ -5,6 +5,8 @@ import java.util.List;
 
 import com.cwhite56.amtrec.domain.dtos.SpellListDto;
 import com.cwhite56.amtrec.domain.dtos.UserDto;
+import com.cwhite56.amtrec.controllers.ClassStatsResponse;
+import com.cwhite56.amtrec.domain.Kingdom;
 import com.cwhite56.amtrec.domain.dtos.NewUserRequest;
 
 public interface UserService {
@@ -19,6 +21,8 @@ public interface UserService {
 
     public SpellListDto getSpellList(String title);
     public List<SpellListDto> getAllUsersSpellLists(String username);
+
+    public ClassStatsResponse getGlobalStats(String casterClass, Kingdom kingdom, Integer spellsPurchased);
 
     //DELETE
     public void deleteUser(String username);

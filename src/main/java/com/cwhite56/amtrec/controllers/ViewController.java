@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.cwhite56.amtrec.domain.dtos.ClassStatsRequest;
 import com.cwhite56.amtrec.domain.dtos.NewUserRequest;
 import com.cwhite56.amtrec.domain.dtos.SpellListDto;
 import com.cwhite56.amtrec.services.UserService;
@@ -60,7 +61,7 @@ public class ViewController {
 
         model.addAttribute("username", username);
 
-        return "class-selection";
+        return "class-selection-builder";
     }
 
     @GetMapping("users/{id}/spell-lists/builder")
@@ -77,19 +78,19 @@ public class ViewController {
         switch (classSelection) {
             case "WIZARD":
                 
-                return "wizard-builder";
+                return "classes/build/wizard-builder";
 
             case "BARD":
 
-                return "bard-builder";
+                return "classes/build/bard-builder";
 
             case "HEALER":
 
-                return "healer-builder";
+                return "classes/build/healer-builder";
             
             case "DRUID":
 
-                return "druid-builder";
+                return "classes/build/druid-builder";
         
             default:
                 return "home";
@@ -109,19 +110,62 @@ public class ViewController {
         switch (foundSpellList.getCasterClass()) {
             case "WIZARD":
                 
-                return "wizard-builder";
+                return "classes/build/wizard-builder";
 
             case "BARD":
 
-                return "bard-builder";
+                return "classes/build/bard-builder";
 
             case "HEALER":
 
-                return "healer-builder";
+                return "classes/build/healer-builder";
             
             case "DRUID":
 
-                return "druid-builder";
+                return "classes/build/druid-builder";
+        
+            default:
+                return "home";
+        }
+    }
+
+    @GetMapping("users/{id}/spell-lists/global-stats")
+    public String globalStatsClassSelection(@PathVariable("id") String username, Model model) {
+
+        model.addAttribute("username", username);
+
+        return "class-selection-stats";
+    }
+
+    @GetMapping("users/{id}/spell-lists/class-stats")
+    public String getClassStats(@PathVariable("id") String username, @RequestParam("classSelection") String classSelection, Model model) {
+
+
+        model.addAttribute("username", username);
+
+        ClassStatsRequest request = ClassStatsRequest.builder()
+            .casterClass(classSelection)
+            .spellsPurchased(0)
+            .build();
+
+        model.addAttribute("ClassStatsRequest", request);
+
+        switch (classSelection) {
+            case "WIZARD":
+                
+                return "classes/stats/wizard-stats";
+
+            case "BARD":
+
+                return "classes/stats/bard-stats";
+
+            case "HEALER":
+
+                return "classes/stats/healer-stats";
+            
+            case "DRUID":
+
+                return "classes/stats/druid-stats";
         
             default:
                 return "home";

@@ -1,0 +1,85 @@
+<!DOCTYPE HTML>
+<html lang="en-US" xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <title>Wizard Stats</title>
+    </head>
+
+    <body>
+        <header>Global Wizard Stats</header>
+
+        <div>
+            <a th:href="@{/users/{username}(username = ${username})}" dashboard>
+            My Dashboard
+            </a>
+        </div>
+
+        <div>
+            <form class ="form" th:action="@{/api/v1/users/spell-lists/global-stats}" 
+            th:object="${ClassStatsRequest}">
+
+                <input type="hidden" th:field="*{casterClass}"/>
+
+                <div>
+                    <label for="kingdom">Please select a kingdom</label>
+                    <div>
+                        <select id="kingdom" th:field="*{kingdom}" onchange="submitStatRequest()">
+                            <option value="" disabled selected> Select Kingdom</option>
+                            <option value="all">All</option>
+                            <option th:each="k : ${T(com.cwhite56.amtrec.domain.Kingdom).values()}"
+                                    th:value="${k}"
+                                    th:text="${k}">
+                            </option>
+                        </select>
+                    </div>
+                </div>
+
+
+                <div>
+                    <label for="spellsPurchased">Inclusion rate up to __ purchased</label>
+                    <div>
+                        <select id="spellsPurchased" th:field="*{spellsPurchased}" onchange="submitStatsRequest()">
+                            <option value="0">0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4+</option>
+                        </select>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+
+        
+    </body>
+
+    <style>
+        * {
+            text-align: center;
+            font-size: 20px;
+        }
+        body{
+            background-color: rgb(235, 228, 128);
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border: 10px solid blueviolet;
+        }
+        header{
+            
+            font-weight: bold;
+            padding-top: 40px;
+            padding-bottom: 40px;
+        }
+    </style>
+
+
+
+
+</html>

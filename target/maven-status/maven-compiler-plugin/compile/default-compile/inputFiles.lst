@@ -5,6 +5,7 @@
 /home/cwhite56/Development/Java/amtrec/src/main/java/com/cwhite56/amtrec/controllers/ViewController.java
 /home/cwhite56/Development/Java/amtrec/src/main/java/com/cwhite56/amtrec/domain/Kingdom.java
 /home/cwhite56/Development/Java/amtrec/src/main/java/com/cwhite56/amtrec/domain/Role.java
+/home/cwhite56/Development/Java/amtrec/src/main/java/com/cwhite56/amtrec/domain/dtos/ClassStatsRequest.java
 /home/cwhite56/Development/Java/amtrec/src/main/java/com/cwhite56/amtrec/domain/dtos/NewUserRequest.java
 /home/cwhite56/Development/Java/amtrec/src/main/java/com/cwhite56/amtrec/domain/dtos/SpellListDto.java
 /home/cwhite56/Development/Java/amtrec/src/main/java/com/cwhite56/amtrec/domain/dtos/UserDto.java

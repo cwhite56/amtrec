@@ -8,6 +8,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.cwhite56.amtrec.controllers.ClassStatsResponse;
+import com.cwhite56.amtrec.domain.Kingdom;
 import com.cwhite56.amtrec.domain.Role;
 import com.cwhite56.amtrec.domain.dtos.SpellListDto;
 import com.cwhite56.amtrec.domain.dtos.UserDto;
@@ -114,6 +116,14 @@ public class UserServiceImpl implements UserService{
             .map(spellListMapper::mapTo)
             .toList();
     }
+
+     @Override
+    public ClassStatsResponse getGlobalStats(String casterClass, Kingdom kingdom, Integer spellsPurchased) {
+        
+        List<SpellList> foundSpellLists = spellListRepository.findGlobalStats(casterClass, kingdom);
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getGlobalStats'");
+    }
     
     @Override
     public void deleteUser(String username) {
@@ -151,5 +161,4 @@ public class UserServiceImpl implements UserService{
     public boolean spellListExists(String title) {
         return spellListRepository.existsById(title);
     }
-
 }
