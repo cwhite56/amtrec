@@ -9,16 +9,50 @@
 
     <body>
         <header>Welcome to AmtRec!</header>
-        AmtRec is a tool for creating Amtgard spell lists and seeing what other people are playing!
-        <a th:href="@{/login}">
-            login
+
+        <p>AmtRec is a tool for creating Amtgard spell lists and seeing what other people are playing!</p>
+
+        <a th:href="@{/login}"> login
+            
         </a>
 
-        <a th:href="@{/register}">
-            register
-        </a>
+        <div>
+            <span>Don't have an account? Register</span>
+            <a th:href="@{/register}"> here
+
+            </a>
+
+        </div>
 
     </body>
+
+    <style>
+        * {
+            text-align: center;
+            font-size: 20px;
+        }
+        body{
+            background-color: rgb(235, 228, 128);
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border: 10px solid blueviolet;
+        }
+        header{
+            
+            font-weight: bold;
+            padding-top: 40px;
+            padding-bottom: 40px;
+        }
+        p{
+            padding-top: 80px;
+            padding-bottom: 40px;
+        }
+
+    </style>
 
 
 

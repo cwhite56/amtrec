@@ -12,7 +12,7 @@
 
         <div>
             <a th:href="@{/users/{username}(username = ${username})}" dashboard>
-            Dashboard
+            My Dashboard
             </a>
         </div>
         
@@ -32,6 +32,29 @@
             </a>
         </div>
     </body>
+    <style>
+        * {
+            text-align: center;
+        }
+        header{
+            font-size: 30px;
+            font-weight: bold;
+            padding-top: 80px;
+            padding-bottom: 80px;
+        }
+        
+        body{
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border: 10px solid blueviolet;
+            font-size: 20px;
+            background-color: rgb(235, 228, 128);
+        }
+    </style>
 
 
 

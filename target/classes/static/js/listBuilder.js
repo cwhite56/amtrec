@@ -152,19 +152,18 @@
 
                 const userField = document.getElementById('user');
                 const user = userField.value;
+                console.log(`user="${user}" title="${title}"`);
 
-                fetch(`/api/v1/users/${user}/spell-lists/${title}`,{
+                fetch(`/api/v1/users/${encodeURIComponent(user)}/spell-lists/${encodeURIComponent(title)}`,{
                     method: 'DELETE'
                 }).then(res => {
 
                     if(!res.ok) {
                         throw new Error("Error: could not delete spell list");
                     }
-                    return res.json;
-
-                }).then(data => {
                     window.location.href = `/users/${user}/spell-lists/dashboard`;
                 });
+                    
 
             }
 
@@ -214,7 +213,10 @@
                         break;
 
                     case 'warlock':
-                        if(spellInput.dataset.school != "flame" && spellInput.dataset.school != "death") return true;
+                        if(spellInput.dataset.type == "verbal" || spellInput.dataset.type == "ball") {
+
+                            if(spellInput.dataset.school != "flame" && spellInput.dataset.school != "death") return true;
+                        }
                         break;
 
                     case 'legend':
@@ -269,6 +271,9 @@
                 data.exp2 = exp2Select.value;
                 
                 const username = data.user;
+
+                const isLTP = document.getElementById('LTP');
+                data.LTP = isLTP.checked;
 
 
                 fetch(`/api/v1/users/${username}/spell-lists`, {
