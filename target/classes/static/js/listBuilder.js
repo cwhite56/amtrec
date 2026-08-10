@@ -26,6 +26,8 @@
 
                 let endVal = parseInt(inputField.value) - parseInt(inputField.dataset.valueMultiplier);
                 inputField.value = endVal;
+
+                if(isEmptyList()) enableLTP();
             }
 
             function spendPoints(spell) {
@@ -114,19 +116,13 @@
             function setLTP(checkboxId) {
 
                 const checkbox = document.getElementById(checkboxId);
-
-                if(isFreshList()) {
-
-                    const level6 = document.getElementById('level6Points');
+                const level6 = document.getElementById('level6Points');
                     
-                    if(checkbox.checked) level6.value++;
-
-                    else level6.value--;
+                if(checkbox.checked) {
+                    level6.value++;
+                    checkbox.disabled = true;
                 }
-
-                else {
-                    checkbox.checked = true;
-                }
+                else level6.value--;
             }
 
             function isLTP() {
@@ -134,13 +130,20 @@
                 return checkbox.checked;
             }
 
-            function isFreshList() {
+            function enableLTP() {
+                const checkbox = document.getElementById('LTP');
+                checkbox.disabled = false;
+            }
+
+            function isEmptyList() {
 
                 const levelPoints = document.querySelectorAll('[id^="level"]');
 
-                for(let i = 0; i < 6; i++) {
-                    if(levelPoints[i].value != 5 && levelPoints[i].value != 6) return false;
+                for(let i = 0; i < 5; i++) {
+                    if(levelPoints[i].value != 5) return false;
                 }
+
+                if(levelPoints[5].value != 6) return false;
 
                 return true;
             }
@@ -163,8 +166,6 @@
                     }
                     window.location.href = `/users/${user}/spell-lists/dashboard`;
                 });
-                    
-
             }
 
             function exSpell(exNum, isEx) {
@@ -172,14 +173,11 @@
                 let spell;
                 let sel;
 
-                if(exNum == 1) {
-                    sel = document.getElementById('exp1');
-                    spell = sel.value;
-                }
-                else if (exNum == 2){
-                    sel = document.getElementById('exp2');
-                    spell = sel.value;
-                }
+                if(exNum == 1) sel = document.getElementById('exp1');
+                
+                else if (exNum == 2) sel = document.getElementById('exp2');
+                
+                spell = sel.value;
                 
                 const spellLabel = document.querySelector(`label[for="${spell}"]`);
 
@@ -189,7 +187,6 @@
                 sel.disabled = true;
 
                 }
-                
                 else {
                     spellLabel.textContent = spellLabel.textContent.replace(/\s*\(ex\)/i, '');
 
