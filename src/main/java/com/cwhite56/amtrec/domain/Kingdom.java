@@ -23,6 +23,7 @@ public enum Kingdom {
     VO,
     WE,
     WM,
-    WL
+    WL,
+    all
     
 }

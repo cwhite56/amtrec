@@ -8,7 +8,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.cwhite56.amtrec.controllers.ClassStatsResponse;
 import com.cwhite56.amtrec.domain.Kingdom;
 import com.cwhite56.amtrec.domain.Role;
 import com.cwhite56.amtrec.domain.dtos.SpellListDto;
@@ -19,6 +18,7 @@ import com.cwhite56.amtrec.mappers.SpellListMapper;
 import com.cwhite56.amtrec.mappers.UserMapper;
 import com.cwhite56.amtrec.repositories.SpellListRepository;
 import com.cwhite56.amtrec.repositories.UserRepository;
+import com.cwhite56.amtrec.domain.dtos.ClassStatsResponse;
 import com.cwhite56.amtrec.domain.dtos.NewUserRequest;
 
 @Service
@@ -107,7 +107,7 @@ public class UserServiceImpl implements UserService{
         return spellListMapper.mapTo(foundSpellList.get());
     }
 
-      @Override
+    @Override
     public List<SpellListDto> getAllUsersSpellLists(String username) {
 
         List<SpellList> foundSpellLists = spellListRepository.findAllByUserUsername(username);
@@ -117,12 +117,28 @@ public class UserServiceImpl implements UserService{
             .toList();
     }
 
-     @Override
+    @Override
     public ClassStatsResponse getGlobalStats(String casterClass, Kingdom kingdom, Integer spellsPurchased) {
+
+        List<SpellList> foundSpellLists;
+        if(kingdom == "all") {
+            foundSpellLists = spellListRepository.findByCasterClass(casterClass);
+        }
+        else {
+            foundSpellLists = spellListRepository.findByCasterClassAndUser_Kingdom(casterClass, kingdom);
+        }
+        int totalCount = foundSpellLists.size();
+
+        List<Double> responseStats = new ArrayList<>();
+
+
+        // BEEF
+
+        ClassStatsResponse res = ClassStatsResponse.builder()
+            .stats(responseStats)
+            .build();
         
-        List<SpellList> foundSpellLists = spellListRepository.findGlobalStats(casterClass, kingdom);
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getGlobalStats'");
+        return res;
     }
     
     @Override

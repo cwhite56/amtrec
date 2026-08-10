@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class classStatsResponse {
+public class ClassStatsResponse {
     
     private List<Double> stats;
     

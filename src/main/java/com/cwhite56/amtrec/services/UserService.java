@@ -5,8 +5,8 @@ import java.util.List;
 
 import com.cwhite56.amtrec.domain.dtos.SpellListDto;
 import com.cwhite56.amtrec.domain.dtos.UserDto;
-import com.cwhite56.amtrec.controllers.ClassStatsResponse;
 import com.cwhite56.amtrec.domain.Kingdom;
+import com.cwhite56.amtrec.domain.dtos.ClassStatsResponse;
 import com.cwhite56.amtrec.domain.dtos.NewUserRequest;
 
 public interface UserService {
