@@ -4,12 +4,14 @@
 
                 const inputField = document.getElementById(spell);
 
-                if(parseInt(inputField.value) + 1 > parseInt(inputField.dataset.limit)) return -1;
+                if(parseInt(inputField.dataset.purchased) + 1 > parseInt(inputField.dataset.limit)) return -1;
 
                 if(spendPoints(inputField) < 0) return -1;
 
                 let endVal = parseInt(inputField.dataset.valueMultiplier) + parseInt(inputField.value);
                 inputField.value = endVal;
+
+                inputField.dataset.purchased++;
             }
 
             function countDown(spell) {
@@ -26,6 +28,8 @@
 
                 let endVal = parseInt(inputField.value) - parseInt(inputField.dataset.valueMultiplier);
                 inputField.value = endVal;
+
+                inputField.dataset.purchased--;
 
                 if(isEmptyList()) enableLTP();
             }
