@@ -11,7 +11,7 @@
         <header th:text="${username} + '\'s ' + 'Spell ' + 'Lists'"> </header>
 
         <div>
-            <a th:href="@{/users/{username}(username = ${username})}" dashboard>
+            <a th:href="@{/users/{username}/dashboard(username = ${username})}" dashboard>
             My Dashboard
             </a>
         </div>
@@ -19,7 +19,7 @@
         <div>
             <ul>
                 <li th:each="spelllist : ${dtoList}">
-                    <a th:href="@{/users/{username}/spell-lists/{title}(username = ${username}, title = ${spelllist.title})}" 
+                    <a th:href="@{/users/{username}/spell-lists/{title}/builder(username = ${username}, title = ${spelllist.title})}" 
                     th:text="${spelllist.title}" Spell List Title>
                     </a>
                 </li>
@@ -27,7 +27,7 @@
         </div>
 
         <div>
-            <a th:href="@{/users/{username}/spell-lists(username = ${username})}">
+            <a th:href="@{/users/{username}/spell-lists/class-selection-build(username = ${username})}">
                 Create new spell list
             </a>
         </div>

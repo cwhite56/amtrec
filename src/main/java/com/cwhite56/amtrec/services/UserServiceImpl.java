@@ -131,11 +131,7 @@ public class UserServiceImpl implements UserService{
         }
         ArrayList<SpellList> iterator = new ArrayList<>(foundSpellLists);
 
-        double denominator = foundSpellLists.size();
-
-
         List<Double> responseStats = new ArrayList<>(Collections.nCopies(53, 0.0));
-
 
         for(SpellList spell : iterator) {
 
@@ -150,11 +146,12 @@ public class UserServiceImpl implements UserService{
                 }
             }
         }
-        
+
+        double denominator = foundSpellLists.size();
+
         for(int i = 0; i < responseStats.size(); i++) {
             responseStats.set(i, responseStats.get(i) / denominator);
         }
-        
 
         ClassStatsResponse res = ClassStatsResponse.builder()
             .stats(responseStats)

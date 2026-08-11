@@ -289,7 +289,7 @@
                     return res.json();
 
                 }).then(data => {
-                    window.location.href = `/users/${username}/spell-lists/dashboard`;
+                    window.location.href = `/users/${username}/spell-lists/spellbook`;
                 });
             });
 

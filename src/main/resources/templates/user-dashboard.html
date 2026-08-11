@@ -11,19 +11,19 @@
         <header th:text="'Hello ' + ${username} + '!'"> </header>
 
         <div>
-            <a th:href="@{/users/{name}/spell-lists/dashboard(name = ${username})}">
+            <a th:href="@{/users/{name}/spell-lists/spellbook(name = ${username})}">
                 My spell lists
             </a>
         </div>
 
         <div>
-            <a th:href="@{/users/{username}/spell-lists(username = ${username})}">
+            <a th:href="@{/users/{username}/spell-lists/class-selection-build(username = ${username})}">
                 Create new spell list
             </a>
         </div>
 
         <div>
-            <a th:href="@{/users/{username}/spell-lists/global-stats(username = ${username})}">
+            <a th:href="@{/users/{username}/spell-lists/class-selection-stats(username = ${username})}">
                 Global stats
             </a>
         </div>

@@ -35,9 +35,9 @@ public class ViewController {
         model.addAttribute("newUserRequest", new NewUserRequest());
         return "register";
     }
+    // "/login"
 
-    // Check if secured
-    @GetMapping("/users/{id}")
+    @GetMapping("/users/{id}/dashboard")
     public String userDashboard(@PathVariable("id") String username, Model model) {
         
         model.addAttribute("username", username);
@@ -45,7 +45,7 @@ public class ViewController {
         return "user-dashboard";
     }
 
-    @GetMapping("users/{id}/spell-lists/dashboard")
+    @GetMapping("users/{id}/spell-lists/spellbook")
     public String userSpellLists(@PathVariable("id") String username, Model model) {
         
         List<SpellListDto> list = userService.getAllUsersSpellLists(username);
@@ -54,10 +54,10 @@ public class ViewController {
 
         model.addAttribute("dtoList", list);
 
-        return "user-spell-lists";
+        return "user-spellbook";
     }
 
-    @GetMapping("users/{id}/spell-lists")
+    @GetMapping("users/{id}/spell-lists/class-selection-build")
     public String classSelection(@PathVariable("id") String username, Model model) {
 
         model.addAttribute("username", username);
@@ -98,7 +98,7 @@ public class ViewController {
         }
     }
 
-    @GetMapping("users/{id}/spell-lists/{title}")
+    @GetMapping("users/{id}/spell-lists/{title}/builder")
     public String updateSpellList(@PathVariable("id") String username, @PathVariable("title") String title, Model model) {
 
         model.addAttribute("username", username);
@@ -130,7 +130,7 @@ public class ViewController {
         }
     }
 
-    @GetMapping("users/{id}/spell-lists/global-stats")
+    @GetMapping("users/{id}/spell-lists/class-selection-stats")
     public String globalStatsClassSelection(@PathVariable("id") String username, Model model) {
 
         model.addAttribute("username", username);
@@ -138,7 +138,7 @@ public class ViewController {
         return "class-selection-stats";
     }
 
-    @GetMapping("users/{id}/spell-lists/class-stats")
+    @GetMapping("users/{id}/spell-lists/global-stats")
     public String getClassStats(@PathVariable("id") String username, @RequestParam("classSelection") String classSelection, Model model) {
 
 

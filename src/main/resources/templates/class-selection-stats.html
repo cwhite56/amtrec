@@ -10,7 +10,7 @@
     <body>
         <header> Please select a class to view</header>
 
-        <form th:action="@{/users/{username}/spell-lists/class-stats (username = ${username})}">
+        <form th:action="@{/users/{username}/spell-lists/global-stats (username = ${username})}">
             <fieldset>
                 <legend>Class selection</legend>
 
@@ -61,10 +61,6 @@
         #dru{
             background: #6b501f;
         }
-
     </Style>
-
-
-
 
 </html>

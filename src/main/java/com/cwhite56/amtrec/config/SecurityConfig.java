@@ -63,7 +63,7 @@ public class SecurityConfig {
 
             String username = authentication.getName();
 
-            String targetUrl = "/users/" + username;
+            String targetUrl = "/users/" + username + "/dashboard";
 
             response.sendRedirect(request.getContextPath() + targetUrl);
         };
