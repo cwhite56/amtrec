@@ -1,11 +1,13 @@
 /home/cwhite56/Development/Java/amtrec/src/main/java/com/cwhite56/amtrec/AmtrecApplication.java
 /home/cwhite56/Development/Java/amtrec/src/main/java/com/cwhite56/amtrec/config/MapperConfig.java
 /home/cwhite56/Development/Java/amtrec/src/main/java/com/cwhite56/amtrec/config/SecurityConfig.java
+/home/cwhite56/Development/Java/amtrec/src/main/java/com/cwhite56/amtrec/controllers/StatsController.java
 /home/cwhite56/Development/Java/amtrec/src/main/java/com/cwhite56/amtrec/controllers/UserController.java
 /home/cwhite56/Development/Java/amtrec/src/main/java/com/cwhite56/amtrec/controllers/ViewController.java
 /home/cwhite56/Development/Java/amtrec/src/main/java/com/cwhite56/amtrec/domain/Kingdom.java
 /home/cwhite56/Development/Java/amtrec/src/main/java/com/cwhite56/amtrec/domain/Role.java
 /home/cwhite56/Development/Java/amtrec/src/main/java/com/cwhite56/amtrec/domain/dtos/ClassStatsRequest.java
+/home/cwhite56/Development/Java/amtrec/src/main/java/com/cwhite56/amtrec/domain/dtos/ClassStatsResponse.java
 /home/cwhite56/Development/Java/amtrec/src/main/java/com/cwhite56/amtrec/domain/dtos/NewUserRequest.java
 /home/cwhite56/Development/Java/amtrec/src/main/java/com/cwhite56/amtrec/domain/dtos/SpellListDto.java
 /home/cwhite56/Development/Java/amtrec/src/main/java/com/cwhite56/amtrec/domain/dtos/UserDto.java

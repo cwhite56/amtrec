@@ -36,6 +36,7 @@ public class ViewController {
         return "register";
     }
 
+    // Check if secured
     @GetMapping("/users/{id}")
     public String userDashboard(@PathVariable("id") String username, Model model) {
         

@@ -1,6 +1,7 @@
 package com.cwhite56.amtrec.services;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -121,18 +122,39 @@ public class UserServiceImpl implements UserService{
     public ClassStatsResponse getGlobalStats(String casterClass, Kingdom kingdom, Integer spellsPurchased) {
 
         List<SpellList> foundSpellLists;
-        if(kingdom == "all") {
+
+        if(kingdom.name() == "none") {
             foundSpellLists = spellListRepository.findByCasterClass(casterClass);
         }
         else {
             foundSpellLists = spellListRepository.findByCasterClassAndUser_Kingdom(casterClass, kingdom);
         }
-        int totalCount = foundSpellLists.size();
+        ArrayList<SpellList> iterator = new ArrayList<>(foundSpellLists);
 
-        List<Double> responseStats = new ArrayList<>();
+        double denominator = foundSpellLists.size();
 
 
-        // BEEF
+        List<Double> responseStats = new ArrayList<>(Collections.nCopies(53, 0.0));
+
+
+        for(SpellList spell : iterator) {
+
+            List<Integer> points = spell.getSpentPoints();
+            ArrayList<Integer> pointsArray = new ArrayList<>(points);
+
+            for(int i = 0; i < pointsArray.size(); i++) {
+
+                if(pointsArray.get(i) >= spellsPurchased) {
+
+                    responseStats.set(i, responseStats.get(i) + 1);
+                }
+            }
+        }
+        
+        for(int i = 0; i < responseStats.size(); i++) {
+            responseStats.set(i, responseStats.get(i) / denominator);
+        }
+        
 
         ClassStatsResponse res = ClassStatsResponse.builder()
             .stats(responseStats)

@@ -24,6 +24,5 @@ public enum Kingdom {
     WE,
     WM,
     WL,
-    all
-    
+    none
 }

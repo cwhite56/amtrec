@@ -11,7 +11,7 @@ import com.cwhite56.amtrec.domain.dtos.ClassStatsResponse;
 import com.cwhite56.amtrec.services.UserService;
 
 @RestController
-@RequestMapping("/api/vi")
+@RequestMapping("/api/v1")
 public class StatsController {
 
     private final UserService userService;
@@ -20,7 +20,7 @@ public class StatsController {
         this.userService = userService;
     }
 
-    @GetMapping("/users/spell-lists/global-stats")
+    @GetMapping("/spell-lists/global-stats")
     public ResponseEntity<ClassStatsResponse> getGlobalStats(@RequestBody ClassStatsRequest request) {
 
         ClassStatsResponse res = userService.getGlobalStats(request.getCasterClass(), request.getKingdom(), request.getSpellsPurchased());
