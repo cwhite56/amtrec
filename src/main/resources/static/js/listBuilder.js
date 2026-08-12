@@ -168,7 +168,7 @@
                     if(!res.ok) {
                         throw new Error("Error: could not delete spell list");
                     }
-                    window.location.href = `/users/${user}/spell-lists/dashboard`;
+                    window.location.href = `/users/${user}/spell-lists/spellbook`;
                 });
             }
 

@@ -36,7 +36,7 @@
 
 
                 <div>
-                    <label for="spellsPurchased">Inclusion rate up to __ purchased</label>
+                    <label for="spellsPurchased">Inclusion rate: at least __ purchased</label>
                     <div>
                         <select id="spellsPurchased" th:field="*{spellsPurchased}" onchange="submitStatsRequest()">
                             <option value="0" selected>0</option>
@@ -47,37 +47,188 @@
                         </select>
                     </div>
                 </div>
-
             </form>
         </div>
 
+        <div class="spell-grid">
+            <h1>Level 1</h1>
+            <div class="subhead subhead-name">Name</div>
+            <div class="subhead subhead-inclusion">Inclusion</div>
+            <div class="subhead subhead-average">Average</div>
+
+            <div class="spell-row">
+                <span>Banish</span>
+                <span class="inclusion-cell"></span>
+                <span class="average-cell"></span>
+            </div>
+
+            <div class="spell-row">
+                <span>Weapon Short</span>
+                <span class="inclusion-cell"></span>
+                <span class="average-cell"></span>
+            </div>
+
+            <div class="spell-row">
+                <span>Experienced</span>
+                <span class="inclusion-cell"></span>
+                <span class="average-cell"></span>
+            </div>
+
+            <div class="spell-row">
+                <span>Experienced 2</span>
+                <span class="inclusion-cell"></span>
+                <span class="average-cell"></span>
+            </div>
+
+            <div class="spell-row">
+                <span>Force Barrier</span>
+                <span class="inclusion-cell"></span>
+                <span class="average-cell"></span>
+            </div>
+
+            <div class="spell-row">
+                <span>Force Bolt</span>
+                <span class="inclusion-cell"></span>
+                <span class="average-cell"></span>
+            </div>
+
+            <div class="spell-row">
+                <span>Heat Weapon</span>
+                <span class="inclusion-cell"></span>
+                <span class="average-cell"></span>
+            </div>
+
+            <div class="spell-row">
+                <span>Mend</span>
+                <span class="inclusion-cell"></span>
+                <span class="average-cell"></span>
+            </div>
+
+            <div class="spell-row">
+                <span>Shove</span>
+                <span class="inclusion-cell"></span>
+                <span class="average-cell"></span>
+            </div>
+
+            <h1>Level 2</h1>
+            <div class="subhead subhead-name">Name</div>
+            <div class="subhead subhead-inclusion">Inclusion</div>
+            <div class="subhead subhead-average">Average</div>
+
+        </div>
         
     </body>
 
     <style>
-        * {
-            text-align: center;
-            font-size: 20px;
+    .spell-grid {
+        display: grid;
+        grid-template-columns: max-content max-content max-content;
+        border-top: 1px solid #444;
+        border-left: 1px solid #444;
+        width: max-content;
+        margin: 0 auto;
+        margin-top: 16px;
         }
-        body{
-            background-color: rgb(235, 228, 128);
-            content: "";
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            border: 10px solid blueviolet;
-        }
-        header{
-            
-            font-weight: bold;
-            padding-top: 40px;
-            padding-bottom: 40px;
-        }
+
+    .spell-grid h1 {
+        grid-column: 1 / -1;
+        margin: 0;
+        padding: 8px 10px;
+        border-right: 1px solid #444;
+        border-bottom: 1px solid #444;
+        background: #e8eb3d;
+    }
+
+    .spell-grid .subhead {
+        margin: 0;
+        padding: 6px 10px;
+        border-right: 1px solid #444;
+        border-bottom: 1px solid #444;
+        font-size: 0.85em;
+        font-weight: 600;
+        background: #fafafa;
+        color: #555;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .subhead-name { grid-column: 1; }
+    .subhead-inclusion { grid-column: 2; }
+    .subhead-average { grid-column: 3; }
+
+    .spell-row {
+        display: contents;
+    }
+
+    .spell-row > * {
+        border-right: 1px solid #444;
+        border-bottom: 1px solid #444;
+        padding: 4px 10px;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .spell-row > *:nth-child(1) { grid-column: 1; justify-content: flex-start; }
+    .spell-row > *:nth-child(2) { grid-column: 2; }
+    .spell-row > *:nth-child(3) { grid-column: 3; }
+
+    body {
+        background-color: rgb(235, 228, 128);
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border: 10px solid blueviolet;
+        margin: 0;
+        padding-bottom: 60px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 24px;
+    }
+
+    header {
+        font-weight: bold;
+        font-size: 30px;
+    }
     </style>
 
 
+    <script>
+        function submitStatsRequest() {
+            const form = document.querySelector('.form');
 
+
+            const formData = new FormData(form);
+
+            const data = Object.fromEntries(formData);
+
+            fetch('/api/v1/users', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+
+            }).then(res => {
+                    
+                if(!res.ok) {
+                    throw new Error('Could not register user');
+                }
+                return res.json();
+                    
+            }).then(data => {
+
+                const inclusionArray = data.stats;
+
+                
+            });
+        }
+    </script>
 
 </html>

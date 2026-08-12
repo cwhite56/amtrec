@@ -155,7 +155,7 @@ public class UserServiceImpl implements UserService{
         double denominator = foundSpellLists.size();
 
         for(int i = 0; i < responseStats.size(); i++) {
-            responseStats.set(i, responseStats.get(i) / denominator);
+            responseStats.set(i, (responseStats.get(i) / denominator) * 100);
         }
 
         ClassStatsResponse res = ClassStatsResponse.builder()
