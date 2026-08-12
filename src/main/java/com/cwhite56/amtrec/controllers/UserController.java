@@ -35,7 +35,7 @@ public class UserController {
 
         boolean doesUserExist = userService.userExists(request.getUsername());
 
-        if(doesUserExist) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        if(doesUserExist) return new ResponseEntity<>(HttpStatus.CONFLICT);
 
         UserDto savedUser = userService.createUser(request);
 

@@ -77,7 +77,7 @@ public class UserServiceImpl implements UserService{
 
         userRepository.save(foundUser.get()); 
 
-        spellListRepository.save(newSpellList);
+        //spellListRepository.save(newSpellList);
 
         return spellListMapper.mapTo(newSpellList);
     }

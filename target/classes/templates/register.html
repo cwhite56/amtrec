@@ -72,10 +72,16 @@
 
                 }).then(res => {
                     
-                    if(!res.ok) {
+                    if(res.status === 409) {
+                        alert("Username already exists!");
+                        throw new Error('Username already exists');
+                        
+                    }
+
+                    else if(!res.ok) {
                         throw new Error('Could not register user');
                     }
-                    return res.json;
+                    return res.json();
                     
                 }).then(data => {
 
