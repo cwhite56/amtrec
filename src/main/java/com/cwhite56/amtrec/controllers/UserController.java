@@ -83,11 +83,11 @@ public class UserController {
 
         if(!doesUserExist) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
-        boolean doesSpellListExist = userService.spellListExists(title);
+        boolean doesSpellListExist = userService.spellListExists(username, title);
 
         if(!doesSpellListExist) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
-        SpellListDto foundSpellList = userService.getSpellList(title);
+        SpellListDto foundSpellList = userService.getSpellList(username, title);
 
 
         return new ResponseEntity<>(foundSpellList, HttpStatus.OK);
@@ -117,7 +117,7 @@ public class UserController {
 
         if(!doesUserExist) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
-        boolean doesSpellListExist = userService.spellListExists(title);
+        boolean doesSpellListExist = userService.spellListExists(username, title);
 
         if(!doesSpellListExist) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 

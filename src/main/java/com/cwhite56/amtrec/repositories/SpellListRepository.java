@@ -9,9 +9,10 @@ import org.springframework.stereotype.Repository;
 
 import com.cwhite56.amtrec.domain.Kingdom;
 import com.cwhite56.amtrec.domain.entities.SpellList;
+import com.cwhite56.amtrec.domain.entities.SpellListId;
 
 @Repository
-public interface SpellListRepository extends JpaRepository<SpellList, String>{
+public interface SpellListRepository extends JpaRepository<SpellList, SpellListId>{
 
     List<SpellList> findAllByUserUsername(String username);
 

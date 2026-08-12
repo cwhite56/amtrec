@@ -4,6 +4,7 @@ import java.util.List;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.IdClass;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
@@ -22,6 +23,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @Builder
 @Entity
+@IdClass(SpellListId.class)
 @Table(name = "spelllists")
 public class SpellList {
 
@@ -37,6 +39,7 @@ public class SpellList {
     @JoinColumn(name = "user_id")
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
+    @Id
     private User user;
 
     private List<Integer> spentPoints;

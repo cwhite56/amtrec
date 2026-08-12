@@ -13,6 +13,7 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.cwhite56.amtrec.domain.entities.SpellList;
+import com.cwhite56.amtrec.domain.entities.SpellListId;
 import com.cwhite56.amtrec.domain.entities.User;
 import com.cwhite56.amtrec.repositories.SpellListRepository;
 import com.cwhite56.amtrec.repositories.UserRepository;
@@ -50,7 +51,7 @@ public class SpellListRepositoryTest {
     
         userRepository.save(user1);
 
-        Optional<SpellList> savedSpellList = underTest.findById("wizard");
+        Optional<SpellList> savedSpellList = underTest.findById(new SpellListId(user1, "wizard"));
         assertThat(savedSpellList).isPresent();
 
         assertThat(savedSpellList.get().getUser()).isNotNull();
@@ -81,7 +82,7 @@ public class SpellListRepositoryTest {
         
         userRepository.save(user1);
 
-        Optional<SpellList> savedSpellList = underTest.findById("bard");
+        Optional<SpellList> savedSpellList = underTest.findById(new SpellListId(user1,"bard"));
 
         assertThat(savedSpellList).isPresent();
 
@@ -116,7 +117,7 @@ public class SpellListRepositoryTest {
         userRepository.save(user1);
 
 
-        Optional<SpellList> savedSpellList = underTest.findById("wizard");
+        Optional<SpellList> savedSpellList = underTest.findById(new SpellListId(user1,"wizard"));
         Optional<User> savedUser = userRepository.findById(user1.getUsername());
 
         assertThat(savedSpellList).isNotPresent();

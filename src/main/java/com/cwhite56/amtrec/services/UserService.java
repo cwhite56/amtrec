@@ -19,7 +19,7 @@ public interface UserService {
     public UserDto getUser(String username);
     public List<UserDto> getAllUsers();
 
-    public SpellListDto getSpellList(String title);
+    public SpellListDto getSpellList(String username, String title);
     public List<SpellListDto> getAllUsersSpellLists(String username);
 
     public ClassStatsResponse getGlobalStats(String casterClass, Kingdom kingdom, Integer spellsPurchased);
@@ -31,7 +31,7 @@ public interface UserService {
 
     public boolean userExists(String username);
 
-    public boolean spellListExists(String title);
+    public boolean spellListExists(String username, String title);
 
 
     

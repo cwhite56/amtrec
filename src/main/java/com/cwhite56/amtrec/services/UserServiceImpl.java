@@ -14,6 +14,7 @@ import com.cwhite56.amtrec.domain.Role;
 import com.cwhite56.amtrec.domain.dtos.SpellListDto;
 import com.cwhite56.amtrec.domain.dtos.UserDto;
 import com.cwhite56.amtrec.domain.entities.SpellList;
+import com.cwhite56.amtrec.domain.entities.SpellListId;
 import com.cwhite56.amtrec.domain.entities.User;
 import com.cwhite56.amtrec.mappers.SpellListMapper;
 import com.cwhite56.amtrec.mappers.UserMapper;
@@ -101,9 +102,13 @@ public class UserServiceImpl implements UserService{
     
 
     @Override
-    public SpellListDto getSpellList(String title) {
+    public SpellListDto getSpellList(String username, String title) {
 
-        Optional<SpellList> foundSpellList = spellListRepository.findById(title);
+        Optional<User> user = userRepository.findById(username);
+
+        SpellListId id = new SpellListId(user.get(), title);
+
+        Optional<SpellList> foundSpellList = spellListRepository.findById(id);
 
         return spellListMapper.mapTo(foundSpellList.get());
     }
@@ -180,7 +185,9 @@ public class UserServiceImpl implements UserService{
 
         Optional<User> foundUser = userRepository.findById(username);
 
-        Optional<SpellList> foundSpellList = spellListRepository.findById(title);
+        SpellListId id = new SpellListId(foundUser.get(), title);
+
+        Optional<SpellList> foundSpellList = spellListRepository.findById(id);
 
         foundUser.get().deleteSpellList(foundSpellList.get());
 
@@ -193,7 +200,12 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public boolean spellListExists(String title) {
-        return spellListRepository.existsById(title);
+    public boolean spellListExists(String username, String title) {
+        
+        Optional<User> foundUser = userRepository.findById(username);
+
+        SpellListId id = new SpellListId(foundUser.get(), title);
+
+        return spellListRepository.existsById(id);
     }
 }

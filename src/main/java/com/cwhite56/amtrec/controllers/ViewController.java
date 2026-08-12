@@ -103,7 +103,8 @@ public class ViewController {
 
         model.addAttribute("username", username);
 
-        SpellListDto foundSpellList = userService.getSpellList(title);
+
+        SpellListDto foundSpellList = userService.getSpellList(username, title);
         
 
         model.addAttribute("spelllist", foundSpellList);
