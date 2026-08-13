@@ -38,7 +38,7 @@
                 <div>
                     <label for="spellsPurchased">Inclusion rate: at least __ purchased</label>
                     <div>
-                        <select id="spellsPurchased" th:field="*{spellsPurchased}" onchange="submitStatsRequest()">
+                        <select id="spellsPurchased" th:field="*{spellsPurchased}" onchange="submitStatRequest()">
                             <option value="0" selected>0</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -200,7 +200,7 @@
 
 
     <script>
-        function submitStatsRequest() {
+        function submitStatRequest() {
             const form = document.querySelector('.form');
 
 
@@ -208,7 +208,7 @@
 
             const data = Object.fromEntries(formData);
 
-            fetch('/api/v1/users', {
+            fetch('/api/v1/spell-lists/global-stats', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -225,7 +225,12 @@
             }).then(data => {
 
                 const inclusionArray = data.stats;
-
+                const inclusionSpans = document.querySelectorAll('.inclusion-cell')
+                let i = 0;
+                for(const span of inclusionSpans) {
+                    span.textContent = inclusionArray[i] + "%";
+                    i++;
+                }
                 
             });
         }
