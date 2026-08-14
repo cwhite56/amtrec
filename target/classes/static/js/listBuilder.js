@@ -1,14 +1,16 @@
             function countUp(spell) {
 
-                if(checkArchtype(spell)) return -1;
+                if(archtypeConflict(spell)) return -1;
 
                 const inputField = document.getElementById(spell);
 
                 if(parseInt(inputField.dataset.purchased) + 1 > parseInt(inputField.dataset.limit)) return -1;
 
-                if(spendPoints(inputField) < 0) return -1;
+                const multipliers = getArchtypeMultipliers(spell);
 
-                let endVal = parseInt(inputField.dataset.valueMultiplier) + parseInt(inputField.value);
+                if(spendPoints(spell, multipliers) < 0) return -1;
+
+                let endVal = multipliers.value + parseInt(inputField.value);
                 inputField.value = endVal;
 
                 inputField.dataset.purchased++;
@@ -24,9 +26,11 @@
                     return -1;
                 }
 
-                refundPoints(inputField);
+                const multipliers = getArchtypeMultipliers(spell);
 
-                let endVal = parseInt(inputField.value) - parseInt(inputField.dataset.valueMultiplier);
+                refundPoints(spell, multipliers);
+
+                let endVal = parseInt(inputField.value) - multipliers.value;
                 inputField.value = endVal;
 
                 inputField.dataset.purchased--;
@@ -34,14 +38,15 @@
                 if(isEmptyList()) enableLTP();
             }
 
-            function spendPoints(spell) {
+            function spendPoints(spell, multipliers) {
                 const levelPoints = document.querySelectorAll('[id^="level"]');
 
-                let cost = parseInt(spell.dataset.cost) * parseInt(spell.dataset.costMultiplier);
+                const inputField = document.getElementById(spell);
+
+                let cost = parseInt(inputField.dataset.cost) * multipliers.cost;
 
 
-                const spellLevel = parseInt(spell.dataset.level);
-
+                const spellLevel = parseInt(inputField.dataset.level);
 
                 for(let i = 0; i < 6; i++) {
 
@@ -56,9 +61,7 @@
                         levelPoints[i].value--;
                         cost--;
                     }
-
                     if(cost == 0) break;
-
                     // Not enough points remaining
                     else if(cost > 0 && i == 5) {
 
@@ -67,21 +70,21 @@
                         return -1;
                     }
                 }
-
                 if(cost > 0) return -1;
-
                 return 0;
             }
 
-            function refundPoints(spell) {
+            function refundPoints(spell, multipliers) {
                 const levelPoints = document.querySelectorAll('[id^="level"]');
 
-                let cost = parseInt(spell.dataset.cost) * parseInt(spell.dataset.costMultiplier);
+                const inputField = document.getElementById(spell);
+
+                let cost = parseInt(inputField.dataset.cost) * multipliers.cost;
 
 
                 for (let i = 5; i >= 0; i--) {
 
-                    let remainingPoints = parseInt(pointsRemainingByLevel(i + 1, spell));
+                    let remainingPoints = parseInt(pointsRemainingByLevel(i + 1, spell, multipliers));
 
                     remainingPoints -= levelPoints[i].value;
 
@@ -96,9 +99,10 @@
                 }
             }
 
-            function pointsRemainingByLevel(rank, spell) {
+            function pointsRemainingByLevel(rank, spell, multipliers) {
 
                 const spellsAtLevel = document.querySelectorAll(`[data-level="${rank}"]`);
+                const inputField = document.getElementById(spell);
 
                 let count = 0;
                 let max = 5;
@@ -107,11 +111,11 @@
 
                 for(const spells of spellsAtLevel) {
 
-                    let quantityPurchased = spells.value / parseInt(spells.dataset.valueMultiplier);
+                    let quantityPurchased = spells.value / parseInt(multipliers.value);
 
-                    if(spell.id == spells.id) quantityPurchased--;
+                    if(inputField.id == spells.id) quantityPurchased--;
 
-                    count += quantityPurchased * ( parseInt(spells.dataset.cost) * parseInt(spells.dataset.costMultiplier) );
+                    count += quantityPurchased * ( parseInt(spells.dataset.cost) * multipliers.cost);
 
                 }
                 return max - count;
@@ -199,7 +203,7 @@
                 }
             }
 
-            function checkArchtype(spell) {
+            function archtypeConflict(spell) {
                 const getArchtype = document.getElementById('archtype');
                 const spellInput = document.getElementById(spell);
 
@@ -243,6 +247,52 @@
                         return false;
                 }
 
+            }
+
+            function getArchtypeMultipliers(spell) {
+                const multipliers = {
+                    value: 1,
+                    cost: 1
+                };
+
+                const getArchtype = document.getElementById('archtype');
+                const spellInput = document.getElementById(spell);
+
+                switch(getArchtype.value) {
+
+                    case 'warlock':
+                        if(spellInput.dataset.type == "verbal" || spellInput.dataset.type == "ball") {
+
+                            if(spellInput.dataset.school == "flame" || spellInput.dataset.school == "death")multipliers.value = 2;
+                        }
+                        break;
+
+                    case 'dervish':
+                        if(spellInput.dataset.type == "verbal")multipliers.value = 2;
+                        else if(spellInput.dataset.type == "weapon") multipliers.cost = 2;
+                        break;
+
+                    case 'legend':
+                        if(spellInput.id == "extension")multipliers.value = 2;
+                        break;
+
+                    case 'ranger':
+                        if(spellInput.dataset.type == "weapon")multipliers.cost = 0;
+                        else if(spellInput.dataset.type == "enchantment")multipliers.cost = 2;
+                        break;
+
+                    case 'summoner':
+                        if(spellInput.dataset.type == "enchantment") multipliers.value = 2;
+                        break;
+
+                    case 'warder':
+                        if(spellInput.dataset.school == "protection") multipliers.value = 2;
+                        break;
+
+                    default:
+                        return multipliers;
+                }
+                return multipliers;
             }
 
             function setArchtype(spell) {
