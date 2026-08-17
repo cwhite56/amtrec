@@ -32,6 +32,9 @@ public class SpellListDto {
     private List<Integer> spentPoints = new ArrayList<>(Collections.nCopies(53, 0));
 
     @Builder.Default
+    private List<Integer> purchasedSpells = new ArrayList<>(Collections.nCopies(53, 0));
+
+    @Builder.Default
     private List<Integer> pointsRemainingByLevel = new ArrayList<>(Collections.nCopies(6, 5));
 
     private String exp1;
@@ -39,7 +42,8 @@ public class SpellListDto {
 
     private boolean LTP;
 
-    private String archtype;
+    @Builder.Default
+    private List<String> archtypes = new ArrayList(Collections.nCopies(3, ""));
 
     
 }

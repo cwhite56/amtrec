@@ -51,6 +51,6 @@ public class SpellList {
 
     private boolean LTP;
 
-    private String archtype;
+    private List<String> archtypes;
     
 }
