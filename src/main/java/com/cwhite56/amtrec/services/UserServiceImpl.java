@@ -135,7 +135,20 @@ public class UserServiceImpl implements UserService{
             foundSpellLists = spellListRepository.findByCasterClassAndUser_Kingdom(casterClass, kingdom);
         }
         ArrayList<SpellList> iterator = new ArrayList<>(foundSpellLists);
+        double denominator = foundSpellLists.size();
 
+        List<Double> responseInclusion = getGlobalInclusion(iterator, spellsPurchased, denominator);
+        List<Double> responseAverage = getGlobalAverage(iterator, denominator);
+
+        ClassStatsResponse res = ClassStatsResponse.builder()
+            .inclusion(responseInclusion)
+            .average(responseAverage)
+            .build();
+        
+        return res;
+    }
+
+    private List<Double> getGlobalInclusion(ArrayList<SpellList> iterator, int spellsPurchased, double denominator) {
         List<Double> responseInclusion = new ArrayList<>(Collections.nCopies(53, 0.0));
 
         for(SpellList spell : iterator) {
@@ -152,17 +165,28 @@ public class UserServiceImpl implements UserService{
             }
         }
 
-        double denominator = foundSpellLists.size();
-
         for(int i = 0; i < responseInclusion.size(); i++) {
             responseInclusion.set(i, (responseInclusion.get(i) / denominator) * 100);
         }
+        return responseInclusion;
+    }
 
-        ClassStatsResponse res = ClassStatsResponse.builder()
-            .inclusion(responseInclusion)
-            .build();
-        
-        return res;
+    private List<Double> getGlobalAverage(ArrayList<SpellList> iterator, double denominator) {
+        List<Double> responseAverage = new ArrayList<>(Collections.nCopies(53, 0.0));
+
+        for(SpellList spell : iterator) {
+            List<Integer> points = spell.getPurchasedSpells();
+            ArrayList<Integer> pointsArray = new ArrayList<>(points);
+
+            for(int i = 0; i < pointsArray.size(); i++) {
+                responseAverage.set(i, responseAverage.get(i) + pointsArray.get(i));
+            }
+        }
+        for(int i = 0; i < responseAverage.size(); i++) {
+            responseAverage.set(i, responseAverage.get(i) / denominator);
+        }
+
+        return responseAverage;
     }
     
     @Override

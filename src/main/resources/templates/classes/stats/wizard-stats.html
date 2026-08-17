@@ -11,7 +11,7 @@
         <header>Global Wizard Stats</header>
 
         <div>
-            <a th:href="@{/users/{username}(username = ${username})}" dashboard>
+            <a th:href="@{/users/{username}/dashboard(username = ${username})}" dashboard>
             My Dashboard
             </a>
         </div>
@@ -225,10 +225,20 @@
             }).then(data => {
 
                 const inclusionArray = data.inclusion;
-                const inclusionSpans = document.querySelectorAll('.inclusion-cell')
+                const averageArray = data.average;
+
+                const inclusionSpans = document.querySelectorAll('.inclusion-cell');
+                const averageSpans = document.querySelectorAll('.average-cell');
+
                 let i = 0;
                 for(const span of inclusionSpans) {
                     span.textContent = inclusionArray[i].toFixed(2) + "%";
+                    i++;
+                }
+
+                i = 0;
+                for(const span of averageSpans) {
+                    span.textContent = averageArray[i].toFixed(2);
                     i++;
                 }
                 
