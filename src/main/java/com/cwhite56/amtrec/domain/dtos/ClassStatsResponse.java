@@ -13,6 +13,8 @@ import lombok.NoArgsConstructor;
 @Builder
 public class ClassStatsResponse {
     
-    private List<Double> stats;
+    private List<Double> inclusion;
+
+    private List<Double> average;
     
 }

@@ -335,7 +335,7 @@
                 data.spentPoints = Array.from(spellInputs).map(input => parseInt(input.value) || 0);
 
                 const spellsPurchased = document.querySelectorAll('.spell-purchased');
-                data.purchasedSpells = Array.from(pointsPerLevel).map(input => parseInt(input.value) || 0);
+                data.purchasedSpells = Array.from(spellsPurchased).map(input => parseInt(input.value) || 0);
 
                 const pointsPerLevel = document.querySelectorAll('.level-input');
                 data.pointsRemainingByLevel = Array.from(pointsPerLevel).map(input => parseInt(input.value) || 0);

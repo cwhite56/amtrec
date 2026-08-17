@@ -41,6 +41,7 @@
                     <input type="number" id="barkskin" class="spell-value" th:field="*{spentPoints[0]}" 
                     data-cost="1" data-cost-multiplier="1" data-limit="2" data-level="1" data-type="enchantment" data-school="protection" data-range="other" 
                     data-value-multiplier="1" data-purchased="0" value="0" readonly/>
+                    <input type="hidden" id="barkskin-purchased" class="spell-purchased" value="0" th:field="*{purchasedSpells[0]}"/>
                     <input type="button" onclick="countUp('barkskin')" value="+"/>        
                     <input type="button" onclick="countDown('barkskin')" value="-"/>
                     <span class="cost-cell"></span>
@@ -52,6 +53,7 @@
                     <input type="number" id="entangle" class="spell-value" th:field="*{spentPoints[1]}" 
                     data-cost="1"  data-cost-multiplier="1" data-limit="2" data-level="1" data-type="ball" data-school="subdual" data-range="ball" 
                     data-value-multiplier="1" data-purchased="0" value="0" readonly/>
+                    <input type="hidden" id="entangle-purchased" class="spell-purchased" value="0" th:field="*{purchasedSpells[1]}"/>
                     <input type="button" onclick="countUp('entangle')" value="+"/>        
                     <input type="button" onclick="countDown('entangle')" value="-"/>
                     <span class="cost-cell"></span>
@@ -63,6 +65,7 @@
                     <input type="number" id="short" class="spell-value" th:field="*{spentPoints[2]}" 
                     data-cost="2"  data-cost-multiplier="1" data-limit="2" data-level="1" data-type="weapon" 
                     data-value-multiplier="1" data-purchased="0" value="0" readonly/>
+                    <input type="hidden" id="short-purchased" class="spell-purchased" value="0" th:field="*{purchasedSpells[2]}"/>
                     <input type="button" onclick="countUp('short')" value="+"/>        
                     <input type="button" onclick="countDown('short')" value="-"/>
                     <span class="cost-cell"></span>
@@ -74,6 +77,7 @@
                     <input type="number" id="ex-1-label" class="spell-value" th:field="*{spentPoints[3]}" 
                     data-cost="2"  data-cost-multiplier="1" data-limit="1" data-level="1" data-type="neutral" data-school="neutral" 
                     data-value-multiplier="1" data-purchased="0" value="0" readonly/>     
+                    <input type="hidden" id="ex-1-label-purchased" class="spell-purchased" value="0" th:field="*{purchasedSpells[3]}"/>
                     <span class="blank-cell"></span>
                     <input type="button" onclick="countDown('ex-1-label'); exSpell(1, false)" value="-"/>
                     <span class="cost-cell"></span>
@@ -98,6 +102,7 @@
                     <input type="number" id="ex-2-label" class="spell-value" th:field="*{spentPoints[4]}" 
                     data-cost="2"  data-cost-multiplier="1" data-limit="1" data-level="1" data-type="neutral" data-school="neutral" 
                     data-value-multiplier="1" data-purchased="0" value="0" readonly/>       
+                    <input type="hidden" id="ex-2-label-purchased" class="spell-purchased" value="0" th:field="*{purchasedSpells[4]}"/>
                     <span class="blank-cell"></span>
                     <input type="button" onclick="countDown('ex-2-label'); exSpell(2, false)" value="-"/>
                     <span class="cost-cell"></span>
@@ -122,6 +127,7 @@
                     <input type="number" id="heat-weapon" class="spell-value" th:field="*{spentPoints[5]}" 
                     data-cost="1" data-cost-multiplier="1" data-level="1" data-type="verbal" data-school="flame" data-range="20" 
                     data-value-multiplier="1" data-purchased="0" value="0" readonly/>
+                    <input type="hidden" id="heat-weapon-purchased" class="spell-purchased" value="0" th:field="*{purchasedSpells[5]}"/>
                     <input type="button" onclick="countUp('heat-weapon')" value="+"/>        
                     <input type="button" onclick="countDown('heat-weapon')" value="-"/>
                     <span class="cost-cell"></span>
@@ -133,6 +139,7 @@
                     <input type="number" id="harden-armor" class="spell-value" th:field="*{spentPoints[6]}" 
                     data-cost="1" data-cost-multiplier="1" data-level="1" data-type="enchantment" data-school="protection" data-range="other" 
                     data-value-multiplier="1" data-purchased="0" value="0" readonly/>
+                    <input type="hidden" id="harden-armor-purchased" class="spell-purchased" value="0" th:field="*{purchasedSpells[6]}"/>
                     <input type="button" onclick="countUp('harden-armor')" value="+"/>        
                     <input type="button" onclick="countDown('harden-armor')" value="-"/>
                     <span class="cost-cell"></span>
@@ -144,6 +151,7 @@
                     <input type="number" id="mend" class="spell-value" th:field="*{spentPoints[7]}" 
                     data-cost="1" data-cost-multiplier="1" data-level="1" data-type="verbal" data-school="sorcery" data-range="touch" 
                     data-value-multiplier="1" data-purchased="0" value="0" readonly/>
+                    <input type="hidden" id="mend-purchased" class="spell-purchased" value="0" th:field="*{purchasedSpells[7]}"/>
                     <input type="button" onclick="countUp('mend')" value="+"/>        
                     <input type="button" onclick="countDown('mend')" value="-"/>
                     <span class="cost-cell"></span>
@@ -161,6 +169,7 @@
                     <input type="number" id="small" class="spell-value" th:field="*{spentPoints[8]}" 
                     data-cost="4" data-cost-multiplier="1" data-limit="1" data-level="2" data-type="weapon"
                     data-value-multiplier="1" data-purchased="0" value="0" readonly/>
+                    <input type="hidden" id="small-purchased" class="spell-purchased" value="0" th:field="*{purchasedSpells[8]}"/>
                     <input type="button" onclick="countUp('small')" value="+"/>        
                     <input type="button" onclick="countDown('small')" value="-"/>
                     <span class="cost-cell"></span>
@@ -172,6 +181,7 @@
                     <input type="number" id="c-mist" class="spell-value" th:field="*{spentPoints[9]}" 
                     data-cost="1" data-cost-multiplier="1" data-limit="1" data-level="2" data-type="enchantment" data-school="death" data-range="touch"
                     data-value-multiplier="1" data-purchased="0" value="0" readonly/>
+                    <input type="hidden" id="c-mist-purchased" class="spell-purchased" value="0" th:field="*{purchasedSpells[9]}"/>
                     <input type="button" onclick="countUp('c-mist')" value="+"/>        
                     <input type="button" onclick="countDown('c-mist')" value="-"/>
                     <span class="cost-cell"></span>
@@ -183,6 +193,7 @@
                     <input type="number" id="gift-earth" class="spell-value" th:field="*{spentPoints[10]}" 
                     data-cost="1" data-cost-multiplier="1"  data-limit="2" data-level="2" data-type="enchantment" data-school="protection" data-range="other" 
                     data-value-multiplier="1" data-purchased="0" value="0" readonly/>
+                    <input type="hidden" id="gift-earth-purchased" class="spell-purchased" value="0" th:field="*{purchasedSpells[10]}"/>
                     <input type="button" onclick="countUp('gift-earth')" value="+"/>        
                     <input type="button" onclick="countDown('gift-earth')" value="-"/>
                     <span class="cost-cell"></span>
@@ -194,6 +205,7 @@
                     <input type="number" id="heal" class="spell-value" th:field="*{spentPoints[11]}" 
                     data-cost="1" data-cost-multiplier="1" data-level="2" data-type="verbal" data-school="spirit" data-range="touch"
                     data-value-multiplier="1" data-purchased="0" value="0" readonly/>
+                    <input type="hidden" id="heal-purchased" class="spell-purchased" value="0" th:field="*{purchasedSpells[11]}"/>
                     <input type="button" onclick="countUp('heal')" value="+"/>        
                     <input type="button" onclick="countDown('heal')" value="-"/>
                     <span class="cost-cell"></span>
@@ -205,6 +217,7 @@
                     <input type="number" id="force-bolt" class="spell-value" th:field="*{spentPoints[12]}" 
                     data-cost="1" data-cost-multiplier="1" data-limit="2" data-level="2" data-type="ball" data-school="sorcery" data-range="ball" 
                     data-value-multiplier="1" data-purchased="0" value="0" readonly/>
+                    <input type="hidden" id="force-bolt-purchased" class="spell-purchased" value="0" th:field="*{purchasedSpells[12]}"/>
                     <input type="button" onclick="countUp('force-bolt')" value="+"/>        
                     <input type="button" onclick="countDown('force-bolt')" value="-"/>
                     <span class="cost-cell"></span>
@@ -216,6 +229,7 @@
                     <input type="number" id="innate" class="spell-value" th:field="*{spentPoints[13]}" 
                     data-cost="1" data-cost-multiplier="1" data-limit="4" data-level="2" data-type="meta" data-school="neutral"  
                     data-value-multiplier="1" data-purchased="0" value="0" readonly/>
+                    <input type="hidden" id="innate-purchased" class="spell-purchased" value="0" th:field="*{purchasedSpells[13]}"/>
                     <input type="button" onclick="countUp('innate')" value="+"/>        
                     <input type="button" onclick="countDown('innate')" value="-"/>
                     <span class="cost-cell"></span>
@@ -227,6 +241,7 @@
                     <input type="number" id="poison" class="spell-value" th:field="*{spentPoints[14]}" 
                     data-cost="1" data-cost-multiplier="1" data-level="2" data-type="enchantment" data-school="death" data-range="other" 
                     data-value-multiplier="1" data-purchased="0" value="0" readonly/>
+                    <input type="hidden" id="poison-purchased" class="spell-purchased" value="0" th:field="*{purchasedSpells[14]}"/>
                     <input type="button" onclick="countUp('poison')" value="+"/>        
                     <input type="button" onclick="countDown('poison')" value="-"/>
                     <span class="cost-cell"></span>
@@ -238,6 +253,7 @@
                     <input type="number" id="release" class="spell-value" th:field="*{spentPoints[15]}" 
                     data-cost="1" data-cost-multiplier="1" data-level="2" data-type="verbal" data-school="sorcery" data-range="touch" 
                     data-value-multiplier="1" data-purchased="0" value="0" readonly/>
+                    <input type="hidden" id="release-purchased" class="spell-purchased" value="0" th:field="*{purchasedSpells[15]}"/>
                     <input type="button" onclick="countUp('release')" value="+"/>        
                     <input type="button" onclick="countDown('release')" value="-"/>
                     <span class="cost-cell"></span>
@@ -249,6 +265,7 @@
                     <input type="number" id="stoneform" class="spell-value" th:field="*{spentPoints[16]}" 
                     data-cost="1" data-cost-multiplier="1" data-level="2" data-type="verbal" data-school="protection" data-range="self"
                     data-value-multiplier="1" data-purchased="0" value="0" readonly/>
+                    <input type="hidden" id="stoneform-purchased" class="spell-purchased" value="0" th:field="*{purchasedSpells[16]}"/>
                     <input type="button" onclick="countUp('stoneform')" value="+"/>        
                     <input type="button" onclick="countDown('stoneform')" value="-"/>
                     <span class="cost-cell"></span>
@@ -266,6 +283,7 @@
                     <input type="number" id="attuned" class="spell-value" th:field="*{spentPoints[17]}" 
                     data-cost="1" data-cost-multiplier="1" data-limit="2" data-level="3" data-type="enchantment" data-school="sorcery" data-range="other"
                     data-value-multiplier="1" data-purchased="0" value="0" readonly/>
+                    <input type="hidden" id="attuned-purchased" class="spell-purchased" value="0" th:field="*{purchasedSpells[17]}"/>
                     <input type="button" onclick="countUp('attuned')" value="+"/>        
                     <input type="button" onclick="countDown('attuned')" value="-"/>
                     <span class="cost-cell"></span>
@@ -277,6 +295,7 @@
                     <input type="number" id="bear-strength" class="spell-value" th:field="*{spentPoints[18]}" 
                     data-cost="1" data-cost-multiplier="1"  data-level="3" data-type="enchantment" data-school="sorcery" data-range="other" 
                     data-value-multiplier="1" data-purchased="0" value="0" readonly/>
+                    <input type="hidden" id="bear-strength-purchased" class="spell-purchased" value="0" th:field="*{purchasedSpells[18]}"/>
                     <input type="button" onclick="countUp('bear-strength')" value="+"/>        
                     <input type="button" onclick="countDown('bear-strength')" value="-"/>
                     <span class="cost-cell"></span>
@@ -288,6 +307,7 @@
                     <input type="number" id="dispel" class="spell-value" th:field="*{spentPoints[19]}" 
                     data-cost="1" data-cost-multiplier="1" data-level="3" data-type="verbal" data-school="sorcery" data-range="20"
                     data-value-multiplier="1" data-purchased="0" value="0" readonly/>
+                    <input type="hidden" id="dispel-purchased" class="spell-purchased" value="0" th:field="*{purchasedSpells[19]}"/>
                     <input type="button" onclick="countUp('dispel')" value="+"/>        
                     <input type="button" onclick="countDown('dispel')" value="-"/>
                     <span class="cost-cell"></span>
@@ -299,6 +319,7 @@
                     <input type="number" id="extension" class="spell-value" th:field="*{spentPoints[20]}" 
                     data-cost="1" data-cost-multiplier="1" data-limit="2" data-level="3" data-type="meta" data-school="neutral" 
                     data-value-multiplier="1" data-purchased="0" value="0" readonly/>
+                    <input type="hidden" id="extension-purchased" class="spell-purchased" value="0" th:field="*{purchasedSpells[20]}"/>
                     <input type="button" onclick="countUp('extension')" value="+"/>        
                     <input type="button" onclick="countDown('extension')" value="-"/>
                     <span class="cost-cell"></span>
@@ -310,6 +331,7 @@
                     <input type="number" id="gift-fire" class="spell-value" th:field="*{spentPoints[21]}" 
                     data-cost="1" data-cost-multiplier="1" data-limit="2" data-level="3" data-type="enchantment" data-school="flame" data-range="other"
                     data-value-multiplier="1" data-purchased="0" value="0" readonly/>
+                    <input type="hidden" id="gift-fire-purchased" class="spell-purchased" value="0" th:field="*{purchasedSpells[21]}"/>
                     <input type="button" onclick="countUp('gift-fire')" value="+"/>        
                     <input type="button" onclick="countDown('gift-fire')" value="-"/>
                     <span class="cost-cell"></span>
@@ -321,6 +343,7 @@
                     <input type="number" id="greater-mend" class="spell-value" th:field="*{spentPoints[22]}" 
                     data-cost="1" data-cost-multiplier="1" data-level="3" data-type="verbal" data-school="sorcery" data-range="touch"  
                     data-value-multiplier="1" data-purchased="0" value="0" readonly/>
+                    <input type="hidden" id="greater-mend-purchased" class="spell-purchased" value="0" th:field="*{purchasedSpells[22]}"/>
                     <input type="button" onclick="countUp('greater-mend')" value="+"/>        
                     <input type="button" onclick="countDown('greater-mend')" value="-"/>
                     <span class="cost-cell"></span>
@@ -332,6 +355,7 @@
                     <input type="number" id="icy-blast" class="spell-value" th:field="*{spentPoints[23]}" 
                     data-cost="1" data-cost-multiplier="1" data-limit="2" data-level="3" data-type="verbal" data-school="sorcery" data-range="20"  
                     data-value-multiplier="1" data-purchased="0" value="0" readonly/>
+                    <input type="hidden" id="icy-blast-purchased" class="spell-purchased" value="0" th:field="*{purchasedSpells[23]}"/>
                     <input type="button" onclick="countUp('icy-blast')" value="+"/>        
                     <input type="button" onclick="countDown('icy-blast')" value="-"/>
                     <span class="cost-cell"></span>
@@ -343,6 +367,7 @@
                     <input type="number" id="regeneration" class="spell-value" th:field="*{spentPoints[24]}" 
                     data-cost="1" data-cost-multiplier="1" data-level="3" data-type="enchantment" data-school="spirit" data-range="other"
                     data-value-multiplier="1" data-purchased="0" value="0" readonly/>
+                    <input type="hidden" id="regeneration-purchased" class="spell-purchased" value="0" th:field="*{purchasedSpells[24]}"/>
                     <input type="button" onclick="countUp('regeneration')" value="+"/>        
                     <input type="button" onclick="countDown('regeneration')" value="-"/>
                     <span class="cost-cell"></span>
@@ -354,6 +379,7 @@
                     <input type="number" id="stoneskin" class="spell-value" th:field="*{spentPoints[25]}" 
                     data-cost="1" data-cost-multiplier="1" data-limit="2" data-level="3" data-type="enchantment" data-school="protection" data-range="other"
                     data-value-multiplier="1" data-purchased="0" value="0" readonly/>
+                    <input type="hidden" id="stoneskin-purchased" class="spell-purchased" value="0" th:field="*{purchasedSpells[25]}"/>
                     <input type="button" onclick="countUp('stoneskin')" value="+"/>        
                     <input type="button" onclick="countDown('stoneskin')" value="-"/>
                     <span class="cost-cell"></span>
@@ -371,6 +397,7 @@
                     <input type="number" id="long" class="spell-value" th:field="*{spentPoints[26]}" 
                     data-cost="4" data-cost-multiplier="1" data-limit="1" data-level="4" data-type="weapon"
                     data-value-multiplier="1" data-purchased="0" value="0" readonly/>
+                    <input type="hidden" id="long-purchased" class="spell-purchased" value="0" th:field="*{purchasedSpells[26]}"/>
                     <input type="button" onclick="countUp('long')" value="+"/>        
                     <input type="button" onclick="countDown('long')" value="-"/>
                     <span class="cost-cell"></span>
@@ -382,6 +409,7 @@
                     <input type="number" id="flameblade" class="spell-value" th:field="*{spentPoints[27]}" 
                     data-cost="2" data-cost-multiplier="1" data-limit="2" data-level="4" data-type="enchantment" data-school="flame" data-range="other"
                     data-value-multiplier="1" data-purchased="0" value="0" readonly/>
+                    <input type="hidden" id="flameblade-purchased" class="spell-purchased" value="0" th:field="*{purchasedSpells[27]}"/>
                     <input type="button" onclick="countUp('flameblade')" value="+"/>        
                     <input type="button" onclick="countDown('flameblade')" value="-"/>
                     <span class="cost-cell"></span>
@@ -393,6 +421,7 @@
                     <input type="number" id="iceball" class="spell-value" th:field="*{spentPoints[28]}" 
                     data-cost="1" data-cost-multiplier="1" data-limit="2" data-level="4" data-type="ball" data-school="subdual" data-range="ball" 
                     data-value-multiplier="1" data-purchased="0" value="0" readonly/>
+                    <input type="hidden" id="iceball-purchased" class="spell-purchased" value="0" th:field="*{purchasedSpells[28]}"/>
                     <input type="button" onclick="countUp('iceball')" value="+"/>        
                     <input type="button" onclick="countDown('iceball')" value="-"/>
                     <span class="cost-cell"></span>
@@ -404,6 +433,7 @@
                     <input type="number" id="gift-water" class="spell-value" th:field="*{spentPoints[29]}" 
                     data-cost="1" data-cost-multiplier="1" data-limit="2" data-level="4" data-type="enchantment" data-school="sorcery" data-range="other"
                     data-value-multiplier="1" data-purchased="0" value="0" readonly/>
+                    <input type="hidden" id="gift-water-purchased" class="spell-purchased" value="0" th:field="*{purchasedSpells[29]}"/>
                     <input type="button" onclick="countUp('gift-water')" value="+"/>        
                     <input type="button" onclick="countDown('gift-water')" value="-"/>
                     <span class="cost-cell"></span>
@@ -415,6 +445,7 @@
                     <input type="number" id="golem" class="spell-value" th:field="*{spentPoints[30]}" 
                     data-cost="1" data-cost-multiplier="1" data-level="4" data-type="enchantment" data-school="sorcery" data-range="other"  
                     data-value-multiplier="1" data-purchased="0" value="0" readonly/>
+                    <input type="hidden" id="golem-purchased" class="spell-purchased" value="0" th:field="*{purchasedSpells[30]}"/>
                     <input type="button" onclick="countUp('golem')" value="+"/>        
                     <input type="button" onclick="countDown('golem')" value="-"/>
                     <span class="cost-cell"></span>
@@ -426,6 +457,7 @@
                     <input type="number" id="lycan" class="spell-value" th:field="*{spentPoints[31]}" 
                     data-cost="1" data-cost-multiplier="1" data-limit="2" data-level="4" data-type="enchantment" data-school="death" data-range="other"
                     data-value-multiplier="1" data-purchased="0" value="0" readonly/>
+                    <input type="hidden" id="lycan-purchased" class="spell-purchased" value="0" th:field="*{purchasedSpells[31]}"/>
                     <input type="button" onclick="countUp('lycan')" value="+"/>        
                     <input type="button" onclick="countDown('lycan')" value="-"/>
                     <span class="cost-cell"></span>
@@ -437,6 +469,7 @@
                     <input type="number" id="swift" class="spell-value" th:field="*{spentPoints[32]}" 
                     data-cost="1" data-cost-multiplier="1" data-limit="2" data-level="4" data-type="meta" data-school="neutral"
                     data-value-multiplier="1" data-purchased="0" value="0" readonly/>
+                    <input type="hidden" id="swift-purchased" class="spell-purchased" value="0" th:field="*{purchasedSpells[32]}"/>
                     <input type="button" onclick="countUp('swift')" value="+"/>        
                     <input type="button" onclick="countDown('swift')" value="-"/>
                     <span class="cost-cell"></span>
@@ -448,6 +481,7 @@
                     <input type="number" id="teleport" class="spell-value" th:field="*{spentPoints[33]}" 
                     data-cost="1" data-cost-multiplier="1" data-limit="2" data-level="4" data-type="verbal" data-school="sorcery" data-range="touch"
                     data-value-multiplier="1" data-purchased="0" value="0" readonly/>
+                    <input type="hidden" id="teleport-purchased" class="spell-purchased" value="0" th:field="*{purchasedSpells[33]}"/>
                     <input type="button" onclick="countUp('teleport')" value="+"/>        
                     <input type="button" onclick="countDown('teleport')" value="-"/>
                     <span class="cost-cell"></span>
@@ -465,6 +499,7 @@
                     <input type="number" id="ambulant" class="spell-value" th:field="*{spentPoints[34]}" 
                     data-cost="1" data-cost-multiplier="1" data-level="5" data-limit="2" data-type="meta" data-school="neutral"
                     data-value-multiplier="1" data-purchased="0" value="0" readonly/>
+                    <input type="hidden" id="ambulant-purchased" class="spell-purchased" value="0" th:field="*{purchasedSpells[34]}"/>
                     <input type="button" onclick="countUp('ambulant')" value="+"/>        
                     <input type="button" onclick="countDown('ambulant')" value="-"/>
                     <span class="cost-cell"></span>
@@ -476,6 +511,7 @@
                     <input type="number" id="great" class="spell-value" th:field="*{spentPoints[35]}" 
                     data-cost="5" data-cost-multiplier="1" data-limit="1" data-level="5" data-type="weapon"
                     data-value-multiplier="1" data-purchased="0" value="0" readonly/>
+                    <input type="hidden" id="great-purchased" class="spell-purchased" value="0" th:field="*{purchasedSpells[35]}"/>
                     <input type="button" onclick="countUp('great')" value="+"/>        
                     <input type="button" onclick="countDown('great')" value="-"/>
                     <span class="cost-cell"></span>
@@ -487,6 +523,7 @@
                     <input type="number" id="graft" class="spell-value" th:field="*{spentPoints[36]}" 
                     data-cost="1" data-cost-multiplier="1" data-level="5" data-type="enchantment" data-school="sorcery" data-range="other"
                     data-value-multiplier="1" data-purchased="0" value="0" readonly/>
+                    <input type="hidden" id="graft-purchased" class="spell-purchased" value="0" th:field="*{purchasedSpells[36]}"/>
                     <input type="button" onclick="countUp('graft')" value="+"/>        
                     <input type="button" onclick="countDown('graft')" value="-"/>
                     <span class="cost-cell"></span>
@@ -498,6 +535,7 @@
                     <input type="number" id="gift-air" class="spell-value" th:field="*{spentPoints[37]}" 
                     data-cost="1" data-cost-multiplier="1"  data-limit="2" data-level="5" data-type="enchantment" data-school="sorcery" data-range="other" 
                     data-value-multiplier="1" data-purchased="0" value="0" readonly/>
+                    <input type="hidden" id="gift-air-purchased" class="spell-purchased" value="0" th:field="*{purchasedSpells[37]}"/>
                     <input type="button" onclick="countUp('gift-air')" value="+"/>        
                     <input type="button" onclick="countDown('gift-air')" value="-"/>
                     <span class="cost-cell"></span>
@@ -509,6 +547,7 @@
                     <input type="number" id="heart-swarm" class="spell-value" th:field="*{spentPoints[38]}" 
                     data-cost="1" data-cost-multiplier="1" data-limit="2" data-level="5" data-type="enchantment" data-school="spirit" data-range="self"
                     data-value-multiplier="1" data-purchased="0" value="0" readonly/>
+                    <input type="hidden" id="heart-swarm-purchased" class="spell-purchased" value="0" th:field="*{purchasedSpells[38]}"/>
                     <input type="button" onclick="countUp('heart-swarm')" value="+"/>        
                     <input type="button" onclick="countDown('heart-swarm')" value="-"/>
                     <span class="cost-cell"></span>
@@ -520,6 +559,7 @@
                     <input type="number" id="ironskin" class="spell-value" th:field="*{spentPoints[39]}" 
                     data-cost="1" data-cost-multiplier="1" data-limit="2" data-level="5" data-type="enchantment" data-school="protection" data-range="other"  
                     data-value-multiplier="1" data-purchased="0" value="0" readonly/>
+                    <input type="hidden" id="ironskin-purchased" class="spell-purchased" value="0" th:field="*{purchasedSpells[39]}"/>
                     <input type="button" onclick="countUp('ironskin')" value="+"/>        
                     <input type="button" onclick="countDown('ironskin')" value="-"/>
                     <span class="cost-cell"></span>
@@ -531,6 +571,7 @@
                     <input type="number" id="poison-glands" class="spell-value" th:field="*{spentPoints[40]}" 
                     data-cost="1" data-cost-multiplier="1" data-limit="2" data-level="5" data-type="enchantment" data-school="death" data-range="other"
                     data-value-multiplier="1" data-purchased="0" value="0" readonly/>
+                    <input type="hidden" id="poison-glands-purchased" class="spell-purchased" value="0" th:field="*{purchasedSpells[40]}"/>
                     <input type="button" onclick="countUp('poison-glands')" value="+"/>        
                     <input type="button" onclick="countDown('poison-glands')" value="-"/>
                     <span class="cost-cell"></span>
@@ -542,6 +583,7 @@
                     <input type="number" id="resurrect" class="spell-value" th:field="*{spentPoints[41]}" 
                     data-cost="2" data-cost-multiplier="1" data-level="5" data-type="verbal" data-school="spirit" data-range="touch" 
                     data-value-multiplier="1" data-purchased="0" value="0" readonly/>
+                    <input type="hidden" id="resurrect-purchased" class="spell-purchased" value="0" th:field="*{purchasedSpells[41]}"/>
                     <input type="button" onclick="countUp('resurrect')" value="+"/>        
                     <input type="button" onclick="countDown('resurrect')" value="-"/>
                     <span class="cost-cell"></span>
@@ -553,6 +595,7 @@
                     <input type="number" id="troll-blood" class="spell-value" th:field="*{spentPoints[42]}" 
                     data-cost="1" data-cost-multiplier="1" data-limit="2" data-level="5" data-type="enchantment" data-school="protection" data-range="other"
                     data-value-multiplier="1" data-purchased="0" value="0" readonly/>
+                    <input type="hidden" id="troll-blood-purchased" class="spell-purchased" value="0" th:field="*{purchasedSpells[42]}"/>
                     <input type="button" onclick="countUp('troll-blood')" value="+"/>        
                     <input type="button" onclick="countDown('troll-blood')" value="-"/>
                     <span class="cost-cell"></span>
@@ -570,6 +613,7 @@
                     <input type="number" id="aon" class="spell-value" th:field="*{spentPoints[43]}" 
                     data-cost="2" data-cost-multiplier="1" data-limit="1" data-level="6" data-type="archtype" data-school="neutral"
                     data-value-multiplier="1" data-purchased="0" value="0" readonly/>
+                    <input type="hidden" id="aon-purchased" class="spell-purchased" value="0" th:field="*{purchasedSpells[43]}"/>
                     <input type="button" onclick="setAON(true)" value="+"/>        
                     <input type="button" onclick="setAON(false)" value="-"/>
                     <span class="cost-cell"></span>
@@ -581,6 +625,7 @@
                     <input type="number" id="call-lightning" class="spell-value" th:field="*{spentPoints[44]}" 
                     data-cost="1" data-cost-multiplier="1" data-level="6" data-type="verbal" data-school="flame" data-range="20"
                     data-value-multiplier="1" data-purchased="0" value="0" readonly/>
+                    <input type="hidden" id="call-lightning-purchased" class="spell-purchased" value="0" th:field="*{purchasedSpells[44]}"/>
                     <input type="button" onclick="countUp('call-lightning')" value="+"/>        
                     <input type="button" onclick="countDown('call-lightning')" value="-"/>
                     <span class="cost-cell"></span>
@@ -592,6 +637,7 @@
                     <input type="number" id="toxic-blades" class="spell-value" th:field="*{spentPoints[45]}" 
                     data-cost="1" data-cost-multiplier="1" data-level="6" data-type="enchantment" data-school="death" data-range="other" 
                     data-value-multiplier="1" data-purchased="0" value="0" readonly/>
+                    <input type="hidden" id="toxic-blades-purchased" class="spell-purchased" value="0" th:field="*{purchasedSpells[45]}"/>
                     <input type="button" onclick="countUp('toxic-blades')" value="+"/>        
                     <input type="button" onclick="countDown('toxic-blades')" value="-"/>
                     <span class="cost-cell"></span>
@@ -603,6 +649,7 @@
                     <input type="number" id="nat-mag" class="spell-value" th:field="*{spentPoints[46]}" 
                     data-cost="1" data-cost-multiplier="1" data-limit="2" data-level="6" data-type="enchantment" data-school="sorcery" data-range="self" 
                     data-value-multiplier="1" data-purchased="0" value="0" readonly/>
+                    <input type="hidden" id="nat-mag-purchased" class="spell-purchased" value="0" th:field="*{purchasedSpells[46]}"/>
                     <input type="button" onclick="countUp('nat-mag')" value="+"/>        
                     <input type="button" onclick="countDown('nat-mag')" value="-"/>
                     <span class="cost-cell"></span>
@@ -614,6 +661,7 @@
                     <input type="number" id="ranger" class="spell-value" th:field="*{spentPoints[47]}" 
                     data-cost="2" data-cost-multiplier="1" data-limit="1" data-level="6" data-type="archtype" data-school="neutral"
                     data-value-multiplier="1" data-purchased="0" value="0" readonly/>
+                    <input type="hidden" id="ranger-purchased" class="spell-purchased" value="0" th:field="*{purchasedSpells[47]}"/>
                     <input type="button" onclick="setRanger(true)" value="+"/>        
                     <input type="button" onclick="setRanger(false)" value="-"/>
                     <span class="cost-cell"></span>
@@ -625,6 +673,7 @@
                     <input type="number" id="snaring-vines" class="spell-value" th:field="*{spentPoints[48]}" 
                     data-cost="1" data-cost-multiplier="1" data-limit="1" data-level="6" data-type="enchantment" data-school="command" data-range="self" 
                     data-value-multiplier="1" data-purchased="0" value="0" readonly/>
+                    <input type="hidden" id="snaring-vines-purchased" class="spell-purchased" value="0" th:field="*{purchasedSpells[48]}"/>
                     <input type="button" onclick="countUp('snaring-vines')" value="+"/>        
                     <input type="button" onclick="countDown('snaring-vines')" value="-"/>
                     <span class="cost-cell"></span>
@@ -636,6 +685,7 @@
                     <input type="number" id="summoner" class="spell-value" th:field="*{spentPoints[49]}" 
                     data-cost="2" data-cost-multiplier="1" data-limit="1" data-level="6" data-type="archtype" data-school="neutral"
                     data-value-multiplier="1" data-purchased="0" value="0" readonly/>
+                    <input type="hidden" id="summoner-purchased" class="spell-purchased" value="0" th:field="*{purchasedSpells[49]}"/>
                     <input type="button" onclick="setSummoner(true)" value="+"/>        
                     <input type="button" onclick="setSummoner(false)" value="-"/>
                     <span class="cost-cell"></span>
@@ -647,6 +697,7 @@
                     <input type="number" id="word-mending" class="spell-value" th:field="*{spentPoints[50]}" 
                     data-cost="1" data-cost-multiplier="1" data-limit="1" data-level="6" data-type="verbal" data-school="sorcery" data-range="touch" 
                     data-value-multiplier="1" data-purchased="0" value="0" readonly/>
+                    <input type="hidden" id="word-mending-purchased" class="spell-purchased" value="0" th:field="*{purchasedSpells[50]}"/>
                     <input type="button" onclick="countUp('word-mending')" value="+"/>        
                     <input type="button" onclick="countDown('word-mending')" value="-"/>
                     <span class="cost-cell"></span>

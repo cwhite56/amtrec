@@ -1,5 +1,6 @@
 package com.cwhite56.amtrec.domain.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.Entity;
@@ -43,6 +44,8 @@ public class SpellList {
     private User user;
 
     private List<Integer> spentPoints;
+
+    private List<Integer> purchasedSpells;
 
     private List<Integer> pointsRemainingByLevel;
 

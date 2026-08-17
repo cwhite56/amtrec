@@ -136,30 +136,30 @@ public class UserServiceImpl implements UserService{
         }
         ArrayList<SpellList> iterator = new ArrayList<>(foundSpellLists);
 
-        List<Double> responseStats = new ArrayList<>(Collections.nCopies(53, 0.0));
+        List<Double> responseInclusion = new ArrayList<>(Collections.nCopies(53, 0.0));
 
         for(SpellList spell : iterator) {
 
-            List<Integer> points = spell.getSpentPoints();
+            List<Integer> points = spell.getPurchasedSpells();
             ArrayList<Integer> pointsArray = new ArrayList<>(points);
 
             for(int i = 0; i < pointsArray.size(); i++) {
 
                 if(pointsArray.get(i) >= spellsPurchased) {
 
-                    responseStats.set(i, responseStats.get(i) + 1);
+                    responseInclusion.set(i, responseInclusion.get(i) + 1);
                 }
             }
         }
 
         double denominator = foundSpellLists.size();
 
-        for(int i = 0; i < responseStats.size(); i++) {
-            responseStats.set(i, (responseStats.get(i) / denominator) * 100);
+        for(int i = 0; i < responseInclusion.size(); i++) {
+            responseInclusion.set(i, (responseInclusion.get(i) / denominator) * 100);
         }
 
         ClassStatsResponse res = ClassStatsResponse.builder()
-            .stats(responseStats)
+            .inclusion(responseInclusion)
             .build();
         
         return res;

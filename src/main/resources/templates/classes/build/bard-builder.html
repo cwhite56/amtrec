@@ -40,6 +40,7 @@
                     <label for="confidence">Confidence</label>
                     <input type="number" id="confidence" class="spell-value" th:field="*{spentPoints[0]}" 
                     data-cost="1" data-level="1" data-type="verbal" data-school="sorcery" data-range="other" data-purchased="0" value="0" readonly/>
+                    <input type="hidden" id="confidence-purchased" class="spell-purchased" value="0" th:field="*{purchasedSpells[0]}"/>
                     <input type="button" onclick="countUp('confidence')" value="+"/>        
                     <input type="button" onclick="countDown('confidence')" value="-"/>
                     <span class="cost-cell"></span>
@@ -50,6 +51,7 @@
                     <label for="short">Weapon Short</label>
                     <input type="number" id="short" class="spell-value" th:field="*{spentPoints[1]}" 
                     data-cost="2"  data-limit="2" data-level="1" data-type="weapon" data-purchased="0" value="0" readonly/>
+                    <input type="hidden" id="short-purchased" class="spell-purchased" value="0" th:field="*{purchasedSpells[1]}"/>
                     <input type="button" onclick="countUp('short')" value="+"/>        
                     <input type="button" onclick="countDown('short')" value="-"/>
                     <span class="cost-cell"></span>
@@ -60,6 +62,7 @@
                     <label for="ex-1-label">Experienced 1</label>
                     <input type="number" id="ex-1-label" class="spell-value" th:field="*{spentPoints[2]}" 
                     data-cost="2"  data-limit="1" data-level="1" data-type="neutral" data-school="neutral" data-purchased="0" value="0" readonly/>     
+                    <input type="hidden" id="ex-1-label-purchased" class="spell-purchased" value="0" th:field="*{purchasedSpells[2]}"/>
                     <span class="blank-cell"></span>
                     <input type="button" onclick="countDown('ex-1-label'); exSpell(1, false)" value="-"/>
                     <span class="cost-cell"></span>
@@ -87,6 +90,7 @@
                     <label for="ex-2-label">Experienced 2</label>
                     <input type="number" id="ex-2-label" class="spell-value" th:field="*{spentPoints[3]}" 
                     data-cost="2"  data-limit="1" data-level="1" data-type="neutral" data-school="neutral" data-purchased="0" value="0" readonly/>       
+                    <input type="hidden" id="ex-2-label-purchased" class="spell-purchased" value="0" th:field="*{purchasedSpells[3]}"/>
                     <span class="blank-cell"></span>
                     <input type="button" onclick="countDown('ex-2-label'); exSpell(2, false)" value="-"/>
                     <span class="cost-cell"></span>
@@ -114,6 +118,7 @@
                     <label for="insult">Insult</label>
                     <input type="number" id="insult" class="spell-value" th:field="*{spentPoints[4]}" 
                     data-cost="1" data-level="1" data-type="verbal" data-school="command" data-range="20" data-purchased="0" value="0" readonly/>
+                    <input type="hidden" id="insult-purchased" class="spell-purchased" value="0" th:field="*{purchasedSpells[4]}"/>
                     <input type="button" onclick="countUp('insult')" value="+"/>        
                     <input type="button" onclick="countDown('insult')" value="-"/>
                     <span class="cost-cell"></span>
@@ -124,6 +129,7 @@
                     <label for="release">Release</label>
                     <input type="number" id="release" class="spell-value" th:field="*{spentPoints[5]}" 
                     data-cost="1" data-level="1" data-type="verbal" data-school="sorcery" data-range="touch" data-purchased="0" value="0" readonly/>
+                    <input type="hidden" id="release-purchased" class="spell-purchased" value="0" th:field="*{purchasedSpells[5]}"/>
                     <input type="button" onclick="countUp('release')" value="+"/>        
                     <input type="button" onclick="countDown('release')" value="-"/>
                     <span class="cost-cell"></span>
@@ -134,6 +140,7 @@
                     <label for="shove">Shove</label>
                     <input type="number" id="shove" class="spell-value" th:field="*{spentPoints[6]}" 
                     data-cost="1" data-level="1" data-type="verbal" data-school="sorcery" data-range="20" data-purchased="0" value="0" readonly/>
+                    <input type="hidden" id="shove-purchased" class="spell-purchased" value="0" th:field="*{purchasedSpells[6]}"/>
                     <input type="button" onclick="countUp('shove')" value="+"/>        
                     <input type="button" onclick="countDown('shove')" value="-"/>
                     <span class="cost-cell"></span>
@@ -144,6 +151,7 @@
                     <label for="song-determination">Song of Determination</label>
                     <input type="number" id="song-determination" class="spell-value" th:field="*{spentPoints[7]}" 
                     data-cost="1" data-limit="1" data-level="1" data-type="enchantment" data-school="protection" data-range="self" data-purchased="0" value="0" readonly/>
+                    <input type="hidden" id="song-determination-purchased" class="spell-purchased" value="0" th:field="*{purchasedSpells[7]}"/>
                     <input type="button" onclick="countUp('song-determination')" value="+"/>        
                     <input type="button" onclick="countDown('song-determination')" value="-"/>
                     <span class="cost-cell"></span>
@@ -160,6 +168,7 @@
                     <label for="empower">Empower</label>
                     <input type="number" id="empower" class="spell-value" th:field="*{spentPoints[8]}" 
                     data-cost="1" data-level="2" data-type="verbal" data-school="sorcery" data-range="other" data-purchased="0" value="0" readonly/>
+                    <input type="hidden" id="empower-purchased" class="spell-purchased" value="0" th:field="*{purchasedSpells[8]}"/>
                     <input type="button" onclick="countUp('empower')" value="+"/>        
                     <input type="button" onclick="countDown('empower')" value="-"/>
                     <span class="cost-cell"></span>
@@ -170,6 +179,7 @@
                     <label for="armor-2">Armor 1 Point</label>
                     <input type="number" id="armor-2" class="spell-value" th:field="*{spentPoints[9]}" 
                     data-cost="3" data-limit="1" data-level="2" data-type="weapon" data-purchased="0" value="0" readonly/>
+                    <input type="hidden" id="armor-2-purchased" class="spell-purchased" value="0" th:field="*{purchasedSpells[9]}"/>
                     <input type="button" onclick="countUp('armor-2')" value="+"/>        
                     <input type="button" onclick="countDown('armor-2')" value="-"/>
                     <span class="cost-cell"></span>
@@ -180,6 +190,7 @@
                     <label for="greater-release">Greater Release</label>
                     <input type="number" id="greater-release" class="spell-value" th:field="*{spentPoints[10]}" 
                     data-cost="1"  data-level="2" data-type="verbal" data-school="sorcery" data-range="20" data-purchased="0" value="0" readonly/>
+                    <input type="hidden" id="greater-release-purchased" class="spell-purchased" value="0" th:field="*{purchasedSpells[10]}"/>
                     <input type="button" onclick="countUp('greater-release')" value="+"/>        
                     <input type="button" onclick="countDown('greater-release')" value="-"/>
                     <span class="cost-cell"></span>
@@ -190,6 +201,7 @@
                     <label for="inate">Inate</label>
                     <input type="number" id="inate" class="spell-value" th:field="*{spentPoints[11]}" 
                     data-cost="1" data-limit="4" data-level="2" data-type="meta" data-school="neutral" data-purchased="0" value="0" readonly/>
+                    <input type="hidden" id="inate-purchased" class="spell-purchased" value="0" th:field="*{purchasedSpells[11]}"/>
                     <input type="button" onclick="countUp('inate')" value="+"/>        
                     <input type="button" onclick="countDown('inate')" value="-"/>
                     <span class="cost-cell"></span>
@@ -200,6 +212,7 @@
                     <label for="mend">Mend</label>
                     <input type="number" id="mend" class="spell-value" th:field="*{spentPoints[12]}" 
                     data-cost="1" data-level="2" data-type="verbal" data-school="sorcery"  data-range="touch" data-purchased="0" value="0" readonly/>
+                    <input type="hidden" id="mend-purchased" class="spell-purchased" value="0" th:field="*{purchasedSpells[12]}"/>
                     <input type="button" onclick="countUp('mend')" value="+"/>        
                     <input type="button" onclick="countDown('mend')" value="-"/>
                     <span class="cost-cell"></span>
@@ -210,6 +223,7 @@
                     <label for="song-battle">Song of Battle</label>
                     <input type="number" id="song-battle" class="spell-value" th:field="*{spentPoints[13]}" 
                     data-cost="1" data-limit="1" data-level="2" data-type="enchantment" data-school="protection" data-range="self" data-purchased="0" value="0" readonly/>
+                    <input type="hidden" id="song-battle-purchased" class="spell-purchased" value="0" th:field="*{purchasedSpells[13]}"/>
                     <input type="button" onclick="countUp('song-battle')" value="+"/>        
                     <input type="button" onclick="countDown('song-battle')" value="-"/>
                     <span class="cost-cell"></span>
@@ -220,6 +234,7 @@
                     <label for="song-visit">Song of Visit</label>
                     <input type="number" id="song-visit" class="spell-value" th:field="*{spentPoints[14]}" 
                     data-cost="1" data-limit="1" data-level="2" data-type="enchantment" data-school="protection" data-range="self" data-purchased="0" value="0" readonly/>
+                    <input type="hidden" id="song-visit-purchased" class="spell-purchased" value="0" th:field="*{purchasedSpells[14]}"/>
                     <input type="button" onclick="countUp('song-visit')" value="+"/>        
                     <input type="button" onclick="countDown('song-visit')" value="-"/>
                     <span class="cost-cell"></span>
@@ -236,6 +251,7 @@
                     <label for="awe">Awe</label>
                     <input type="number" id="awe" class="spell-value" th:field="*{spentPoints[15]}" 
                     data-cost="1" data-level="3" data-type="verbal" data-school="command" data-range="20" data-purchased="0" value="0" readonly/>
+                    <input type="hidden" id="awe-purchased" class="spell-purchased" value="0" th:field="*{purchasedSpells[15]}"/>
                     <input type="button" onclick="countUp('awe')" value="+"/>        
                     <input type="button" onclick="countDown('awe')" value="-"/>
                     <span class="cost-cell"></span>
@@ -246,6 +262,7 @@
                     <label for="battlefield-triage">Battlefield Triage</label>
                     <input type="number" id="battlefield-triage" class="spell-value" th:field="*{spentPoints[16]}" 
                     data-cost="1" data-limit="1" data-level="3" data-type="enchanent" data-school="spirit" data-range="touch" data-purchased="0" value="0" readonly/>
+                    <input type="hidden" id="battlefield-triage-purchased" class="spell-purchased" value="0" th:field="*{purchasedSpells[16]}"/>
                     <input type="button" onclick="countUp('battlefield-triage')" value="+"/>        
                     <input type="button" onclick="countDown('battlefield-triage')" value="-"/>
                     <span class="cost-cell"></span>
@@ -257,6 +274,7 @@
                     <label for="break-con">Break Concentration</label>
                     <input type="number" id="break-con" class="spell-value" th:field="*{spentPoints[17]}" 
                     data-cost="1" data-limit="4" data-level="3" data-type="verbal" data-school="command" data-range="20" data-purchased="0" value="0" readonly/>
+                    <input type="hidden" id="break-con-purchased" class="spell-purchased" value="0" th:field="*{purchasedSpells[17]}"/>
                     <input type="button" onclick="countUp('break-con')" value="+"/>        
                     <input type="button" onclick="countDown('break-con')" value="-"/>
                     <span class="cost-cell"></span>
@@ -267,6 +285,7 @@
                     <label for="extension">Extension</label>
                     <input type="number" id="extension" class="spell-value" th:field="*{spentPoints[18]}" 
                     data-cost="1"  data-limit="2" data-level="3" data-type="meta" data-school="neutral" data-purchased="0" value="0" readonly/>
+                    <input type="hidden" id="extension-purchased" class="spell-purchased" value="0" th:field="*{purchasedSpells[18]}"/>
                     <input type="button" onclick="countUp('extension')" value="+"/>        
                     <input type="button" onclick="countDown('extension')" value="-"/>
                     <span class="cost-cell"></span>
@@ -277,6 +296,7 @@
                     <label for="small">Shield Small</label>
                     <input type="number" id="small" class="spell-value" th:field="*{spentPoints[19]}" 
                     data-cost="2" data-limit="1" data-level="3" data-type="weapon" data-purchased="0" value="0" readonly/>
+                    <input type="hidden" id="small-purchased" class="spell-purchased" value="0" th:field="*{purchasedSpells[19]}"/>
                     <input type="button" onclick="countUp('small')" value="+"/>        
                     <input type="button" onclick="countDown('small')" value="-"/>
                     <span class="cost-cell"></span>
@@ -287,6 +307,7 @@
                     <label for="song-freedom">Song of Freedom</label>
                     <input type="number" id="song-freedom" class="spell-value" th:field="*{spentPoints[20]}" 
                     data-cost="1" data-limit="1" data-level="3" data-type="enchantment" data-school="protection" data-range="self" data-purchased="0" value="0" readonly/>
+                    <input type="hidden" id="song-freedom-purchased" class="spell-purchased" value="0" th:field="*{purchasedSpells[20]}"/>
                     <input type="button" onclick="countUp('song-freedom')" value="+"/>        
                     <input type="button" onclick="countDown('song-freedom')" value="-"/>
                     <span class="cost-cell"></span>
@@ -303,6 +324,7 @@
                     <label for="amplification">Amplification</label>
                     <input type="number" id="amplification" class="spell-value" th:field="*{spentPoints[21]}" 
                     data-cost="1" data-limit="4" data-level="4" data-type="enchantment" data-school="sorcery" data-range="touch" data-purchased="0" value="0" readonly/>
+                    <input type="hidden" id="amplification-purchased" class="spell-purchased" value="0" th:field="*{purchasedSpells[21]}"/>
                     <input type="button" onclick="countUp('amplification')" value="+"/>        
                     <input type="button" onclick="countDown('amplification')" value="-"/>
                     <span class="cost-cell"></span>
@@ -313,6 +335,7 @@
                     <label for="long">Weapon Long</label>
                     <input type="number" id="long" class="spell-value" th:field="*{spentPoints[22]}" 
                     data-cost="3" data-level="4" data-limit="1" data-type="weapon" data-purchased="0" value="0" readonly/>
+                    <input type="hidden" id="long-purchased" class="spell-purchased" value="0" th:field="*{purchasedSpells[22]}"/>
                     <input type="button" onclick="countUp('long')" value="+"/>        
                     <input type="button" onclick="countDown('long')" value="-"/>
                     <span class="cost-cell"></span>
@@ -323,6 +346,7 @@
                     <label for="restoration">Restoration</label>
                     <input type="number" id="restoration" class="spell-value" th:field="*{spentPoints[23]}" 
                     data-cost="1" data-level="4" data-type="verbal" data-school="sorcery" data-range="other" data-purchased="0" value="0" readonly/>
+                    <input type="hidden" id="restoration-purchased" class="spell-purchased" value="0" th:field="*{purchasedSpells[23]}"/>
                     <input type="button" onclick="countUp('restoration')" value="+"/>        
                     <input type="button" onclick="countDown('restoration')" value="-"/>
                     <span class="cost-cell"></span>
@@ -333,6 +357,7 @@
                     <label for="sleight">Sleight of Mind</label>
                     <input type="number" id="sleight" class="spell-value" th:field="*{spentPoints[24]}" 
                     data-cost="1" data-level="4" data-type="enchantment" data-school="sorcery" data-range="other" data-purchased="0" value="0" readonly/>
+                    <input type="hidden" id="sleight-purchased" class="spell-purchased" value="0" th:field="*{purchasedSpells[24]}"/>
                     <input type="button" onclick="countUp('sleight')" value="+"/>        
                     <input type="button" onclick="countDown('sleight')" value="-"/>
                     <span class="cost-cell"></span>
@@ -343,6 +368,7 @@
                     <label for="song-deflection">Song of Deflection</label>
                     <input type="number" id="song-deflection" class="spell-value" th:field="*{spentPoints[25]}" 
                     data-cost="1" data-limit="1" data-level="4" data-type="enchantment" data-school="protection" data-range="self" data-purchased="0" value="0" readonly/>
+                    <input type="hidden" id="song-deflection-purchased" class="spell-purchased" value="0" th:field="*{purchasedSpells[25]}"/>
                     <input type="button" onclick="countUp('song-deflection')" value="+"/>        
                     <input type="button" onclick="countDown('song-deflection')" value="-"/>
                     <span class="cost-cell"></span>
@@ -353,6 +379,7 @@
                     <label for="song-power">Song of Power</label>
                     <input type="number" id="song-power" class="spell-value" th:field="*{spentPoints[26]}" 
                     data-cost="1" data-limit="1" data-level="4" data-type="enchantment" data-school="protection" data-range="self" data-purchased="0" value="0" readonly/>
+                    <input type="hidden" id="song-power-purchased" class="spell-purchased" value="0" th:field="*{purchasedSpells[26]}"/>
                     <input type="button" onclick="countUp('song-power')" value="+"/>        
                     <input type="button" onclick="countDown('song-power')" value="-"/>
                     <span class="cost-cell"></span>
@@ -363,6 +390,7 @@
                     <label for="suppress-aura">Suppress Aura</label>
                     <input type="number" id="suppress-aura" class="spell-value" th:field="*{spentPoints[27]}" 
                     data-cost="1" data-level="4" data-type="verbal" data-school="command" data-range="50" data-purchased="0" value="0" readonly/>
+                    <input type="hidden" id="suppress-aura-purchased" class="spell-purchased" value="0" th:field="*{purchasedSpells[27]}"/>
                     <input type="button" onclick="countUp('suppress-aura')" value="+"/>        
                     <input type="button" onclick="countDown('suppress-aura')" value="-"/>
                     <span class="cost-cell"></span>
@@ -373,6 +401,7 @@
                     <label for="swift">Swift</label>
                     <input type="number" id="swift" class="spell-value" th:field="*{spentPoints[28]}" 
                     data-cost="1"  data-limit="2" data-level="4" data-type="meta" data-school="neutral" data-purchased="0" value="0" readonly/>
+                    <input type="hidden" id="swift-purchased" class="spell-purchased" value="0" th:field="*{purchasedSpells[28]}"/>
                     <input type="button" onclick="countUp('swift')" value="+"/>        
                     <input type="button" onclick="countDown('swift')" value="-"/>
                     <span class="cost-cell"></span>
@@ -383,6 +412,7 @@
                     <label for="terror">Terror</label>
                     <input type="number" id="terror" class="spell-value" th:field="*{spentPoints[29]}" 
                     data-cost="1" data-level="4" data-type="verbal" data-school="death" data-range="20" data-purchased="0" value="0" readonly/>
+                    <input type="hidden" id="terror-purchased" class="spell-purchased" value="0" th:field="*{purchasedSpells[29]}"/>
                     <input type="button" onclick="countUp('terror')" value="+"/>        
                     <input type="button" onclick="countDown('terror')" value="-"/>
                     <span class="cost-cell"></span>
@@ -399,6 +429,7 @@
                     <label for="agoraphobia">Agoraphobia</label>
                     <input type="number" id="agoraphobia" class="spell-value" th:field="*{spentPoints[30]}" 
                     data-cost="1" data-level="5" data-type="verbal" data-school="command" data-range="20" data-purchased="0" value="0" readonly/>
+                    <input type="hidden" id="agoraphobia-purchased" class="spell-purchased" value="0" th:field="*{purchasedSpells[30]}"/>
                     <input type="button" onclick="countUp('agoraphobia')" value="+"/>        
                     <input type="button" onclick="countDown('agoraphobia')" value="-"/>
                     <span class="cost-cell"></span>
@@ -409,6 +440,7 @@
                     <label for="ambulant">Ambulant</label>
                     <input type="number" id="ambulant" class="spell-value" th:field="*{spentPoints[31]}" 
                     data-cost="1" data-limit="2" data-level="5" data-type="meta" data-school="neutral" data-purchased="0" value="0" readonly/>
+                    <input type="hidden" id="ambulant-purchased" class="spell-purchased" value="0" th:field="*{purchasedSpells[31]}"/>
                     <input type="button" onclick="countUp('ambulant')" value="+"/>        
                     <input type="button" onclick="countDown('ambulant')" value="-"/>
                     <span class="cost-cell"></span>
@@ -419,6 +451,7 @@
                     <label for="discordia">Discordia</label>
                     <input type="number" id="discordia" class="spell-value" th:field="*{spentPoints[32]}" 
                     data-cost="1" data-limit="1" data-level="5" data-type="enchantment" data-school="command" data-range="self" data-purchased="0" value="0" readonly/>
+                    <input type="hidden" id="discordia-purchased" class="spell-purchased" value="0" th:field="*{purchasedSpells[32]}"/>
                     <input type="button" onclick="countUp('discordia')" value="+"/>        
                     <input type="button" onclick="countDown('discordia')" value="-"/>
                     <span class="cost-cell"></span>
@@ -429,6 +462,7 @@
                     <label for="medium">Shield Medium</label>
                     <input type="number" id="medium" class="spell-value" th:field="*{spentPoints[33]}" 
                     data-cost="3" data-limit="1" data-level="5" data-type="weapon" data-purchased="0" value="0" readonly/>
+                    <input type="hidden" id="medium-purchased" class="spell-purchased" value="0" th:field="*{purchasedSpells[33]}"/>
                     <input type="button" onclick="countUp('medium')" value="+"/>        
                     <input type="button" onclick="countDown('medium')" value="-"/>
                     <span class="cost-cell"></span>
@@ -439,6 +473,7 @@
                     <label for="heart-swarm">Heart of the Swarm</label>
                     <input type="number" id="heart-swarm" class="spell-value" th:field="*{spentPoints[34]}" 
                     data-cost="1" data-level="5" data-type="enchantment" data-school="spirit" data-range="self" data-purchased="0" value="0" readonly/>
+                    <input type="hidden" id="heart-swarm-purchased" class="spell-purchased" value="0" th:field="*{purchasedSpells[34]}"/>
                     <input type="button" onclick="countUp('heart-swarm')" value="+"/>        
                     <input type="button" onclick="countDown('heart-swarm')" value="-"/>
                     <span class="cost-cell"></span>
@@ -449,6 +484,7 @@
                     <label for="lost">Lost</label>
                     <input type="number" id="lost" class="spell-value" th:field="*{spentPoints[35]}" 
                     data-cost="1" data-level="5" data-type="verbal" data-school="command" data-range="20" data-purchased="0" value="0" readonly/>
+                    <input type="hidden" id="lost-purchased" class="spell-purchased" value="0" th:field="*{purchasedSpells[35]}"/>
                     <input type="button" onclick="countUp('lost')" value="+"/>        
                     <input type="button" onclick="countDown('lost')" value="-"/>
                     <span class="cost-cell"></span>
@@ -460,6 +496,7 @@
                     <label for="song-survivial">Song of Survival</label>
                     <input type="number" id="song-survivial" class="spell-value" th:field="*{spentPoints[36]}" 
                     data-cost="1" data-limit="1" data-level="5" data-type="enchantment" data-school="protection" data-range="self" data-purchased="0" value="0" readonly/>
+                    <input type="hidden" id="song-survivial-purchased" class="spell-purchased" value="0" th:field="*{purchasedSpells[36]}"/>
                     <input type="button" onclick="countUp('song-survivial')" value="+"/>        
                     <input type="button" onclick="countDown('song-survivial')" value="-"/>
                     <span class="cost-cell"></span>
@@ -476,6 +513,7 @@
                     <label for="combat-caster">Combat Caster</label>
                     <input type="number" id="combat-caster" class="spell-value" th:field="*{spentPoints[37]}" 
                     data-cost="2"  data-limit="1" data-level="6" data-type="archtype" data-school="neutral" data-purchased="0" value="0" readonly/>
+                    <input type="hidden" id="combat-caster-purchased" class="spell-purchased" value="0" th:field="*{purchasedSpells[37]}"/>
                     <input type="button" onclick="setCombatCaster(true)" value="+"/>        
                     <input type="button" onclick="setCombatCaster(false)" value="-"/>
                     <span class="cost-cell"></span>
@@ -486,6 +524,7 @@
                     <label for="dervish">Dervish</label>
                     <input type="number" id="dervish" class="spell-value" th:field="*{spentPoints[38]}" 
                     data-cost="2" data-limit="1" data-level="6" data-type="archtype" data-school="neutral" data-purchased="0" value="0" readonly/>
+                    <input type="hidden" id="dervish-purchased" class="spell-purchased" value="0" th:field="*{purchasedSpells[38]}"/>
                     <input type="button" onclick="setDervish(true)" value="+"/>        
                     <input type="button" onclick="setDervish(false)" value="-"/>
                     <span class="cost-cell"></span>
@@ -496,6 +535,7 @@
                     <label for="armor-6">Armor 1 Point</label>
                     <input type="number" id="armor-6" class="spell-value" th:field="*{spentPoints[39]}" 
                     data-cost="2" data-limit="1" data-level="6" data-type="weapon" data-purchased="0" value="0" readonly/>
+                    <input type="hidden" id="armor-6-purchased" class="spell-purchased" value="0" th:field="*{purchasedSpells[39]}"/>
                     <input type="button" onclick="countUp('phase-bolt')" value="+"/>        
                     <input type="button" onclick="countDown('phase-bolt')" value="-"/>
                     <span class="cost-cell"></span>
@@ -506,6 +546,7 @@
                     <label for="legend">Legend</label>
                     <input type="number" id="legend" class="spell-value" th:field="*{spentPoints[40]}" 
                     data-cost="1" data-limit="1" data-level="6" data-type="archtype" data-school="neutral" data-purchased="0" value="0" readonly/>
+                    <input type="hidden" id="legend-purchased" class="spell-purchased" value="0" th:field="*{purchasedSpells[40]}"/>
                     <input type="button" onclick="setLegend(true)" value="+"/>        
                     <input type="button" onclick="setLegend(false)" value="-"/>
                     <span class="cost-cell"></span>
@@ -516,6 +557,7 @@
                     <label for="silver-tongue">Silver Tongue</label>
                     <input type="number" id="silver-tongue" class="spell-value" th:field="*{spentPoints[41]}" 
                     data-cost="1" data-level="6"  data-type="enchantment" data-school="sorcery" data-range="touch" data-purchased="0" value="0" readonly/>
+                    <input type="hidden" id="silver-tongue-purchased" class="spell-purchased" value="0" th:field="*{purchasedSpells[41]}"/>
                     <input type="button" onclick="countUp('silver-tongue')" value="+"/>        
                     <input type="button" onclick="countDown('silver-tongue')" value="-"/>
                     <span class="cost-cell"></span>
@@ -526,6 +568,7 @@
                     <label for="song-interference">Song of Interference</label>
                     <input type="number" id="song-interference" class="spell-value" th:field="*{spentPoints[42]}" 
                     data-cost="1" data-limit="1" data-level="6" data-type="enchantment" data-school="protection" data-range="self" data-purchased="0" value="0" readonly/>
+                    <input type="hidden" id="song-interference-purchased" class="spell-purchased" value="0" th:field="*{purchasedSpells[42]}"/>
                     <input type="button" onclick="countUp('song-interference')" value="+"/>        
                     <input type="button" onclick="countDown('song-interference')" value="-"/>
                     <span class="cost-cell"></span>
@@ -536,6 +579,7 @@
                     <label for="stun">Stun</label>
                     <input type="number" id="stun" class="spell-value" th:field="*{spentPoints[43]}" 
                     data-cost="1" data-level="6" data-type="verbal" data-school="sorcery" data-range="20" data-purchased="0" value="0" readonly/>
+                    <input type="hidden" id="stun-purchased" class="spell-purchased" value="0" th:field="*{purchasedSpells[43]}"/>
                     <input type="button" onclick="countUp('stun')" value="+"/>        
                     <input type="button" onclick="countDown('stun')" value="-"/>
                     <span class="cost-cell"></span>
