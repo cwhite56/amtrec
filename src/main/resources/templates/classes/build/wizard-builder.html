@@ -727,10 +727,7 @@
                         // check for violations
                         if(spell.dataset.school != "death" && spell.dataset.school != "flame") {
 
-                            if(spell.dataset.type == "verbal" || spell.dataset.type == "ball") {
-
-                                if(parseInt(spell.value) > 0) return;
-                            }
+                            if( (spell.dataset.type == "verbal" || spell.dataset.type == "ball") && parseInt(spell.value) > 0) return -1; 
                         }
                     }
                     if(countUp('warlock') < 0) return -1;
@@ -740,18 +737,21 @@
                         if(spell.dataset.school == "death" || spell.dataset.school == "flame") {
 
                             const multipliers = getArchtypeMultipliers(spell.id);
-                            if(parseInt(spell.value) > 0)  spell.value *= multipliers.value;
+                            spell.value *= multipliers.value;
                         }
                     }
                 }
 
                 else {
                     for(const spell of spellInputs) {
-                        const multipliers = getArchtypeMultipliers(spell.id);
-                        if(spell.dataset.school == "death" || spell.dataset.school == "flame") spell.value /= multipliers.value;;
+                        if(spell.dataset.school == "death" || spell.dataset.school == "flame") {
+                            
+                            const multipliers = getArchtypeMultipliers(spell.id);
+                            spell.value /= multipliers.value;
+                        }
                     }
                     countDown('warlock');
-                     setArchtype('');
+                    setArchtype('');
                 }
             }
         </script>

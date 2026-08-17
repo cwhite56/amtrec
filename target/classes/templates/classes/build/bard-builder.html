@@ -613,101 +613,132 @@
 
         <script>
            function setCombatCaster(bool) {
-            if(bool) {
-                setArchtype('combat-caster');
-                countUp('combat-caster');
-            }
-            else {
-                setArchtype('');
-                countDown('combat-caster');
-            }
+                if(bool) {
+                    setArchtype('combat-caster');
+                    countUp('combat-caster');
+                }
+                else {
+                    setArchtype('');
+                    countDown('combat-caster');
+                }
            }
 
            function setDervish(bool) {
             
-            const spellInputs = document.querySelectorAll('.spell-input');
+                const spellInputs = document.querySelectorAll('.spell-input');
+                const remainingPoints = getRemainingPoints();
+                // Account for potential dervish purchase;
+                remainingPoints[5] -= 2;
 
-            if(bool) {
-                for(const spell of spellInputs) {
+                if(bool) {
+                    // Check whether enough points remaining for cost double
+                    for(const spell of spellInputs) {
 
-                    if(spell.dataset.type == "verbal") {
+                        if(spell.dataset.type == "weapon") {
 
-                        spell.dataset.valueMultiplier = 2;
-                        spell.value *= parseInt(spell.dataset.valueMultiplier);
+                            const multipliers = getArchtypeMultipliers(spell.id);
+
+                            const level = parseInt(spell.dataset.level) - 1;
+                            let cost = spell.value * multipliers.cost;
+
+                            for(let i = 0; i < remainingPoints.length; i++) {
+
+                                if(level > i) continue;
+                                while(remainingPoints[i] > 0 && cost > 0) {
+                                    remainingPoints[i]--;
+                                    cost--;
+                                }
+                                if(cost == 0)break;
+                            }
+                            if(cost > 0) return -1;
+                        }
                     }
 
-                    else if(spell.dataset.type == "weapon") {
+                    if(countUp('dervish') < 0)return -1;
 
-                        let count = spell.value;
+                    // Handle weapon costs seperately
+                    for(const spell of spellInputs) {
 
-                        for(let i = 0; i < count; i++) {
-                            countDown(spell.id);
+                        if(spell.dataset.type == "weapon") {
+                            const count = spell.value;
+
+                            for(let i = 0; i < count; i++) {
+                                countDown(spell.id);
+                            }
+                            setArchtype('dervish');
+
+                            for(let i = 0; i < count; i++) {
+                                countUp(spell.id);
+                            }
+                            setArchtype('');
                         }
+                    }
+                    setArchtype('dervish');
 
-                        spell.dataset.costMultiplier = 2;
-
-                        for(let i = 0; i < count; i++) {
-                            countUp(spell.id); 
-                        }
+                    for(const spell of spellInputs) {
                         
+                        if(spell.dataset.type == "verbal") {
+                            const multipliers = getArchtypeMultipliers(spell.id);
+                            spell.value *= multipliers.value;
+                        }
                     }
                 }
-                setArchtype('dervish');
-                countUp('dervish');
-            }
+                else {
 
-            else {
-                for(const spell of spellInputs) {
+                    for(const spell of spellInputs) {
 
-                    if(spell.dataset.type =="verbal") {
+                        if(spell.dataset.type =="verbal") {
 
-                        spell.value /= parseInt(spell.dataset.valueMultiplier);
-                        spell.dataset.valueMultiplier = 1;
-                    }
-
-                    else if(spell.dataset.type =="weapon") {
-
-                        let count = spell.value;
-                        for(let i = 0; i < count; i++) {
-                            countDown(spell.id);
+                        const multipliers = getArchtypeMultipliers(spell.id);
+                            spell.value /= multipliers.value;
                         }
-
-                        spell.dataset.costMultiplier = 1;
-
-                        for(let i = 0; i < count; i++) {
-                            countUp(spell.id); 
-                        }
-                        
                     }
+                    
+
+                    for(const spell of spellInputs) {
+
+                        if(spell.dataset.type == "weapon") {
+                            const count = spell.value;
+                            
+                            for(let i = 0; i < count; i++) {
+                                countDown(spell.id);
+                            }
+                            setArchtype('');
+
+                            for(let i = 0; i < count; i++) {
+                                countUp(spell.id);
+                            }
+                            setArchtype('dervish');
+                        }
+                    }
+                    setArchtype('');
+                    countDown('dervish');
                 }
-                setArchtype('');
-                countDown('dervish');
-            }
-           }
-
-           function setLegend(bool) {
-
-            const extension = document.getElementById('extension');
-            const swift = document.getElementById('swift');
-
-            if(bool) {
-
-                if(swift.value > 0)return -1;
-                
-                extension.dataset.valueMultiplier = 2;
-                extension.value *= parseInt(extension.dataset.valueMultiplier);
-
-                setArchtype('legend');
-                countUp('legend');
-            }
-            else {
-                extension.value /= parseInt(extension.dataset.valueMultiplier);
-                extension.dataset.valueMultiplier = 1;
-
-                setArchtype('');
-                countDown('legend');
             }
 
+            function setLegend(bool) {
+
+                const extension = document.getElementById('extension');
+                const swift = document.getElementById('swift');
+
+                if(bool) {
+
+                    if(swift.value > 0)return -1;
+                    
+                    countUp('legend');
+                    setArchtype('legend');
+
+                    const multipliers = getArchtypeMultipliers(extension.id);
+                    extension.value *= multipliers.value;
+                }
+                else {
+
+                    const multipliers = getArchtypeMultipliers(extension.id);
+                    extension.value /= multipliers.value;
+
+                    countDown('legend');
+                    setArchtype('');
+                }
            }
         </script>
     </body>

@@ -52,8 +52,6 @@
 
                     if(i + 1 < spellLevel) continue;
 
-                    //if(levelPoints[i].value == 0) continue;
-
                     const startingVal = levelPoints[i].value;
 
                     while(levelPoints[i].value > 0  && cost > 0) {
@@ -81,10 +79,9 @@
 
                 let cost = parseInt(inputField.dataset.cost) * multipliers.cost;
 
-
                 for (let i = 5; i >= 0; i--) {
 
-                    let remainingPoints = parseInt(pointsRemainingByLevel(i + 1, spell, multipliers));
+                    let remainingPoints = parseInt(refundablePointsByLevel(i + 1, spell));
 
                     remainingPoints -= levelPoints[i].value;
 
@@ -99,7 +96,7 @@
                 }
             }
 
-            function pointsRemainingByLevel(rank, spell, multipliers) {
+            function refundablePointsByLevel(rank, spell) {
 
                 const spellsAtLevel = document.querySelectorAll(`[data-level="${rank}"]`);
                 const inputField = document.getElementById(spell);
@@ -111,7 +108,9 @@
 
                 for(const spells of spellsAtLevel) {
 
-                    let quantityPurchased = spells.value / parseInt(multipliers.value);
+                    const multipliers = getArchtypeMultipliers(spells.id);
+
+                    let quantityPurchased = spells.value / multipliers.value;
 
                     if(inputField.id == spells.id) quantityPurchased--;
 
@@ -119,6 +118,18 @@
 
                 }
                 return max - count;
+            }
+
+            function getRemainingPoints() {
+
+                const arr = new Array(6);
+                const levelPoints = document.querySelectorAll('[id^="level"]');
+
+                for(let i = 0; i < levelPoints.length; i++) {
+                    arr[i] = levelPoints[i].value;
+                }
+                return arr;
+
             }
 
             function setLTP(checkboxId) {
@@ -268,7 +279,7 @@
                         break;
 
                     case 'dervish':
-                        if(spellInput.dataset.type == "verbal")multipliers.value = 2;
+                        if(spellInput.dataset.type == "verbal") multipliers.value = 2;
                         else if(spellInput.dataset.type == "weapon") multipliers.cost = 2;
                         break;
 
