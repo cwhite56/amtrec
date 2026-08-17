@@ -582,12 +582,13 @@
            function setDervish(bool) {
             
                 const spellInputs = document.querySelectorAll('.spell-input');
-                const remainingPoints = getRemainingPoints();
-                // Account for potential dervish purchase;
-                remainingPoints[5] -= 2;
 
                 if(bool) {
                     // Check whether enough points remaining for cost double
+                    const remainingPoints = getRemainingPoints();
+                    // Account for potential dervish purchase;
+                    remainingPoints[5] -= 2;
+                    
                     for(const spell of spellInputs) {
 
                         if(spell.dataset.type == "weapon") {

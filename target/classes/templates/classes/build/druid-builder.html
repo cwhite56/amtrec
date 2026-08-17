@@ -698,63 +698,101 @@
 
                 if(bool) {
 
+                    // Check whether enough points remaining for cost double
+                    const remainingPoints = getRemainingPoints();
+                    // Account for potential ranger purchase;
+                    remainingPoints[5] -= 2;
+
                     for(const spell of spellInputs) {
 
-                        if(spell.dataset.type == "weapon") {
+                        if(spell.dataset.type == "enchantment") {
 
-                            let count = spell.value;
+                            const multipliers = getArchtypeMultipliers(spell.id);
+
+                            const level = parseInt(spell.dataset.level) - 1;
+                            let cost = spell.value * multipliers.cost;
+                            // divide cost by two if summoner
+
+                            for(let i = 0; i < remainingPoints.length; i++) {
+
+                                if(level > i) continue;
+                                while(remainingPoints[i] > 0 && cost > 0) {
+                                    remainingPoints[i]--;
+                                    cost--;
+                                }
+                                if(cost == 0)break;
+                            }
+                            if(cost > 0) return -1;
+                        }
+                    }
+
+                    if(countUp('ranger') < 0)return -1;
+
+                    // Handle encmantment costs seperately
+                    for(const spell of spellInputs) {
+
+                        if(spell.dataset.type == "enchantment") {
+                            const count = spell.value;
+                            // divide count by two if summoner
+
                             for(let i = 0; i < count; i++) {
                                 countDown(spell.id);
                             }
-                            spell.dataset.costMultiplier = 0;
+                            setArchtype('ranger');
 
                             for(let i = 0; i < count; i++) {
-                                countUp(spell.id); 
+                                countUp(spell.id);
                             }
+                            setArchtype('');
                         }
 
-                        else if(spell.dataset.type == "enchantment") {
+                        else if(spell.dataset.type == "weapon") {
+                            const count = spell.value;
 
-                            let count = spell.value;
                             for(let i = 0; i < count; i++) {
                                 countDown(spell.id);
                             }
-                            spell.dataset.costMultiplier = 2;
+                            setArchtype('ranger');
 
                             for(let i = 0; i < count; i++) {
-                                countUp(spell.id); 
+                                countUp(spell.id);
                             }
+                            setArchtype('');
                         }
                     }
                     setArchtype('ranger');
-                    countUp('ranger');
+
                 }
                 else {
                     for(const spell of spellInputs) {
 
-                        if(spell.dataset.type == "weapon") {
+                        if(spell.dataset.type == "enchantment") {
+                            const count = spell.value;
+                            // divide count by two if summoner
 
-                            let count = spell.value;
                             for(let i = 0; i < count; i++) {
                                 countDown(spell.id);
                             }
-                            spell.dataset.costMultiplier = 1;
+                            setArchtype('');
 
                             for(let i = 0; i < count; i++) {
-                                countUp(spell.id); 
+                                countUp(spell.id);
                             }
+                            setArchtype('ranger');
                         }
-                        else if(spell.dataset.type == "enchantment") {
 
-                            let count = spell.value;
+                        else if(spell.dataset.type == "weapon") {
+                            const count = spell.value;
+
                             for(let i = 0; i < count; i++) {
                                 countDown(spell.id);
                             }
-                            spell.dataset.costMultiplier = 1;
+                            setArchtype('');
 
                             for(let i = 0; i < count; i++) {
-                                countUp(spell.id); 
+                                countUp(spell.id);
                             }
+                            setArchtype('ranger');
                         }
                     }
                     setArchtype('');
@@ -766,6 +804,7 @@
                 const spellInputs = document.querySelectorAll('.spell-input');
 
                 if(bool) {
+                    // Check for violations
                     for(const spell of spellInputs) {
 
                         if(spell.dataset.type == "verbal" && (spell.dataset.range != "self" && spell.dataset.range != "touch")) {
@@ -773,18 +812,17 @@
                             if(spell.value > 0) return -1;
                         }
                     }
+                    if(countUp('summoner') < 0) return -1;
+                    setArchtype('summoner');
+
                     for(const spell of spellInputs) {
 
                         if(spell.dataset.type == "enchantment") {
 
-                            spell.dataset.valueMultiplier = 2;
-                            spell.value *= parseInt(spell.dataset.valueMultiplier);
+                            const multipliers = getArchtypeMultipliers(spell.id);
+                            spell.value *= multipliers.value;
                         }
-
-                        
                     }
-                    setArchtype('summoner');
-                    countUp('summoner');
                 }
 
                 else {
@@ -793,14 +831,12 @@
 
                         if(spell.dataset.type == "enchantment") {
 
-                            spell.value /= parseInt(spell.dataset.valueMultiplier);
-                            spell.dataset.valueMultiplier = 1;
-                        }
-
-                        
+                             const multipliers = getArchtypeMultipliers(spell.id);
+                            spell.value /= multipliers.value;
+                        } 
                     }
+                    countDown('summoner');
                     setArchtype('');
-                    countDown('summoner')
                 }
             }
         </script>
