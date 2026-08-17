@@ -295,6 +295,10 @@
                     case 'summoner':
                         if(spellInput.dataset.type == "enchantment") multipliers.value = 2;
                         break;
+                    
+                    case 'priest':
+                        if(spellInput.id == "heal") multipliers.cost = 0;
+                        break;
 
                     case 'warder':
                         if(spellInput.dataset.school == "protection") multipliers.value = 2;
