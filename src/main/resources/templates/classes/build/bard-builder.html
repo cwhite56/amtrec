@@ -11,6 +11,11 @@
 
     <body>  
 
+        <div>
+            <a style="display: inline-block; padding-bottom: 20px; padding-top: 40px;" th:href="@{/users/{username}/dashboard(username = ${username})}">
+            My Dashboard
+            </a>
+        </div>
         <form class="form" th:action="@{/api/v1/users/{id}/spell-lists (id = ${username})}" th:object="${spelllist}" method="post">
 
             <div>

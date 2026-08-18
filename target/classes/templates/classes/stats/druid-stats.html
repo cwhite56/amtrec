@@ -5,43 +5,400 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width">
         <title>Druid Stats</title>
+        <link rel="stylesheet" th:href="@{/style-stats.css}">
     </head>
 
     <body>
         <header>Global Druid Stats</header>
 
+        <div>
+            <a th:href="@{/users/{username}/dashboard(username = ${username})}" dashboard>
+            My Dashboard
+            </a>
+        </div>
+
+        <div>
+            <form class ="form" th:action="@{/api/v1/spell-lists/global-stats}" th:object="${ClassStatsRequest}">
+
+                <input type="hidden" th:field="*{casterClass}"/>
+
+                <div>
+                    <label for="kingdom">Please select a kingdom</label>
+                    <div>
+                        <select id="kingdom" th:field="*{kingdom}" onchange="submitStatRequest()">
+                            <option value="none" selected>None</option>
+                            <option th:each="k : ${T(com.cwhite56.amtrec.domain.Kingdom).values()}"
+                                    th:value="${k}"
+                                    th:text="${k}">
+                            </option>
+                        </select>
+                    </div>
+                </div>
+
+
+                <div>
+                    <label for="spellsPurchased">Inclusion rate: at least __ purchased</label>
+                    <div>
+                        <select id="spellsPurchased" th:field="*{spellsPurchased}" onchange="submitStatRequest()">
+                            <option value="0" selected>0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4+</option>
+                        </select>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="spell-grid">
+            <h1>Level 1</h1>
+            <div class="subhead subhead-name">Name</div>
+            <div class="subhead subhead-inclusion">Inclusion</div>
+            <div class="subhead subhead-average">Average</div>
+
+            <div class="spell-row">
+                <span>Barkskin</span>
+                <span class="inclusion-cell"></span>
+                <span class="average-cell"></span>
+            </div>
+
+            <div class="spell-row">
+                <span>Entangle</span>
+                <span class="inclusion-cell"></span>
+                <span class="average-cell"></span>
+            </div>
+
+            <div class="spell-row">
+                <span>Weapon Short</span>
+                <span class="inclusion-cell"></span>
+                <span class="average-cell"></span>
+            </div>
+
+            <div class="spell-row">
+                <span>Experienced </span>
+                <span class="inclusion-cell"></span>
+                <span class="average-cell"></span>
+            </div>
+
+            <div class="spell-row">
+                <span>Experienced 2</span>
+                <span class="inclusion-cell"></span>
+                <span class="average-cell"></span>
+            </div>
+
+            <div class="spell-row">
+                <span>Heat Weapon</span>
+                <span class="inclusion-cell"></span>
+                <span class="average-cell"></span>
+            </div>
+
+            <div class="spell-row">
+                <span>Harden Armor</span>
+                <span class="inclusion-cell"></span>
+                <span class="average-cell"></span>
+            </div>
+
+            <div class="spell-row">
+                <span>Mend</span>
+                <span class="inclusion-cell"></span>
+                <span class="average-cell"></span>
+            </div>
+
+            <h1>Level 2</h1>
+            <div class="subhead subhead-name">Name</div>
+            <div class="subhead subhead-inclusion">Inclusion</div>
+            <div class="subhead subhead-average">Average</div>
+
+             <div class="spell-row">
+                <span>Shield Small</span>
+                <span class="inclusion-cell"></span>
+                <span class="average-cell"></span>
+            </div>
+
+             <div class="spell-row">
+                <span>Corrosive Mist</span>
+                <span class="inclusion-cell"></span>
+                <span class="average-cell"></span>
+            </div>
+
+             <div class="spell-row">
+                <span>Gift of Earth</span>
+                <span class="inclusion-cell"></span>
+                <span class="average-cell"></span>
+            </div>
+
+             <div class="spell-row">
+                <span>Heal</span>
+                <span class="inclusion-cell"></span>
+                <span class="average-cell"></span>
+            </div>
+
+             <div class="spell-row">
+                <span>Force Bolt</span>
+                <span class="inclusion-cell"></span>
+                <span class="average-cell"></span>
+            </div>
+
+             <div class="spell-row">
+                <span>Innate</span>
+                <span class="inclusion-cell"></span>
+                <span class="average-cell"></span>
+            </div>
+
+             <div class="spell-row">
+                <span>Poison</span>
+                <span class="inclusion-cell"></span>
+                <span class="average-cell"></span>
+            </div>
+
+             <div class="spell-row">
+                <span>Release</span>
+                <span class="inclusion-cell"></span>
+                <span class="average-cell"></span>
+            </div>
+
+             <div class="spell-row">
+                <span>Stoneform</span>
+                <span class="inclusion-cell"></span>
+                <span class="average-cell"></span>
+            </div>
+
+            <h1>Level 3</h1>
+            <div class="subhead subhead-name">Name</div>
+            <div class="subhead subhead-inclusion">Inclusion</div>
+            <div class="subhead subhead-average">Average</div>
+
+             <div class="spell-row">
+                <span>Attuned</span>
+                <span class="inclusion-cell"></span>
+                <span class="average-cell"></span>
+            </div>
+
+            <div class="spell-row">
+                <span>Bear Strength</span>
+                <span class="inclusion-cell"></span>
+                <span class="average-cell"></span>
+            </div>
+
+            <div class="spell-row">
+                <span>Dispel Magic</span>
+                <span class="inclusion-cell"></span>
+                <span class="average-cell"></span>
+            </div>
+
+            <div class="spell-row">
+                <span>Extension</span>
+                <span class="inclusion-cell"></span>
+                <span class="average-cell"></span>
+            </div>
+
+            <div class="spell-row">
+                <span>Gift of Fire</span>
+                <span class="inclusion-cell"></span>
+                <span class="average-cell"></span>
+            </div>
+
+            <div class="spell-row">
+                <span>Greater Mend</span>
+                <span class="inclusion-cell"></span>
+                <span class="average-cell"></span>
+            </div>
+
+            <div class="spell-row">
+                <span>Icy Blast</span>
+                <span class="inclusion-cell"></span>
+                <span class="average-cell"></span>
+            </div>
+
+            <div class="spell-row">
+                <span>Regeneration</span>
+                <span class="inclusion-cell"></span>
+                <span class="average-cell"></span>
+            </div>
+
+            <div class="spell-row">
+                <span>Stoneskin</span>
+                <span class="inclusion-cell"></span>
+                <span class="average-cell"></span>
+            </div>
+
+             <h1>Level 4</h1>
+            <div class="subhead subhead-name">Name</div>
+            <div class="subhead subhead-inclusion">Inclusion</div>
+            <div class="subhead subhead-average">Average</div>
+
+            <div class="spell-row">
+                <span>Weapon Long</span>
+                <span class="inclusion-cell"></span>
+                <span class="average-cell"></span>
+            </div>
+
+            <div class="spell-row">
+                <span>Flame Blade</span>
+                <span class="inclusion-cell"></span>
+                <span class="average-cell"></span>
+            </div>
+
+            <div class="spell-row">
+                <span>Iceball</span>
+                <span class="inclusion-cell"></span>
+                <span class="average-cell"></span>
+            </div>
+
+            <div class="spell-row">
+                <span>Gift of Water</span>
+                <span class="inclusion-cell"></span>
+                <span class="average-cell"></span>
+            </div>
+
+            <div class="spell-row">
+                <span>Golem</span>
+                <span class="inclusion-cell"></span>
+                <span class="average-cell"></span>
+            </div>
+
+            <div class="spell-row">
+                <span>Lycanthropy</span>
+                <span class="inclusion-cell"></span>
+                <span class="average-cell"></span>
+            </div>
+
+            <div class="spell-row">
+                <span>Swift</span>
+                <span class="inclusion-cell"></span>
+                <span class="average-cell"></span>
+            </div>
+
+            <div class="spell-row">
+                <span>Teleport</span>
+                <span class="inclusion-cell"></span>
+                <span class="average-cell"></span>
+            </div>
+
+             <h1>Level 5</h1>
+            <div class="subhead subhead-name">Name</div>
+            <div class="subhead subhead-inclusion">Inclusion</div>
+            <div class="subhead subhead-average">Average</div>
+
+             <div class="spell-row">
+                <span>Ambulant</span>
+                <span class="inclusion-cell"></span>
+                <span class="average-cell"></span>
+            </div>
+
+             <div class="spell-row">
+                <span>Weapon Great</span>
+                <span class="inclusion-cell"></span>
+                <span class="average-cell"></span>
+            </div>
+
+             <div class="spell-row">
+                <span>Essence Graft</span>
+                <span class="inclusion-cell"></span>
+                <span class="average-cell"></span>
+            </div>
+
+             <div class="spell-row">
+                <span>Gift of Air</span>
+                <span class="inclusion-cell"></span>
+                <span class="average-cell"></span>
+            </div>
+
+             <div class="spell-row">
+                <span>Heart of the Swarm</span>
+                <span class="inclusion-cell"></span>
+                <span class="average-cell"></span>
+            </div>
+
+             <div class="spell-row">
+                <span>Ironskin</span>
+                <span class="inclusion-cell"></span>
+                <span class="average-cell"></span>
+            </div>
+
+             <div class="spell-row">
+                <span>Poison Glands</span>
+                <span class="inclusion-cell"></span>
+                <span class="average-cell"></span>
+            </div>
+
+             <div class="spell-row">
+                <span>Resurrect</span>
+                <span class="inclusion-cell"></span>
+                <span class="average-cell"></span>
+            </div>
+
+             <div class="spell-row">
+                <span>Troll Blood</span>
+                <span class="inclusion-cell"></span>
+                <span class="average-cell"></span>
+            </div>
+
+            <h1>Level 6</h1>
+            <div class="subhead subhead-name">Name</div>
+            <div class="subhead subhead-inclusion">Inclusion</div>
+            <div class="subhead subhead-average">Average</div>
+
+            <div class="spell-row">
+                <span>Avatar of Nature</span>
+                <span class="inclusion-cell"></span>
+                <span class="average-cell"></span>
+            </div>
+
+            <div class="spell-row">
+                <span>Call Lightning</span>
+                <span class="inclusion-cell"></span>
+                <span class="average-cell"></span>
+            </div>
+
+            <div class="spell-row">
+                <span>Toxic Blades</span>
+                <span class="inclusion-cell"></span>
+                <span class="average-cell"></span>
+            </div>
+
+            <div class="spell-row">
+                <span>Naturalize Magic</span>
+                <span class="inclusion-cell"></span>
+                <span class="average-cell"></span>
+            </div>
+
+            <div class="spell-row">
+                <span>Ranger</span>
+                <span class="inclusion-cell"></span>
+                <span class="average-cell"></span>
+            </div>
+
+            <div class="spell-row">
+                <span>Snaring Vines</span>
+                <span class="inclusion-cell"></span>
+                <span class="average-cell"></span>
+            </div>
+
+            <div class="spell-row">
+                <span>Summoner</span>
+                <span class="inclusion-cell"></span>
+                <span class="average-cell"></span>
+            </div>
+
+            <div class="spell-row">
+                <span>Word of Mending</span>
+                <span class="inclusion-cell"></span>
+                <span class="average-cell"></span>
+            </div>
+
+        </div>
         
     </body>
 
     <style>
-        * {
-            text-align: center;
-            font-size: 20px;
-        }
-        body{
-            background-color: rgb(235, 228, 128);
-            content: "";
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            border: 10px solid blueviolet;
-        }
-        header{
-            
-            font-weight: bold;
-            padding-top: 40px;
-            padding-bottom: 40px;
-        }
-        p{
-            padding-top: 80px;
-            padding-bottom: 40px;
-        }
-
+    .spell-grid h1 {
+        background: #6b501f;
+    }
     </style>
 
 
-
+    <script type="text/javascript" th:src="@{/js/getStats.js}"></script>
 
 </html>
