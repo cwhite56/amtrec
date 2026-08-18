@@ -260,9 +260,8 @@
                         default:
                             break;
                     }
-                    return false;
                 }
-
+                return false;
             }
 
             function getArchtypeMultipliers(spell) {
@@ -273,6 +272,7 @@
 
                 const getArchtypes = document.querySelectorAll('[id^="AT"]');
                 const spellInput = document.getElementById(spell);
+                const casterClass = document.getElementById('casterClass');
 
                 for(let i = 0; i < getArchtypes.length; i++) {
                     switch(getArchtypes[i].value) {
@@ -313,6 +313,19 @@
                         default:
                             break;
                     }
+                }
+
+                // Edge cases of spells that give 2 per purchase innately
+                if(casterClass.value == "WIZARD") {
+                    if(spellInput.id == "ravage" || spellInput.id == "destroy-armor") multipliers.value *= 2;
+                }
+
+                if(casterClass.value == "HEALER") {
+                    if(spellInput.id == "release" || spellInput.id == "imbue")multipliers.value *= 2;
+                }
+
+                if(casterClass.value == "BARD") {
+                    if(spellInput.id == "empower") multipliers.value *= 2;
                 }
                 return multipliers;
             }
