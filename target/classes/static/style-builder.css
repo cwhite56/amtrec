@@ -121,6 +121,12 @@
     gap: 12px;
     box-sizing: border-box;
 }
+#form-footer .level-input {
+    width: 1.6em;
+    padding: 2px 4px;
+    text-align: center;
+    box-sizing: content-box;
+}
 body {
     margin: 0;
     padding-bottom: 60px; 

@@ -412,3 +412,6 @@
             const sel2 = document.getElementById('exp2');
 
             if(sel2.value != '') sel2.disabled = true;
+
+            const title = document.getElementById('title');
+            if(title.value != '')title.disabled = true;
