@@ -709,18 +709,22 @@
         }
 
         function setPriest(bool) {
+
             const heal = document.getElementById('heal');
+            let healPurchased = false;
+                if(heal.value > 0)healPurchased = true;
             if(bool) {
-                countDown(heal.id);
+
+                if(healPurchased)countDown(heal.id);
                 setArchtype('priest', 1);
-                countUp(heal.id);
+                if(healPurchased)countUp(heal.id);
                 countUp('priest');
             }
 
             else {
-                countDown(heal.id);
+                if(healPurchased)countDown(heal.id);
                 setArchtype('', 1);
-                countUp(heal.id);
+                if(healPurchased)countUp(heal.id);
                 countDown('priest')
             }
         }
@@ -746,8 +750,6 @@
                 }
             }
             else {
-                countDown('warder');
-                setArchtype('', 2);
                 for(const spell of spellInputs) {
                     if(spell.dataset.school =="protection") {
 
@@ -755,6 +757,8 @@
                         spell.value /= multipliers.value;
                     }
                 }
+                countDown('warder');
+                setArchtype('', 2);
             }
         }
         </script>

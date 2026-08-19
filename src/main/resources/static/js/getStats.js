@@ -30,13 +30,19 @@ function submitStatRequest() {
 
                 let i = 0;
                 for(const span of inclusionSpans) {
-                    span.textContent = inclusionArray[i].toFixed(2) + "%";
+                    let val = Number(inclusionArray[i]);
+
+                    if(Number.isNaN(val))span.textContent = "0.00%";
+                    else span.textContent = val.toFixed(2) + "%";
                     i++;
                 }
 
                 i = 0;
                 for(const span of averageSpans) {
-                    span.textContent = averageArray[i].toFixed(2);
+                    let val = Number(averageArray[i]);
+
+                    if(Number.isNaN(val)) span.textContent = "0.00";
+                    else span.textContent = val.toFixed(2);
                     i++;
                 }
                 
